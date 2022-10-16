@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Icampus Manager",
+  "version": "1.0.0",
+
+  "action": {
+    "default_icon": {},
+    "default_title": "icampus manager",
+    "default_popup": "popup.html"
+  },
+  "description": "Icampus Manager",
+  "author": "shorecrab",
+
+  "content_scripts": [
+    {
+      "matches": ["*://canvas.skku.edu/*"],
+      "js": ["assets/popup.js"]
+    }
+  ],
+  "options_page": "index.html"
+}
