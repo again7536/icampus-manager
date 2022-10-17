@@ -39,6 +39,48 @@ interface Course {
 }
 
 interface Assignment {
+  assignment_id: number;
+  component_id: number;
+  opened: boolean;
+  title: string;
+  description: string;
+  position: number;
+  type: string;
+  due_at: Date;
+  unlock_at: Date;
+  late_at: Date | null;
+  lock_at: Date;
+  created_at: Date;
+  external_extra_vars: {
+    canvas_content_id: number;
+  };
+  points_possible: number;
+  grading_type: string;
+  submission_types: string[];
+  omit_from_final_grade: boolean;
+  muted: boolean;
+  is_master_course_child_content: boolean;
+  has_error_external_url: boolean;
+  submitted: boolean;
+  grade: null | number;
+  score: null | number;
+  commons_content: {
+    content_id: string;
+    content_type: string;
+    view_url: string;
+    thumbnail_url: string;
+    progress_support: boolean;
+    duration: number;
+  };
+  view_info: {
+    view_url: string;
+  };
+  use_attendance: boolean;
+  completed: boolean;
+  attendance_status: string;
+}
+
+interface CourseItemStatus {
   content_id: string;
   content_type: string;
   view_url: string;
@@ -75,4 +117,4 @@ interface CourseStatus {
   none_count: number;
 }
 
-export type { Course, Assignment, CourseStatus };
+export type { Course, Assignment, CourseItemStatus, CourseStatus };
