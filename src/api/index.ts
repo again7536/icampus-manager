@@ -1,0 +1,41 @@
+import { Assignment, Course, CourseStatus } from "@/types";
+import axios from "./axios";
+
+interface FetchStudentIdProps {
+  courseId: number;
+  userId: number;
+}
+
+interface FetchChoresProps {
+  courseId: number;
+  userId: number;
+  studentId: number;
+}
+
+interface FetchChoresResponse {
+  item: CourseStatus;
+  assignments: Assignment[];
+}
+
+const fetchCourses = async () => {
+  const { data } = await axios.get<Course[]>("api/v1/users/self/favorites/courses", {
+    headers: { Authorization: undefined },
+  });
+  return data;
+};
+
+const fetchStudentId = async ({ courseId, userId }: FetchStudentIdProps) => {
+  const { data } = await axios.get(
+    `learningx/api/v1/courses/${courseId}/total_learnstatus/users/${userId}`
+  );
+  return data;
+};
+
+const fetchChores = async ({ courseId, userId, studentId }: FetchChoresProps) => {
+  const { data } = await axios.get<FetchChoresResponse>(
+    `learningx/api/v1/courses/${courseId}/allcomponents_db?user_id=${userId}&user_login=${studentId}&role=1`
+  );
+  return data;
+};
+
+export { fetchCourses, fetchStudentId, fetchChores };

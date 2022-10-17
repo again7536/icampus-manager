@@ -17,5 +17,7 @@
       "js": ["assets/popup.js"]
     }
   ],
-  "options_page": "index.html"
+  "options_page": "index.html",
+  "permissions": ["activeTab", "declarativeContent", "cookies"],
+  "host_permissions": ["*://canvas.skku.edu/*"]
 }
