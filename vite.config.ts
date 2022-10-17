@@ -10,6 +10,7 @@ export default defineConfig(() => ({
   outDir: "dist",
   plugins: [react(), tsConfigPaths(), eslint(), svgLoader()],
   build: {
+    target: "es2022",
     rollupOptions: {
       input: {
         popup: resolve(__dirname, "popup.html"),
