@@ -2427,6 +2427,61 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-async-storage-persister@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "@tanstack/query-async-storage-persister@npm:4.12.0"
+  dependencies:
+    "@tanstack/query-persist-client-core": 4.12.0
+  checksum: 8b8cab92dab34b02dd1a2797425eb7882c8e19126d45473c9564bc0b3b42f1c5fe185919ae7a9737435a0f88896c52b8f731becc3291a68768351aeca8049118
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:4.12.0":
+  version: 4.12.0
+  resolution: "@tanstack/query-core@npm:4.12.0"
+  checksum: 535719c2079c18bb83e459b968858c424b3404b34d662e853389067dae3b2dc61b5f92b28a93237830cac3de7d35ef61793d7ddb1df6b45bc7fe31ae7ddba246
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-persist-client-core@npm:4.12.0":
+  version: 4.12.0
+  resolution: "@tanstack/query-persist-client-core@npm:4.12.0"
+  peerDependencies:
+    "@tanstack/query-core": 4.12.0
+  checksum: d50a739662b8103062d1718afa22a0f998ff28e1042d220bfe4f3e62d261501b1d116044518b432f0a7df495312988a9f50979c06cbe3359e9f8236569e91319
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-persist-client@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "@tanstack/react-query-persist-client@npm:4.12.0"
+  dependencies:
+    "@tanstack/query-persist-client-core": 4.12.0
+  peerDependencies:
+    "@tanstack/react-query": 4.12.0
+  checksum: d09a7dfc59ea8c37c4b951699dd420c604b8878eef771eca25accaf73500316d88e27e49e5e05c24b6341e507f7aac87ccda24251ae8aa481a37eea3b72c64f0
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "@tanstack/react-query@npm:4.12.0"
+  dependencies:
+    "@tanstack/query-core": 4.12.0
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-native: "*"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 7c3688735bafa58e6993e1161fd53ec9d4f065de8cb04c4ec696e7e53fe86aef333df88553c8cecad278154c66ebe18c2c7072b0a0bbdce03c7112aabca81cda
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^8.5.0":
   version: 8.19.0
   resolution: "@testing-library/dom@npm:8.19.0"
@@ -5917,6 +5972,9 @@ __metadata:
     "@emotion/styled": ^11.10.4
     "@mui/icons-material": ^5.10.9
     "@mui/material": ^5.10.9
+    "@tanstack/query-async-storage-persister": ^4.12.0
+    "@tanstack/react-query": ^4.12.0
+    "@tanstack/react-query-persist-client": ^4.12.0
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 13.4.0
     "@types/chrome": ^0.0.198
@@ -9579,6 +9637,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 
