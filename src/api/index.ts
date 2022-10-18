@@ -6,10 +6,10 @@ interface FetchStudentIdProps {
   userId: number;
 }
 
-interface FetchChoresProps {
+interface FetchAssignmentsProps {
   courseId: number;
   userId: number;
-  studentId: number;
+  studentId: string;
 }
 
 interface FetchStudentIdResponse {
@@ -31,11 +31,11 @@ const fetchStudentId = async ({ courseId, userId }: FetchStudentIdProps) => {
   return data.item.user_login;
 };
 
-const fetchChoresOfCourse = async ({ courseId, userId, studentId }: FetchChoresProps) => {
+const fetchAssignmentsOfCourse = async ({ courseId, userId, studentId }: FetchAssignmentsProps) => {
   const { data } = await axios.get<Assignment[]>(
     `learningx/api/v1/courses/${courseId}/allcomponents_db?user_id=${userId}&user_login=${studentId}&role=1`
   );
   return data;
 };
 
-export { fetchCourses, fetchStudentId, fetchChoresOfCourse };
+export { fetchCourses, fetchStudentId, fetchAssignmentsOfCourse };

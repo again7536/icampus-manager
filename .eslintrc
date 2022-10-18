@@ -1,6 +1,7 @@
 {
   "extends": [
     "airbnb",
+    "airbnb/hooks",
     "airbnb-typescript",
     "plugin:prettier/recommended",
     "plugin:import/recommended"
