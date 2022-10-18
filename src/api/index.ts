@@ -1,4 +1,4 @@
-import { Assignment, Course, CourseStatus } from "@/types";
+import { Assignment, Course, CourseStatus, CourseItemStatus } from "@/types";
 import axios from "./axios";
 
 interface FetchStudentIdProps {
@@ -12,9 +12,9 @@ interface FetchChoresProps {
   studentId: number;
 }
 
-interface FetchChoresResponse {
+interface FetchStudentIdResponse {
   item: CourseStatus;
-  assignments: Assignment[];
+  assignments: CourseItemStatus[];
 }
 
 const fetchCourses = async () => {
@@ -25,17 +25,17 @@ const fetchCourses = async () => {
 };
 
 const fetchStudentId = async ({ courseId, userId }: FetchStudentIdProps) => {
-  const { data } = await axios.get(
+  const { data } = await axios.get<FetchStudentIdResponse>(
     `learningx/api/v1/courses/${courseId}/total_learnstatus/users/${userId}`
   );
-  return data;
+  return data.item.user_login;
 };
 
-const fetchChores = async ({ courseId, userId, studentId }: FetchChoresProps) => {
-  const { data } = await axios.get<FetchChoresResponse>(
+const fetchChoresOfCourse = async ({ courseId, userId, studentId }: FetchChoresProps) => {
+  const { data } = await axios.get<Assignment[]>(
     `learningx/api/v1/courses/${courseId}/allcomponents_db?user_id=${userId}&user_login=${studentId}&role=1`
   );
   return data;
 };
 
-export { fetchCourses, fetchStudentId, fetchChores };
+export { fetchCourses, fetchStudentId, fetchChoresOfCourse };
