@@ -1,7 +1,8 @@
 import { fetchChoresOfCourse, fetchCourses, fetchStudentId } from "@/api";
 import { Assignment } from "@/types";
 import { useEffect, useState } from "react";
-import AssignmentList from "./components/List";
+import moment from "moment";
+import AssignmentList from "@/popup/components/List";
 import * as S from "./styled";
 
 function App() {
@@ -27,7 +28,11 @@ function App() {
           }))
         )
         .flat()
-        .filter((assignment) => assignment.completed === false);
+        .filter(
+          (assignment) =>
+            assignment.completed === false && moment(assignment.due_at).diff(moment.now()) > 0
+        )
+        .sort((a, b) => moment(a.due_at).diff(b.due_at));
       setAssignments(chores);
     };
 

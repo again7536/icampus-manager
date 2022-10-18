@@ -3,17 +3,17 @@ interface Course {
   name: string;
   account_id: number;
   uuid: string;
-  start_at: Date;
+  start_at: string;
   grading_standard_id: null;
   is_public: boolean;
-  created_at: Date;
+  created_at: string;
   course_code: string;
   default_view: string;
   root_account_id: number;
   enrollment_term_id: number;
   license: string;
   grade_passback_setting: null;
-  end_at: Date;
+  end_at: string;
   public_syllabus: boolean;
   public_syllabus_to_auth: boolean;
   storage_quota_mb: number;
@@ -46,11 +46,11 @@ interface Assignment {
   description: string;
   position: number;
   type: string;
-  due_at: Date;
-  unlock_at: Date;
-  late_at: Date | null;
-  lock_at: Date;
-  created_at: Date;
+  due_at: string;
+  unlock_at: string;
+  late_at: string | null;
+  lock_at: string;
+  created_at: string;
   external_extra_vars: {
     canvas_content_id: number;
   };
@@ -93,12 +93,12 @@ interface CourseItemStatus {
   section_position: number;
   subsection_position: number;
   component_position: number;
-  due_at: Date;
-  lock_at: Date;
-  unlock_at: Date;
+  due_at: string;
+  lock_at: string;
+  unlock_at: string;
   late_at: null;
   datetime: {
-    date: Date;
+    date: string;
     timezone_type: number;
     timezone: string;
   };
