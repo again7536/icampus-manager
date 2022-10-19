@@ -1,22 +1,40 @@
-import { fetchAssignmentsOfCourse } from "@/api";
+import { fetchCourseAssignmentDetails, fetchCourseStatus } from "@/api";
+import { AssignmentDetail } from "@/types";
 import { useQueries } from "@tanstack/react-query";
 
 interface UseAssignmentsParams {
   courseIds?: number[];
   userId?: number;
-  studentId?: string;
 }
 
-const useAssignments = ({ courseIds, userId, studentId }: UseAssignmentsParams) => {
+const useAssignments = ({ courseIds, userId }: UseAssignmentsParams) => {
   const results = useQueries({
     queries:
       courseIds?.map((courseId) => ({
         queryKey: ["assignments", courseId],
-        queryFn: () =>
-          fetchAssignmentsOfCourse({ courseId, userId: userId ?? 0, studentId: studentId ?? "" }),
-        // courseIds should not be contained
-        // Object.is()가 항상 다른 결과를 뱉음 -> 캐싱하지 않음
-        enabled: !!userId && !!studentId,
+
+        // do SQL like join operation for assignment and assignment details
+        queryFn: async () => {
+          const { assignments, item: courseStatus } = await fetchCourseStatus({
+            courseId,
+            userId: userId ?? 0,
+          });
+          const assignmentDetails = await fetchCourseAssignmentDetails({
+            courseId,
+            userId: userId ?? 0,
+            studentId: courseStatus.user_login,
+          });
+          const detailsMap = new Map(
+            assignmentDetails.map((details) => [details.assignment_id, details])
+          );
+
+          return assignments.map((assignment) => ({
+            course_id: courseId,
+            ...assignment,
+            ...(detailsMap.get(assignment.id) as AssignmentDetail),
+          }));
+        },
+        enabled: !!userId && !!courseIds,
       })) ?? [],
   });
 

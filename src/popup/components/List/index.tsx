@@ -1,25 +1,45 @@
-import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Assignment } from "@/types";
+import {
+  Box,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { Assignment, AssignmentDetail } from "@/types";
 
 interface AssignmentListProps {
-  assignments: (Assignment & { course_name: string })[];
+  assignments: (Assignment & AssignmentDetail & { course_id: number })[];
+  checked: Set<number>;
+  onCheck: (id: number) => void;
 }
 
-function AssignmentList({ assignments }: AssignmentListProps) {
+function AssignmentList({ assignments, checked, onCheck }: AssignmentListProps) {
   const handleClickItem = (assignment: Assignment) => {
-    chrome.tabs.create({ url: assignment.view_info.view_url, active: false });
+    chrome.tabs.create({ url: assignment.view_url, active: false });
   };
 
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
       <nav aria-label="main mailbox folders">
         <List>
-          {assignments.map((assignment) => (
-            <ListItem disablePadding onClick={() => handleClickItem(assignment)}>
-              <ListItemButton>
+          {assignments.map((assignment, assignIdx) => (
+            <ListItem disablePadding key={assignment.id}>
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={checked.has(assignIdx)}
+                  tabIndex={-1}
+                  disableRipple
+                  onClick={() => onCheck(assignIdx)}
+                />
+              </ListItemIcon>
+              <ListItemButton onClick={() => handleClickItem(assignment)}>
                 <ListItemText
                   primary={<Typography>{assignment.title}</Typography>}
-                  secondary={assignment.course_name}
+                  secondary={assignment.name}
                 />
               </ListItemButton>
             </ListItem>

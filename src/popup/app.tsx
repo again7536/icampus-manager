@@ -3,14 +3,15 @@ import Main from "@/popup/sections/main";
 import PlayList from "@/popup/sections/playlist";
 import Navigation from "@/popup/components/Navigation";
 import * as S from "./styled";
+import { ROUTES } from "./constants";
 
 function App() {
   return (
     <S.PopupContainer>
       <Navigation />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/check" element={<PlayList />} />
+        <Route path={ROUTES.INDEX.path} element={<Main />} />
+        <Route path={ROUTES.PLAYLIST.path} element={<PlayList />} />
       </Routes>
     </S.PopupContainer>
   );

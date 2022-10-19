@@ -38,7 +38,7 @@ interface Course {
   overridden_course_visibility: string;
 }
 
-interface Assignment {
+interface AssignmentDetail {
   assignment_id: number;
   component_id: number;
   opened: boolean;
@@ -80,7 +80,7 @@ interface Assignment {
   attendance_status: string;
 }
 
-interface CourseItemStatus {
+interface Assignment {
   content_id: string;
   content_type: string;
   view_url: string;
@@ -96,13 +96,13 @@ interface CourseItemStatus {
   due_at: string;
   lock_at: string;
   unlock_at: string;
-  late_at: null;
+  late_at: string | null;
   datetime: {
     date: string;
     timezone_type: number;
     timezone: string;
   };
-  id: string;
+  id: number;
   name: string;
   omit_from_final_grade: boolean;
 }
@@ -117,4 +117,4 @@ interface CourseStatus {
   none_count: number;
 }
 
-export type { Course, Assignment, CourseItemStatus, CourseStatus };
+export type { Course, Assignment, AssignmentDetail, CourseStatus };
