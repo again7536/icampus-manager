@@ -5997,6 +5997,7 @@ __metadata:
     husky: 8.0.1
     jest: 29.1.1
     jest-runner-eslint: 1.1.0
+    jotai: ^1.8.5
     js-cookie: ^3.0.1
     moment: ^2.29.4
     prettier: ^2.7.1
@@ -6916,6 +6917,43 @@ __metadata:
   bin:
     jest: bin/jest.js
   checksum: 58ca853d2474b71f2cb9d4318026e0d2eb20f0cde91d522732a9377cd6ae79ddda8644a3c33c227df7ceb914c59cdcec7e37d36f4192d879be57868e14a7ce4e
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^1.8.5":
+  version: 1.8.5
+  resolution: "jotai@npm:1.8.5"
+  peerDependencies:
+    "@babel/core": "*"
+    "@babel/template": "*"
+    "@tanstack/query-core": "*"
+    "@urql/core": "*"
+    immer: "*"
+    optics-ts: "*"
+    react: ">=16.8"
+    valtio: "*"
+    wonka: "*"
+    xstate: "*"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@babel/template":
+      optional: true
+    "@tanstack/query-core":
+      optional: true
+    "@urql/core":
+      optional: true
+    immer:
+      optional: true
+    optics-ts:
+      optional: true
+    valtio:
+      optional: true
+    wonka:
+      optional: true
+    xstate:
+      optional: true
+  checksum: 3baf0f744cf1d772faa13d0dc5667c043adedb829b336f4e10ac4b778138573e735039a517a8b3ab6e3113d8fda63a4afcf24fe2ebdfa8630399d1441ef36dee
   languageName: node
   linkType: hard
 
