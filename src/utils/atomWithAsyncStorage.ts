@@ -9,7 +9,7 @@ const atomWithAsyncStorage = <T>({ key, initialValue }: AtomWithAsyncStoragePara
   const baseAtom = atom(initialValue);
   baseAtom.onMount = (setValue) => {
     (async () => {
-      const item = await chrome.storage.sync.get(key);
+      const item = await chrome.storage.local.get(key);
       setValue(item[key]);
     })();
   };
@@ -18,7 +18,7 @@ const atomWithAsyncStorage = <T>({ key, initialValue }: AtomWithAsyncStoragePara
     (get, set, update) => {
       const nextValue = typeof update === "function" ? update(get(baseAtom)) : update;
       set(baseAtom, nextValue);
-      chrome.storage.sync.set({ [key]: [nextValue] });
+      chrome.storage.local.set({ [key]: nextValue });
     }
   );
   return derivedAtom;
