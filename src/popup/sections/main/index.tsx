@@ -1,5 +1,5 @@
 import moment from "moment";
-import AssignmentList from "@/popup/components/List";
+import AssignmentList from "@/popup/components/List/Assignment";
 import { useCourses, useAssignments } from "@/hooks";
 import { useMemo, useState } from "react";
 import { playListAtom } from "@/atoms";
