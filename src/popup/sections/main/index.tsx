@@ -4,7 +4,6 @@ import { useCourses } from "@/hooks/queries/useCourses";
 import { useStudentId } from "@/hooks/queries/useStudentId";
 import { useAssignments } from "@/hooks/queries/useAssignment";
 import { useMemo } from "react";
-import * as S from "./styled";
 
 function Main() {
   const { data: courses } = useCourses();
@@ -37,11 +36,7 @@ function Main() {
     [courses, results]
   );
 
-  return (
-    <S.PopupContainer>
-      <AssignmentList assignments={assignments} />
-    </S.PopupContainer>
-  );
+  return <AssignmentList assignments={assignments} />;
 }
 
 export default Main;

@@ -4,6 +4,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import persister from "@/utils/persister";
 import App from "@/popup/app";
+import { MemoryRouter } from "react-router-dom";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -26,7 +27,9 @@ root.render(
       client={queryClient}
       persistOptions={{ persister, maxAge: 1000 * 60 * 60 * 24 }}
     >
-      <App />
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
     </PersistQueryClientProvider>
   </StrictMode>
 );
