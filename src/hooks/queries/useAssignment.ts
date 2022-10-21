@@ -1,4 +1,5 @@
 import { fetchCourseAssignmentDetails, fetchCourseStatus } from "@/api";
+import { QUERY_KEYS } from "@/constants";
 import { AssignmentDetail } from "@/types";
 import { useQueries } from "@tanstack/react-query";
 
@@ -11,7 +12,7 @@ const useAssignments = ({ courseIds, userId }: UseAssignmentsParams) => {
   const results = useQueries({
     queries:
       courseIds?.map((courseId) => ({
-        queryKey: ["assignments", courseId],
+        queryKey: [QUERY_KEYS.ASSIGNMENTS, courseId],
 
         // do SQL like join operation for assignment and assignment details
         queryFn: async () => {

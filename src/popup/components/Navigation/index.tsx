@@ -1,7 +1,7 @@
 import { Tabs, Tab } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
-import { ROUTES } from "@/popup/constants";
+import { ROUTES } from "@/constants";
 import { useLocation, useNavigate } from "react-router-dom";
 
 /* TODO: reusable 하게 만들기 (constant 활용) */

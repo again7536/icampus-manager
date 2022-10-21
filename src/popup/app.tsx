@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Main from "@/popup/sections/main";
 import PlayList from "@/popup/sections/playlist";
 import Navigation from "@/popup/components/Navigation";
+import { ROUTES } from "@/constants";
 import * as S from "./styled";
-import { ROUTES } from "./constants";
 
 function App() {
   return (
