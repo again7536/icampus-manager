@@ -15,9 +15,14 @@
     {
       "matches": ["*://canvas.skku.edu/*"],
       "js": ["assets/popup.js"]
+    },
+    {
+      "matches": ["*://lcms.skku.edu/*"],
+      "all_frames": true,
+      "js": ["./player.js"]
     }
   ],
   "options_page": "index.html",
   "permissions": ["activeTab", "declarativeContent", "cookies", "storage"],
-  "host_permissions": ["*://canvas.skku.edu/*"]
+  "host_permissions": ["*://canvas.skku.edu/*", "*://lcms.skku.edu/*"]
 }
