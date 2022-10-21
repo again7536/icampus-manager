@@ -9,10 +9,10 @@ function Player({ assignment, studentId }: PlayerProps) {
   return (
     <iframe
       title="player"
-      src={`https://lcms.skku.edu/em/${assignment.content_id}?startat=0.00&endat=0.00&TargetUrl=https//:canvas.skku.edu/learningx/api/v1/courses/${assignment.course_id}/sections/${assignment.section_id}/components/${assignment.component_id}/progress?user_id=${studentId}&content_id=${assignment.content_id}&content_type=movie&pr=1&lg=ko`}
+      src={`https://canvas.skku.edu/learningx/coursebuilder/view/contents/${assignment.content_id}?user_login=${studentId}&course_id=${assignment.course_id}&section_id=${assignment.section_id}&component_id=${assignment.component_id}&role=1&locale=ko&content_type=movie&use_content_progress=true`}
       className="xn-content-frame"
       width="100%"
-      height="100%"
+      height="285px"
       frameBorder="0"
       scrolling="no"
       allowFullScreen

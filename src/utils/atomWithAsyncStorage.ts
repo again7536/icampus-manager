@@ -13,10 +13,11 @@ const atomWithAsyncStorage = <T>({ key, initialValue }: AtomWithAsyncStoragePara
       setValue(item[key]);
     })();
   };
-  const derivedAtom = atom(
+  const derivedAtom = atom<T, T | ((prevState: T) => T), void>(
     (get) => get(baseAtom),
     (get, set, update) => {
-      const nextValue = typeof update === "function" ? update(get(baseAtom)) : update;
+      const nextValue =
+        typeof update === "function" ? (update as (prevState: T) => T)(get(baseAtom)) : update;
       set(baseAtom, nextValue);
       chrome.storage.local.set({ [key]: nextValue });
     }
