@@ -1,4 +1,6 @@
 (() => {
+  let eid = null;
+
   const sid = setInterval(() => {
     const $playBtn = document.querySelector(".vc-front-screen-play-btn");
     if (!$playBtn) return;
@@ -7,13 +9,18 @@
     clearInterval(sid);
     setTimeout(() => $playBtn.click(), 500);
 
-    const eid = setInterval(() => {
+    if (eid) return;
+    eid = setInterval(() => {
       const $replayBtn = document.querySelector(".player-restart-btn");
       if (!$replayBtn.style.display || $replayBtn.style.display === "none") return;
 
       clearInterval(eid);
-      window.parent.parent.postMessage("end", "https://canvas.skku.edu/");
-      window.parent.parent.parent.postMessage("end", "https://canvas.skku.edu/");
+
+      $replayBtn.click();
+      window.parent.parent.postMessage(
+        "end",
+        "chrome-extension://gafohpefaljojmeelijmedfdabdaebio/"
+      );
     }, 2000);
   }, 300);
 })();
