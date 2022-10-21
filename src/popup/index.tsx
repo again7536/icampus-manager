@@ -4,6 +4,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import persister from "@/utils/persister";
 import App from "@/popup/app";
+import { MemoryRouter } from "react-router-dom";
+import { Provider } from "jotai";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -24,9 +26,16 @@ root.render(
   <StrictMode>
     <PersistQueryClientProvider
       client={queryClient}
-      persistOptions={{ persister, maxAge: 1000 * 60 * 60 * 24 }}
+      persistOptions={{
+        persister,
+        maxAge: 1000 * 60 * 60 * 24,
+      }}
     >
-      <App />
+      <Provider>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </Provider>
     </PersistQueryClientProvider>
   </StrictMode>
 );

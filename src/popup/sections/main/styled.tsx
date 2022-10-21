@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 import { flexBox } from "@/styles/mixin";
 
-const PopupContainer = styled.div`
-  width: 500px;
-`;
-
 const CounterWrapper = styled.div`
   ${flexBox({})}
   width: 100%;
@@ -25,4 +21,4 @@ const CounterWrapper = styled.div`
   }
 `;
 
-export { PopupContainer, CounterWrapper };
+export { CounterWrapper };

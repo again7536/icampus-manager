@@ -16,5 +16,13 @@
     "import/resolver": {
       "typescript": {}
     }
-  }
+  },
+  "ignorePatterns": ["dist", "public"],
+
+  "overrides": [
+    {
+      "files": ["./*.js"],
+      "extends": ["airbnb", "plugin:prettier/recommended", "plugin:import/recommended"]
+    }
+  ]
 }

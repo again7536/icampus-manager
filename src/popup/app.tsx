@@ -1,15 +1,19 @@
-import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "@/popup/sections/main";
-import Check from "@/popup/sections/check";
+import PlayList from "@/popup/sections/playlist";
+import Navigation from "@/popup/components/Navigation";
+import { ROUTES } from "@/constants";
+import * as S from "./styled";
 
 function App() {
   return (
-    <MemoryRouter>
+    <S.PopupContainer>
+      <Navigation />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/check" element={<Check />} />
+        <Route path={ROUTES.INDEX.path} element={<Main />} />
+        <Route path={ROUTES.PLAYLIST.path} element={<PlayList />} />
       </Routes>
-    </MemoryRouter>
+    </S.PopupContainer>
   );
 }
 
