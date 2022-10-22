@@ -8,7 +8,17 @@ import { resolve } from "path";
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
   outDir: "dist",
-  plugins: [react(), tsConfigPaths(), eslint(), svgLoader()],
+  plugins: [
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
+    }),
+    tsConfigPaths(),
+    eslint(),
+    svgLoader(),
+  ],
   build: {
     target: "es2022",
     rollupOptions: {

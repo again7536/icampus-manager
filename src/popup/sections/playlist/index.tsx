@@ -10,7 +10,7 @@ import { QUERY_KEYS } from "@/constants";
 function PlayListSection() {
   const queryClient = useQueryClient();
   const [playList, setPlayList] = useAtom(playListAtom);
-  const { data: courses } = useCourses();
+  const { data: courses } = useCourses({});
   const { data: studentId } = useStudentId({
     courseId: courses?.[0].id,
     userId: courses?.[0].enrollments[0].user_id,

@@ -6,11 +6,13 @@
     "plugin:prettier/recommended",
     "plugin:import/recommended"
   ],
-  "plugins": ["jsx-a11y", "import"],
+  "plugins": ["jsx-a11y", "import", "@emotion"],
   "parserOptions": { "project": "./tsconfig.json" },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/require-default-props": "warn"
   },
   "settings": {
     "import/resolver": {
