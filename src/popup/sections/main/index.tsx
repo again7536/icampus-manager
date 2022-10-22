@@ -11,10 +11,13 @@ import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 
 function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
   const [checked, setChecked] = useState<Set<number>>(new Set());
+  const [isCheckable, setCheckable] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
   const [, setPlayList] = useAtom(playListAtom);
@@ -27,6 +30,7 @@ function Main() {
     userId: courses?.[0].enrollments[0].user_id,
   });
 
+  // data filtering
   const assignments = useMemo(
     () =>
       results
@@ -53,7 +57,6 @@ function Main() {
     [courses]
   );
 
-  const handleAddPlayList = () => setPlayList(assignments.filter((a, id) => checked.has(id)));
   const handleCheck = (id: number) =>
     setChecked((prev) => {
       const next = new Set(prev);
@@ -63,6 +66,16 @@ function Main() {
     });
   const handleSelectChange = (e: SelectChangeEvent<number[]>) =>
     setSelectedCourses([...(e.target.value as number[])]);
+
+  const handleClickAddPlaylist = () => setCheckable(true);
+  const handleConfirmSelect = () => {
+    setPlayList(assignments.filter((a, id) => checked.has(id)));
+    setCheckable(false);
+  };
+  const handleCancelSelect = () => {
+    setCheckable(false);
+    setChecked(new Set());
+  };
 
   return (
     <>
@@ -74,22 +87,39 @@ function Main() {
         `}
       >
         <SelectCheck items={coursesMap} onChange={handleSelectChange} selected={selectedCourses} />
-        <Tooltip title="강의 데이터 업데이트">
-          <IconButton onClick={() => queryClient.invalidateQueries()}>
-            <CachedIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="재생 목록에 추가">
-          <IconButton onClick={handleAddPlayList}>
-            <PlaylistAddIcon />
-          </IconButton>
-        </Tooltip>
+        {isCheckable ? (
+          <>
+            <Tooltip title="선택 취소">
+              <IconButton onClick={handleCancelSelect}>
+                <ClearIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="재생 목록에 추가">
+              <IconButton onClick={handleConfirmSelect}>
+                <CheckIcon />
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          <>
+            <Tooltip title="강의 데이터 업데이트">
+              <IconButton onClick={() => queryClient.invalidateQueries()}>
+                <CachedIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="재생 목록 선택">
+              <IconButton onClick={handleClickAddPlaylist}>
+                <PlaylistAddIcon />
+              </IconButton>
+            </Tooltip>
+          </>
+        )}
       </div>
       <AssignmentList
         assignments={videoAssignments}
         courses={courses ?? []}
         title="강의"
-        checkable
+        checkable={isCheckable}
         checked={checked}
         onCheck={handleCheck}
       />

@@ -43,7 +43,6 @@ function AssignmentList({
               {checkable && (
                 <ListItemIcon>
                   <Checkbox
-                    edge="start"
                     checked={checked?.has(assignIdx)}
                     tabIndex={-1}
                     disableRipple
