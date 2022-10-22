@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { flexBox } from "@/styles/mixin";
 import { css } from "@emotion/react";
-import { IconButton, SelectChangeEvent } from "@mui/material";
+import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck";
@@ -40,13 +40,27 @@ function Main() {
         .sort((a, b) => moment(a.due_at).diff(b.due_at)),
     [results, selectedCourses]
   );
+  const videoAssignments = useMemo(
+    () => assignments.filter((assignment) => assignment.commons_content.content_type === "movie"),
+    [assignments]
+  );
+  const otherAssignments = useMemo(
+    () => assignments.filter((assignment) => assignment.commons_content.content_type !== "movie"),
+    [assignments]
+  );
   const coursesMap = useMemo(
     () => new Map(courses?.map((course) => [course.id, course.name]) ?? []),
     [courses]
   );
 
-  const handleClick = () => setPlayList(assignments.filter((a, id) => checked.has(id)));
-  const handleCheck = (id: number) => setChecked((prev) => new Set(prev).add(id));
+  const handleAddPlayList = () => setPlayList(assignments.filter((a, id) => checked.has(id)));
+  const handleCheck = (id: number) =>
+    setChecked((prev) => {
+      const next = new Set(prev);
+      if (prev.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   const handleSelectChange = (e: SelectChangeEvent<number[]>) =>
     setSelectedCourses([...(e.target.value as number[])]);
 
@@ -56,17 +70,30 @@ function Main() {
         css={css`
           width: 100%;
           ${flexBox({ justify: "flex-start" })};
+          gap: 0 10px;
         `}
       >
         <SelectCheck items={coursesMap} onChange={handleSelectChange} selected={selectedCourses} />
-        <IconButton onClick={() => queryClient.invalidateQueries()}>
-          <CachedIcon />
-        </IconButton>
-        <IconButton onClick={handleClick}>
-          <PlaylistAddIcon />
-        </IconButton>
+        <Tooltip title="강의 데이터 업데이트">
+          <IconButton onClick={() => queryClient.invalidateQueries()}>
+            <CachedIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="재생 목록에 추가">
+          <IconButton onClick={handleAddPlayList}>
+            <PlaylistAddIcon />
+          </IconButton>
+        </Tooltip>
       </div>
-      <AssignmentList assignments={assignments} checked={checked} onCheck={handleCheck} />
+      <AssignmentList
+        assignments={videoAssignments}
+        courses={courses ?? []}
+        title="강의"
+        checkable
+        checked={checked}
+        onCheck={handleCheck}
+      />
+      <AssignmentList assignments={otherAssignments} courses={courses ?? []} title="과제" />
     </>
   );
 }

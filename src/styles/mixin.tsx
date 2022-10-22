@@ -6,6 +6,11 @@ interface FlexBoxParams {
   align?: "flex-start" | "center" | "flex-end";
 }
 
+interface EllipsisParams {
+  line?: number;
+  lineHeight?: number;
+}
+
 const flexBox = ({ direction = "row", justify = "center", align = "center" }: FlexBoxParams) => css`
   display: flex;
   flex-direction: ${direction};
@@ -13,4 +18,20 @@ const flexBox = ({ direction = "row", justify = "center", align = "center" }: Fl
   align-items: ${align};
 `;
 
-export { flexBox };
+const ellipsis = ({ line = 1, lineHeight }: EllipsisParams) =>
+  line === 1
+    ? css`
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `
+    : css`
+        display: -webkit-box;
+        -webkit-line-clamp: ${line};
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        line-height: ${lineHeight}pt;
+        height: fit-content;
+      `;
+
+export { flexBox, ellipsis };
