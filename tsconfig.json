@@ -16,11 +16,12 @@
     "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "typeRoots": ["node_modules/@types"]
+    "types": ["@emotion/react/types/css-prop", "@types/chrome"]
   },
   "include": ["./src", "./*.ts"],
   "exclude": ["node_modules", "./public"]
