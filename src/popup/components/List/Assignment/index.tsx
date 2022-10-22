@@ -22,7 +22,7 @@ function AssignmentList({ assignments, checked, onCheck }: AssignmentListProps) 
   };
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <Box sx={{ width: "100%", bgcolor: "background.paper", padding: "0 10px" }}>
       <nav aria-label="main mailbox folders">
         <List>
           {assignments.map((assignment, assignIdx) => (
