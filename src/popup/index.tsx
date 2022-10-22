@@ -6,6 +6,9 @@ import persister from "@/utils/persister";
 import App from "@/popup/app";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "jotai";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "@/styles/theme";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -32,9 +35,12 @@ root.render(
       }}
     >
       <Provider>
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <MemoryRouter>
+            <App />
+          </MemoryRouter>
+        </ThemeProvider>
       </Provider>
     </PersistQueryClientProvider>
   </StrictMode>
