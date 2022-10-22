@@ -10,6 +10,11 @@ const atomWithAsyncStorage = <T>({ key, initialValue }: AtomWithAsyncStoragePara
   baseAtom.onMount = (setValue) => {
     (async () => {
       const item = await chrome.storage.local.get(key);
+
+      if (item[key] === undefined) {
+        await chrome.storage.local.set({ [key]: initialValue });
+        return;
+      }
       setValue(item[key]);
     })();
   };
