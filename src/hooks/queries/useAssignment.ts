@@ -1,6 +1,6 @@
 import { fetchCourseAssignmentDetails, fetchCourseStatus } from "@/api";
 import { QUERY_KEYS } from "@/constants";
-import { AssignmentDetail } from "@/types";
+import { AssignmentDetail, AssignmentInfos } from "@/types";
 import { useQueries } from "@tanstack/react-query";
 
 interface UseAssignmentsParams {
@@ -33,7 +33,7 @@ const useAssignments = ({ courseIds, userId }: UseAssignmentsParams) => {
             course_id: courseId,
             ...assignment,
             ...(detailsMap.get(assignment.id) as AssignmentDetail),
-          }));
+          })) as AssignmentInfos[];
         },
         enabled: !!userId && !!courseIds,
       })) ?? [],
