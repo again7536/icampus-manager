@@ -36,7 +36,7 @@ function AssignmentListItem({
           />
         </ListItemIcon>
       )}
-      <ListItemButton onClick={() => handleClickItem(assignment.view_url)}>
+      <ListItemButton onClick={() => handleClickItem(assignment.view_info.view_url)}>
         <S.EllipsisListItemText
           primary={<Typography>{assignment.title}</Typography>}
           secondary={courseName}
