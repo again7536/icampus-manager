@@ -1,6 +1,5 @@
-import moment from "moment";
 import AssignmentList from "@/popup/components/List/Assignment";
-import { useCourses, useAssignments } from "@/hooks";
+import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState } from "react";
 import { playListAtom, selectedCoursesAtom } from "@/atoms";
 import { useAtom } from "jotai";
@@ -13,6 +12,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import * as S from "./styled";
 
 function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
@@ -31,27 +31,10 @@ function Main() {
   });
 
   // data filtering
-  const assignments = useMemo(
-    () =>
-      results
-        .map((result) => result.data ?? [])
-        .flat()
-        .filter((assignment) => selectedCourses.indexOf(assignment.course_id) > -1)
-        .filter(
-          (assignment) =>
-            assignment.completed === false && moment(assignment.due_at).diff(moment.now()) > 0
-        )
-        .sort((a, b) => moment(a.due_at).diff(b.due_at)),
-    [results, selectedCourses]
-  );
-  const videoAssignments = useMemo(
-    () => assignments.filter((assignment) => assignment.commons_content.content_type === "movie"),
-    [assignments]
-  );
-  const otherAssignments = useMemo(
-    () => assignments.filter((assignment) => assignment.commons_content.content_type !== "movie"),
-    [assignments]
-  );
+  const { assignments, videoAssignments, otherAssignments } = useMemoAssignments({
+    results,
+    selectedCourses,
+  });
   const coursesMap = useMemo(
     () => new Map(courses?.map((course) => [course.id, course.name]) ?? []),
     [courses]
@@ -104,7 +87,11 @@ function Main() {
           <>
             <Tooltip title="강의 데이터 업데이트">
               <IconButton onClick={() => queryClient.invalidateQueries()}>
-                <CachedIcon />
+                <CachedIcon
+                  css={css`
+                    ${results.some((result) => result.isFetching) && S.spin};
+                  `}
+                />
               </IconButton>
             </Tooltip>
             <Tooltip title="재생 목록 선택">
@@ -122,8 +109,14 @@ function Main() {
         checkable={isCheckable}
         checked={checked}
         onCheck={handleCheck}
+        isLoading={results.some((result) => result.isLoading)}
       />
-      <AssignmentList assignments={otherAssignments} courses={courses ?? []} title="과제" />
+      <AssignmentList
+        assignments={otherAssignments}
+        courses={courses ?? []}
+        title="과제"
+        isLoading={results.some((result) => result.isLoading)}
+      />
     </>
   );
 }

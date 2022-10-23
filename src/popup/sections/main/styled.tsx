@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { css, keyframes } from "@emotion/react";
 import { flexBox } from "@/styles/mixin";
 
 const CounterWrapper = styled.div`
@@ -21,4 +22,17 @@ const CounterWrapper = styled.div`
   }
 `;
 
-export { CounterWrapper };
+const spinAnim = keyframes`
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(-360deg);
+  }
+`;
+
+const spin = css`
+  animation: ${spinAnim} 1s ease infinite;
+`;
+
+export { CounterWrapper, spin };

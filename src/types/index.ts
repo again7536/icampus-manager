@@ -107,6 +107,8 @@ interface Assignment {
   omit_from_final_grade: boolean;
 }
 
+type AssignmentInfos = Assignment & AssignmentDetail & { course_id: number };
+
 interface CourseStatus {
   user_name: string;
   user_login: string;
@@ -117,4 +119,4 @@ interface CourseStatus {
   none_count: number;
 }
 
-export type { Course, Assignment, AssignmentDetail, CourseStatus };
+export type { Course, Assignment, AssignmentDetail, AssignmentInfos, CourseStatus };
