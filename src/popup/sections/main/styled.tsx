@@ -2,24 +2,11 @@ import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import { flexBox } from "@/styles/mixin";
 
-const CounterWrapper = styled.div`
-  ${flexBox({})}
+const ControlWrapper = styled.div`
   width: 100%;
-
-  & > span {
-    display: block;
-    font-size: 36pt;
-
-    &:not(:last-child)::after {
-      content: "";
-      display: inline-block;
-      width: 0px;
-      height: 25px;
-
-      margin: 0 15px;
-      border-right: 1px solid #3c3c3c20;
-    }
-  }
+  ${flexBox({ justify: "flex-start" })};
+  gap: 0 10px;
+  padding: 0 20px;
 `;
 
 const spinAnim = keyframes`
@@ -35,4 +22,4 @@ const spin = css`
   animation: ${spinAnim} 1s ease infinite;
 `;
 
-export { CounterWrapper, spin };
+export { ControlWrapper, spin };

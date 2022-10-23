@@ -11,7 +11,7 @@ function Navigation() {
   const handleClickTab = (path: string) => navigate(path);
 
   return (
-    <Tabs value={location.pathname}>
+    <Tabs value={location.pathname} sx={{ marginBottom: "10px" }}>
       <Tab
         value={ROUTES.INDEX.path}
         icon={<ListIcon />}
