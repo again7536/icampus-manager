@@ -4,7 +4,9 @@
   "version": "1.0.0",
 
   "action": {
-    "default_icon": {},
+    "default_icon": {
+      "32": "./logo32.png"
+    },
     "default_title": "icampus manager",
     "default_popup": "popup.html"
   },

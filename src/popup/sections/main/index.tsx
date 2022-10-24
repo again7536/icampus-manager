@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { playListAtom, selectedCoursesAtom } from "@/atoms";
 import { useAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
-import { flexBox } from "@/styles/mixin";
 import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
@@ -62,46 +61,49 @@ function Main() {
 
   return (
     <>
-      <div
-        css={css`
-          width: 100%;
-          ${flexBox({ justify: "flex-start" })};
-          gap: 0 10px;
-        `}
-      >
+      <S.ControlWrapper>
         <SelectCheck items={coursesMap} onChange={handleSelectChange} selected={selectedCourses} />
-        {isCheckable ? (
-          <>
-            <Tooltip title="선택 취소">
-              <IconButton onClick={handleCancelSelect}>
-                <ClearIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="재생 목록에 추가">
-              <IconButton onClick={handleConfirmSelect}>
-                <CheckIcon />
-              </IconButton>
-            </Tooltip>
-          </>
-        ) : (
-          <>
-            <Tooltip title="강의 데이터 업데이트">
-              <IconButton onClick={() => queryClient.invalidateQueries()}>
-                <CachedIcon
-                  css={css`
-                    ${results.some((result) => result.isFetching) && S.spin};
-                  `}
-                />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="재생 목록 선택">
-              <IconButton onClick={handleClickAddPlaylist}>
-                <PlaylistAddIcon />
-              </IconButton>
-            </Tooltip>
-          </>
-        )}
-      </div>
+
+        {/* button groups */}
+        <div
+          css={css`
+            margin-left: auto;
+          `}
+        >
+          {isCheckable ? (
+            <>
+              <Tooltip title="선택 취소">
+                <IconButton onClick={handleCancelSelect}>
+                  <ClearIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="재생 목록에 추가">
+                <IconButton onClick={handleConfirmSelect}>
+                  <CheckIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : (
+            <>
+              <Tooltip title="강의 데이터 업데이트">
+                <IconButton onClick={() => queryClient.invalidateQueries()}>
+                  <CachedIcon
+                    css={css`
+                      ${results.some((result) => result.isFetching) && S.spin};
+                    `}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="재생 목록 선택">
+                <IconButton onClick={handleClickAddPlaylist}>
+                  <PlaylistAddIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </div>
+      </S.ControlWrapper>
+
       <AssignmentList
         assignments={videoAssignments}
         courses={courses ?? []}
