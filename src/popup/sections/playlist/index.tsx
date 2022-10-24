@@ -21,15 +21,17 @@ function PlayListSection() {
       if (e.origin !== "https://lcms.skku.edu") return;
       e.stopPropagation();
 
-      queryClient.invalidateQueries([QUERY_KEYS.ASSIGNMENTS, playList[0].course_id], {
-        refetchType: "all",
-      });
+      if (e.data === "end") {
+        queryClient.invalidateQueries([QUERY_KEYS.ASSIGNMENTS, playList[0].course_id], {
+          refetchType: "all",
+        });
 
-      setPlayList((prev) => {
-        const next = [...prev];
-        next.shift();
-        return next;
-      });
+        setPlayList((prev) => {
+          const next = [...prev];
+          next.shift();
+          return next;
+        });
+      } else console.log(e.data);
     };
     window.addEventListener("message", handleMessage, false);
 

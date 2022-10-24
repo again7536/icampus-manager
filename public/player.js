@@ -1,26 +1,52 @@
 (() => {
-  let eid = null;
+  function repeatCheck(checker, timeout = 300) {
+    return new Promise((resolve, reject) => {
+      (function waitFor() {
+        try {
+          if (checker()) return resolve();
+          else setTimeout(waitFor, timeout);
+        } catch (err) {
+          return reject(err);
+        }
+      })();
+    });
+  }
 
-  const sid = setInterval(() => {
-    const $playBtn = document.querySelector(".vc-front-screen-play-btn");
-    if (!$playBtn) return;
+  /* TODO: naive 솔루션 말고 스크립트 로드 완료되면 실행하도록 변경 */
+  function checkPlayed() {
+    const $frontScreen = document.querySelector("#front-screen");
+    const $playBtn = $frontScreen?.querySelector(".vc-front-screen-play-btn");
 
-    /* TODO: naive 솔루션 말고 스크립트 로드 완료되면 실행하도록 변경 */
-    clearInterval(sid);
-    setTimeout(() => $playBtn.click(), 500);
+    if (!$frontScreen) return false;
+    if ($frontScreen.style.display === "none") return true;
 
-    if (eid) return;
-    eid = setInterval(() => {
-      const $replayBtn = document.querySelector(".player-restart-btn");
-      if (!$replayBtn.style.display || $replayBtn.style.display === "none") return;
+    $playBtn.click();
+    return false;
+  }
 
-      clearInterval(eid);
+  function checkOkCleared() {
+    const $confirmDialog = document.querySelector("#confirm-dialog");
+    const $okBtn = $confirmDialog?.querySelector(".confirm-ok-btn");
 
-      $replayBtn.click();
-      window.parent.parent.postMessage(
-        "end",
-        "chrome-extension://gafohpefaljojmeelijmedfdabdaebio/"
-      );
-    }, 2000);
-  }, 300);
+    if (!$confirmDialog) return false;
+    if ($confirmDialog.style.display === "none") return true;
+
+    $okBtn.click();
+    return false;
+  }
+
+  function checkReplayed() {
+    const $replayBtn = document.querySelector(".player-restart-btn");
+    if (!$replayBtn) return false;
+    if (!$replayBtn.style.display || $replayBtn.style.display === "none") return false;
+
+    $replayBtn.click();
+    window.parent.parent.postMessage("end", "chrome-extension://gafohpefaljojmeelijmedfdabdaebio/");
+    return true;
+  }
+
+  repeatCheck(checkPlayed).then(() => {
+    setInterval(checkOkCleared, 2000);
+    repeatCheck(checkReplayed, 2000);
+  });
 })();
