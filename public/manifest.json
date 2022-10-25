@@ -1,7 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Icampus Manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "icons": {
+    "128": "./logo128.png"
+  },
 
   "action": {
     "default_icon": {
