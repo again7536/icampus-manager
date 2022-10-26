@@ -14,6 +14,22 @@ const theme = createTheme({
           font-weight: 400;
           font-style: normal;
         }
+
+        html {
+          &::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+            background-color: #3c3c3c20;
+          }
+          
+          &::-webkit-scrollbar-thumb {
+            background: #3c3c3c80
+          }
+        }
+
+        body {
+          padding-right: 0px !important;
+        }
       `,
     },
   },
