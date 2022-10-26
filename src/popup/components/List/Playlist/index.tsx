@@ -1,19 +1,20 @@
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfos, Course } from "@/types";
 import { css } from "@emotion/react";
 
 interface PlayListProps {
   assignments: AssignmentInfos[];
+  courses: Course[];
 }
 
-function PlayList({ assignments }: PlayListProps) {
+function PlayList({ assignments, courses }: PlayListProps) {
   const handleClickItem = (assignment: AssignmentInfos) => {
     chrome.tabs.create({ url: assignment.view_url, active: false });
   };
 
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-      <nav aria-label="main mailbox folders">
+      <nav>
         <List>
           {assignments.map((assignment, index) => (
             <ListItem
@@ -29,7 +30,9 @@ function PlayList({ assignments }: PlayListProps) {
               <ListItemButton onClick={() => handleClickItem(assignment)}>
                 <ListItemText
                   primary={<Typography>{assignment.title}</Typography>}
-                  secondary={assignment.name}
+                  secondary={
+                    courses.find((course) => course.id === assignment.course_id)?.name ?? ""
+                  }
                 />
               </ListItemButton>
             </ListItem>

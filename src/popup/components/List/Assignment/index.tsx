@@ -27,13 +27,13 @@ function AssignmentList({
   const ListItems = useMemo(() => {
     if (isLoading) return Array.from({ length: 4 }).map(() => <AssignmentSkeletonItem />);
     if (assignments.length > 0)
-      return assignments.map((assignment, assignIdx) => (
+      return assignments.map((assignment) => (
         <AssignmentListItem
           assignment={assignment}
           courseName={courses.find((course) => course.id === assignment.course_id)?.name ?? ""}
-          checked={checked?.has(assignIdx)}
+          checked={checked?.has(assignment.assignment_id)}
           checkable={checkable}
-          onCheck={onCheck ? () => onCheck(assignIdx) : undefined}
+          onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
         />
       ));
     return (

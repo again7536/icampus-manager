@@ -50,7 +50,7 @@ function PlayListSection() {
         </S.BlankPlayList>
       )}
 
-      <PlayList assignments={playList} />
+      <PlayList assignments={playList} courses={courses ?? []} />
     </>
   );
 }

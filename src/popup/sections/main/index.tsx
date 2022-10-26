@@ -51,7 +51,7 @@ function Main() {
 
   const handleClickAddPlaylist = () => setCheckable(true);
   const handleConfirmSelect = () => {
-    setPlayList(assignments.filter((a, id) => checked.has(id)));
+    setPlayList(assignments.filter((assignment) => checked.has(assignment.assignment_id)));
     setCheckable(false);
   };
   const handleCancelSelect = () => {
