@@ -1,10 +1,8 @@
 import { ATOM_KEYS } from "@/constants";
-import { Assignment, AssignmentDetail } from "@/types";
+import { AssignmentInfos } from "@/types";
 import atomWithAsyncStorage from "@/utils/atomWithAsyncStorage";
 
-const playListAtom = atomWithAsyncStorage<
-  (Assignment & AssignmentDetail & { course_id: number })[]
->({
+const playListAtom = atomWithAsyncStorage<AssignmentInfos[]>({
   key: ATOM_KEYS.PLAYLIST,
   initialValue: [],
 });

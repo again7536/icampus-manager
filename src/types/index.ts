@@ -64,7 +64,7 @@ interface AssignmentDetail {
   submitted: boolean;
   grade: null | number;
   score: null | number;
-  commons_content: {
+  commons_content?: {
     content_id: string;
     content_type: string;
     view_url: string;
@@ -107,7 +107,7 @@ interface Assignment {
   omit_from_final_grade: boolean;
 }
 
-type AssignmentInfos = Assignment & AssignmentDetail & { course_id: number };
+type AssignmentInfos = Partial<Assignment> & AssignmentDetail & { course_id: number };
 
 interface CourseStatus {
   user_name: string;
