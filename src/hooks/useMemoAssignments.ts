@@ -46,13 +46,15 @@ function useMemoAssignments({
     [assignments]
   );
 
-  const otherAssignments = useMemo(() => {
-    const others = assignments.filter((assignment) => assignment.type !== "commons");
+  const workAssignments = useMemo(() => {
+    const others = assignments.filter(
+      (assignment) => assignment.type === "assignment" || assignment.type === "quiz"
+    );
     if (attendanceOnly) return others.filter((other) => other.use_attendance);
     return others;
   }, [assignments, attendanceOnly]);
 
-  return { assignments, videoAssignments, pdfAssignments, otherAssignments };
+  return { assignments, videoAssignments, pdfAssignments, workAssignments };
 }
 
 export { useMemoAssignments };

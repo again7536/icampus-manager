@@ -1,5 +1,5 @@
 import { Box, List, ListSubheader, Typography } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { AssignmentInfos, Course } from "@/types";
 import AssignmentListItem from "./ListItem";
 import AssignmentSkeletonItem from "./SkeletonItem";
@@ -15,6 +15,8 @@ interface AssignmentListProps {
   onCheck?: (id: number) => void;
 }
 
+const MemoizedAssignmentListItem = memo(AssignmentListItem);
+
 function AssignmentList({
   assignments,
   courses,
@@ -28,7 +30,8 @@ function AssignmentList({
     if (isLoading) return Array.from({ length: 4 }).map(() => <AssignmentSkeletonItem />);
     if (assignments.length > 0)
       return assignments.map((assignment) => (
-        <AssignmentListItem
+        <MemoizedAssignmentListItem
+          key={assignment.id}
           assignment={assignment}
           courseName={courses.find((course) => course.id === assignment.course_id)?.name ?? ""}
           checked={checked?.has(assignment.assignment_id)}

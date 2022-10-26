@@ -1,6 +1,6 @@
 import AssignmentList from "@/popup/components/List/Assignment";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
 import { playListAtom, selectedCoursesAtom } from "@/atoms";
 import { useAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
@@ -12,6 +12,8 @@ import SelectCheck from "@/popup/components/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import * as S from "./styled";
+
+const MemoizedAssignmentList = memo(AssignmentList);
 
 function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
@@ -30,7 +32,7 @@ function Main() {
   });
 
   // data filtering
-  const { assignments, videoAssignments, otherAssignments } = useMemoAssignments({
+  const { assignments, videoAssignments, workAssignments } = useMemoAssignments({
     results,
     selectedCourses,
   });
@@ -104,7 +106,7 @@ function Main() {
         </div>
       </S.ControlWrapper>
 
-      <AssignmentList
+      <MemoizedAssignmentList
         assignments={videoAssignments}
         courses={courses ?? []}
         title="강의"
@@ -113,8 +115,8 @@ function Main() {
         onCheck={handleCheck}
         isLoading={results.some((result) => result.isLoading)}
       />
-      <AssignmentList
-        assignments={otherAssignments}
+      <MemoizedAssignmentList
+        assignments={workAssignments}
         courses={courses ?? []}
         title="과제"
         isLoading={results.some((result) => result.isLoading)}
