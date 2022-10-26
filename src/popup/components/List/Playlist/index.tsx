@@ -1,13 +1,13 @@
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { Assignment, AssignmentDetail } from "@/types";
+import { AssignmentInfos } from "@/types";
 import { css } from "@emotion/react";
 
 interface PlayListProps {
-  assignments: (Assignment & AssignmentDetail & { course_id: number })[];
+  assignments: AssignmentInfos[];
 }
 
 function PlayList({ assignments }: PlayListProps) {
-  const handleClickItem = (assignment: Assignment) => {
+  const handleClickItem = (assignment: AssignmentInfos) => {
     chrome.tabs.create({ url: assignment.view_url, active: false });
   };
 
