@@ -6,6 +6,8 @@ import PlayList from "@/popup/components/List/Playlist";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants";
+import { Typography } from "@mui/material";
+import * as S from "./styled";
 
 function PlayListSection() {
   const queryClient = useQueryClient();
@@ -40,7 +42,13 @@ function PlayListSection() {
 
   return (
     <>
-      {playList.length > 0 && <Player assignment={playList[0]} studentId={studentId ?? ""} />}
+      {playList.length > 0 ? (
+        <Player assignment={playList[0]} studentId={studentId ?? ""} />
+      ) : (
+        <S.BlankPlayList>
+          <Typography variant="h5">재생할 영상이 없어요..</Typography>
+        </S.BlankPlayList>
+      )}
 
       <PlayList assignments={playList} />
     </>
