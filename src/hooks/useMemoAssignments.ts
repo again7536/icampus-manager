@@ -15,7 +15,7 @@ function useMemoAssignments({
   attendanceOnly = false,
 }: UseMemoAssignmentsParams) {
   // data filtering
-  const assignments = useMemo(
+  const assignments: AssignmentInfos[] = useMemo(
     () =>
       results
         .map((result) => result.data ?? [])
@@ -33,7 +33,9 @@ function useMemoAssignments({
 
   const videoAssignments = useMemo(() => {
     const videos = assignments.filter(
-      (assignment) => assignment.commons_content?.content_type === "movie"
+      (assignment) =>
+        assignment.commons_content?.content_type === "movie" ||
+        assignment.commons_content?.content_type === "zoom"
     );
     if (attendanceOnly) return videos.filter((video) => video.use_attendance);
     return videos;
