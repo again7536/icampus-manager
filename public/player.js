@@ -41,7 +41,7 @@
     if (!$replayBtn.style.display || $replayBtn.style.display === "none") return false;
 
     $replayBtn.click();
-    window.parent.parent.postMessage("end", "chrome-extension://gafohpefaljojmeelijmedfdabdaebio/");
+    window.parent.parent.postMessage("end", `chrome-extension://${chrome.runtime.id}/`);
     return true;
   }
 
