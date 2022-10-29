@@ -2,6 +2,7 @@ import { AssignmentInfos } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import moment from "moment";
 import { useMemo } from "react";
+import { LECTURE_TYPE } from "@/constants";
 
 interface UseMemoAssignmentsParams {
   results: UseQueryResult<AssignmentInfos[]>[];
@@ -32,10 +33,8 @@ function useMemoAssignments({
   );
 
   const videoAssignments = useMemo(() => {
-    const videos = assignments.filter(
-      (assignment) =>
-        assignment.commons_content?.content_type === "movie" ||
-        assignment.commons_content?.content_type === "zoom"
+    const videos = assignments.filter((assignment) =>
+      Object.values(LECTURE_TYPE).includes(assignment.commons_content?.content_type ?? "")
     );
     if (attendanceOnly) return videos.filter((video) => video.use_attendance);
     return videos;
