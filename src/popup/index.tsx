@@ -6,9 +6,11 @@ import persister from "@/utils/persister";
 import App from "@/popup/app";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "jotai";
+import { Global } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
+import GlobalStyle from "@/styles/global";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -35,6 +37,7 @@ root.render(
       }}
     >
       <Provider>
+        <Global styles={GlobalStyle} />
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <MemoryRouter>
