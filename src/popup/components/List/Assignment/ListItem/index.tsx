@@ -43,7 +43,7 @@ function AssignmentListItem({
         />
       </ListItemButton>
 
-      <p
+      <div
         css={css`
           min-width: 100px;
           padding: 0 10px;
@@ -51,7 +51,7 @@ function AssignmentListItem({
       >
         <Typography variant="body2">{moment(assignment.due_at).format("YYYY-MM-DD")}</Typography>
         <Typography variant="body2">{moment(assignment.due_at).format("hh:mm a")}</Typography>
-      </p>
+      </div>
     </ListItem>
   );
 }
