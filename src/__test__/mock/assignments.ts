@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfos, Course } from "@/types";
 
 interface MockedAssignmentsFactoryParams {
   amount: {
@@ -11,9 +11,13 @@ interface MockedAssignmentsFactoryParams {
     quiz?: number;
     assignment?: number;
   };
+  courses?: Course[];
 }
 
-const mockedAssignmentsFactory = ({ amount }: MockedAssignmentsFactoryParams): AssignmentInfos[] =>
+const mockedAssignmentsFactory = ({
+  amount,
+  courses,
+}: MockedAssignmentsFactoryParams): AssignmentInfos[] =>
   Array.from({ length: Object.values(amount).reduce((acc, val) => acc + val, 0) }).map(
     (_, idx): AssignmentInfos => {
       const assignmentId = +faker.random.numeric(7);
@@ -25,7 +29,9 @@ const mockedAssignmentsFactory = ({ amount }: MockedAssignmentsFactoryParams): A
       return {
         id: assignmentId,
         assignment_id: assignmentId,
-        course_id: +faker.random.numeric(7),
+        course_id: courses
+          ? courses[(Math.random() * courses.length) % courses.length].id
+          : +faker.random.numeric(7),
         component_id: +faker.random.numeric(7),
         attendance_status: "false",
         completed: false,
@@ -41,9 +47,9 @@ const mockedAssignmentsFactory = ({ amount }: MockedAssignmentsFactoryParams): A
         grade: null,
         grading_type: "",
         has_error_external_url: false,
-        is_master_course_child_content: true,
+        // is_master_course_child_content: true,
         muted: false,
-        omit_from_final_grade: false,
+        // omit_from_final_grade: false,
         opened: true,
         points_possible: 1,
         position: 1,
@@ -68,4 +74,4 @@ const mockedAssignmentsFactory = ({ amount }: MockedAssignmentsFactoryParams): A
     }
   );
 
-export { mockedAssignmentsFactory };
+export default mockedAssignmentsFactory;

@@ -1,4 +1,4 @@
-import { mockedAssignmentsFactory } from "@/__test__/mock/assignments";
+import mockedAssignmentsFactory from "@/__test__/mock/assignments";
 import { screen, fireEvent, cleanup } from "@testing-library/react";
 import { render } from "@/__test__/customRender";
 import { LIST_SKELETON_COUNT } from "@/constants";
@@ -14,23 +14,23 @@ describe("AssignmentList UI test", () => {
   });
 
   const getAssignmentListItems = () => {
-    const assignmentList = screen.getByText(ASSIGNMENT_LIST_TITLE)?.parentElement;
-    return assignmentList?.querySelectorAll("li:not(:first-child)");
+    const $assignmentList = screen.getByText(ASSIGNMENT_LIST_TITLE)?.parentElement;
+    return $assignmentList?.querySelectorAll("li:not(:first-child)");
   };
 
   const getClickableFromItem = (item: Element) => {
-    const clickable = item.querySelector("div:first-child");
-    expect(clickable).not.toBeNull();
-    return clickable;
+    const $clickable = item.querySelector("div:first-child");
+    expect($clickable).not.toBeNull();
+    return $clickable;
   };
 
   const getCheckBoxAll = () => {
     return screen.getAllByRole("checkbox");
   };
   const getCheckBox = (idx: number) => {
-    const checkBox = getCheckBoxAll()[idx];
-    expect(checkBox).not.toBeUndefined();
-    return checkBox;
+    const $checkBox = getCheckBoxAll()[idx];
+    expect($checkBox).not.toBeUndefined();
+    return $checkBox;
   };
 
   beforeEach(() => mockStorage());
