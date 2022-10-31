@@ -21,8 +21,7 @@ describe("Navigation UI test", () => {
   }
 
   const getTabButton = (idx: number) => {
-    const $button = screen.queryAllByRole("tab")?.[idx];
-    expect($button).not.toBeFalsy();
+    const $button = screen.getAllByRole("tab")?.[idx];
     return $button as Element;
   };
 

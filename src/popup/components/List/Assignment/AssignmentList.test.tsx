@@ -14,8 +14,7 @@ describe("AssignmentList UI test", () => {
   });
 
   const getAssignmentListItems = () => {
-    const assignmentList = screen.queryByText(ASSIGNMENT_LIST_TITLE)?.parentElement;
-    expect(assignmentList).not.toBeNull();
+    const assignmentList = screen.getByText(ASSIGNMENT_LIST_TITLE)?.parentElement;
     return assignmentList?.querySelectorAll("li:not(:first-child)");
   };
 
