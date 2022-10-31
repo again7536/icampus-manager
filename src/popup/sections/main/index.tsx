@@ -64,7 +64,12 @@ function Main() {
   return (
     <>
       <S.ControlWrapper>
-        <SelectCheck items={coursesMap} onChange={handleSelectChange} selected={selectedCourses} />
+        <SelectCheck
+          label="표시할 과목"
+          items={coursesMap}
+          onChange={handleSelectChange}
+          selected={selectedCourses}
+        />
 
         {/* button groups */}
         <div
