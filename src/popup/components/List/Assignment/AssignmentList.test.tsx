@@ -1,5 +1,5 @@
 import { mockedAssignmentsFactory } from "@/__test__/mock/assignments";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, cleanup } from "@testing-library/react";
 import { render } from "@/__test__/customRender";
 import { LIST_SKELETON_COUNT } from "@/constants";
 import mockStorage from "@/__test__/mock/storage";
@@ -19,6 +19,12 @@ describe("AssignmentList UI test", () => {
     return assignmentList?.querySelectorAll("li:not(:first-child)");
   };
 
+  const getClickableFromItem = (item: Element) => {
+    const clickable = item.querySelector("div:first-child");
+    expect(clickable).not.toBeNull();
+    return clickable;
+  };
+
   const getCheckBoxAll = () => {
     return screen.getAllByRole("checkbox");
   };
@@ -28,9 +34,8 @@ describe("AssignmentList UI test", () => {
     return checkBox;
   };
 
-  beforeEach(() => {
-    mockStorage();
-  });
+  beforeEach(() => mockStorage());
+  afterEach(() => cleanup());
 
   /* Test Starts */
   test("Check list items are shown", async () => {
@@ -84,5 +89,15 @@ describe("AssignmentList UI test", () => {
     fireEvent.click(getCheckBox(0) as Element);
     renderList();
     expect(getCheckBox(0) as Element).toBeChecked();
+  });
+
+  test("List items could be clicked", async () => {
+    const spyClick = jest.spyOn(chrome.tabs, "create");
+    await render(
+      <AssignmentList assignments={mockedVideos} courses={[]} title={ASSIGNMENT_LIST_TITLE} />
+    );
+
+    fireEvent.click(getClickableFromItem(getAssignmentListItems()?.[0] as Element) as Element);
+    expect(spyClick).toBeCalledTimes(1);
   });
 });
