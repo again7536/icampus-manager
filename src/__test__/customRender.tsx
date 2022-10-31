@@ -10,6 +10,7 @@ import GlobalStyle from "@/styles/global";
 import { Global } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
+import { MemoryRouter } from "react-router";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,7 +45,9 @@ function Providers({ children }: { children: React.ReactNode }) {
         <Global styles={GlobalStyle} />
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Hidden>{children}</Hidden>
+          <MemoryRouter>
+            <Hidden>{children}</Hidden>
+          </MemoryRouter>
         </ThemeProvider>
       </Provider>
     </PersistQueryClientProvider>
