@@ -11,7 +11,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
-    "test:watch": "yarn test --watch",
+    "test:watch": "jest --watch",
     "lint": "eslint src --ext ts,tsx",
     "lint:fix": "yarn lint --fix",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
