@@ -1,12 +1,12 @@
 {
   "extends": [
+    "plugin:import/recommended",
     "airbnb",
-    "airbnb/hooks",
     "airbnb-typescript",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended"
+    "airbnb/hooks",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["jsx-a11y", "import", "@emotion"],
+  "plugins": ["import", "jsx-a11y", "@emotion"],
   "parserOptions": { "project": "./tsconfig.json" },
   "rules": {
     "react/react-in-jsx-scope": "off",
@@ -24,7 +24,12 @@
   "overrides": [
     {
       "files": ["./*.js"],
-      "extends": ["airbnb", "plugin:prettier/recommended", "plugin:import/recommended"]
+      "extends": ["plugin:import/recommended", "airbnb", "plugin:prettier/recommended"],
+      "parserOptions": { "project": null }
+    },
+    {
+      "files": ["src/__test__/**/*.ts"],
+      "rules": { "import/no-extraneous-dependencies": "off" }
     }
   ]
 }

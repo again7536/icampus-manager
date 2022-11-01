@@ -8,7 +8,7 @@ import * as S from "./styled";
 function App() {
   return (
     <S.PopupContainer>
-      <Navigation />
+      <Navigation routes={ROUTES} />
       <Routes>
         <Route path={ROUTES.INDEX.path} element={<Main />} />
         <Route path={ROUTES.PLAYLIST.path} element={<PlayList />} />

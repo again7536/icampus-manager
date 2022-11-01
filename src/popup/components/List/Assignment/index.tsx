@@ -1,6 +1,7 @@
 import { Box, List, ListSubheader, Typography } from "@mui/material";
 import { useMemo, memo } from "react";
 import { AssignmentInfos, Course } from "@/types";
+import { LIST_SKELETON_COUNT } from "@/constants";
 import AssignmentListItem from "./ListItem";
 import AssignmentSkeletonItem from "./SkeletonItem";
 import * as S from "./styled";
@@ -27,7 +28,10 @@ function AssignmentList({
   onCheck,
 }: AssignmentListProps) {
   const ListItems = useMemo(() => {
-    if (isLoading) return Array.from({ length: 4 }).map(() => <AssignmentSkeletonItem />);
+    if (isLoading)
+      return Array.from({ length: LIST_SKELETON_COUNT }, (_, v) => v).map((val) => (
+        <AssignmentSkeletonItem key={val} />
+      ));
     if (assignments.length > 0)
       return assignments.map((assignment) => (
         <MemoizedAssignmentListItem

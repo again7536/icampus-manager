@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { Chip, Box } from "@mui/material";
 
 interface SelectCheckProps {
+  label: string;
   items: Map<number, string>;
   onChange: (event: SelectChangeEvent<number[]>, child: ReactNode) => void;
   selected: number[];
@@ -25,22 +26,22 @@ const MenuProps = {
   },
 };
 
-export default function SelectCheck({ items, onChange, selected }: SelectCheckProps) {
+export default function SelectCheck({ label, items, onChange, selected }: SelectCheckProps) {
   const [isFocused, setFocused] = useState<boolean>(false);
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">표시할 과목</InputLabel>
+        <InputLabel id="multiple-checkbox-label">{label}</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId="multiple-checkbox-label"
+          id="multiple-checkbox"
           multiple
           value={[...selected]}
           onChange={onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          input={<OutlinedInput label="표시할 과목" />}
+          input={<OutlinedInput label={label} />}
           renderValue={(values) => (
             <Box sx={{ display: "flex", flexWrap: isFocused ? "wrap" : undefined, gap: 0.5 }}>
               {values.map((value) => (

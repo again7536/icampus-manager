@@ -1,27 +1,26 @@
 import { Tabs, Tab } from "@mui/material";
-import ListIcon from "@mui/icons-material/List";
-import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
-import { ROUTES } from "@/constants";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Route } from "@/types";
 
-/* TODO: reusable 하게 만들기 (constant 활용) */
-function Navigation() {
+interface NavigationProps {
+  routes: Route;
+}
+
+function Navigation({ routes }: NavigationProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const handleClickTab = (path: string) => navigate(path);
 
   return (
     <Tabs value={location.pathname} sx={{ marginBottom: "10px" }}>
-      <Tab
-        value={ROUTES.INDEX.path}
-        icon={<ListIcon />}
-        onClick={() => handleClickTab(ROUTES.INDEX.path)}
-      />
-      <Tab
-        value={ROUTES.PLAYLIST.path}
-        icon={<SmartDisplayIcon />}
-        onClick={() => handleClickTab(ROUTES.PLAYLIST.path)}
-      />
+      {Object.values(routes).map((val) => (
+        <Tab
+          value={val.path}
+          key={val.path}
+          icon={<val.Icon />}
+          onClick={() => handleClickTab(val.path)}
+        />
+      ))}
     </Tabs>
   );
 }
