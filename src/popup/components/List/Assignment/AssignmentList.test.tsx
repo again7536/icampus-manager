@@ -1,4 +1,4 @@
-import mockedAssignmentsFactory from "@/__test__/mock/assignments";
+import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import { screen, fireEvent, cleanup } from "@testing-library/react";
 import { render } from "@/__test__/customRender";
 import { LIST_SKELETON_COUNT } from "@/constants";
@@ -9,8 +9,8 @@ import AssignmentList from ".";
 const ASSIGNMENT_LIST_TITLE = "test list";
 
 describe("AssignmentList UI test", () => {
-  const mockedVideos = mockedAssignmentsFactory({
-    amount: { everlec: 1, mp4: 2, video: 3, zoom: 4 },
+  const mockedVideos = mockedAssignmentInfosFactory({
+    amount: { everlec: 1, mp4: 2, movie: 3, zoom: 4 },
   });
 
   const getAssignmentListItems = () => {

@@ -2,7 +2,7 @@ import AssignmentList from "@/popup/components/List/Assignment";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState, memo } from "react";
 import { playListAtom, selectedCoursesAtom } from "@/atoms";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
@@ -21,7 +21,7 @@ function Main() {
   const [isCheckable, setCheckable] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
-  const [, setPlayList] = useAtom(playListAtom);
+  const setPlayList = useSetAtom(playListAtom);
   const { data: courses } = useCourses({
     onSuccess: (data) =>
       selectedCourses.length === 0 && setSelectedCourses(data.map((course) => course.id)),

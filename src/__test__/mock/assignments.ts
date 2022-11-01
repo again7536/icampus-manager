@@ -1,22 +1,22 @@
 import { faker } from "@faker-js/faker";
-import { AssignmentInfos, Course } from "@/types";
+import { AssignmentInfos } from "@/types";
 
 interface MockedAssignmentsFactoryParams {
   amount: {
     pdf?: number;
-    video?: number;
+    movie?: number;
     zoom?: number;
     everlec?: number;
     mp4?: number;
     quiz?: number;
     assignment?: number;
   };
-  courses?: Course[];
+  courseId?: number;
 }
 
-const mockedAssignmentsFactory = ({
+const mockedAssignmentInfosFactory = ({
   amount,
-  courses,
+  courseId,
 }: MockedAssignmentsFactoryParams): AssignmentInfos[] =>
   Array.from({ length: Object.values(amount).reduce((acc, val) => acc + val, 0) }).map(
     (_, idx): AssignmentInfos => {
@@ -29,9 +29,7 @@ const mockedAssignmentsFactory = ({
       return {
         id: assignmentId,
         assignment_id: assignmentId,
-        course_id: courses
-          ? courses[(Math.random() * courses.length) % courses.length].id
-          : +faker.random.numeric(7),
+        course_id: courseId ?? +faker.random.numeric(7),
         component_id: +faker.random.numeric(7),
         attendance_status: "false",
         completed: false,
@@ -60,7 +58,7 @@ const mockedAssignmentsFactory = ({
         use_attendance: true,
         view_info: { view_url: "" },
         type: !isWork ? "commons" : types[idx],
-        commons_content: isWork
+        commons_content: !isWork
           ? {
               content_id: faker.random.alphaNumeric(7),
               content_type: types[idx],
@@ -74,4 +72,4 @@ const mockedAssignmentsFactory = ({
     }
   );
 
-export default mockedAssignmentsFactory;
+export default mockedAssignmentInfosFactory;

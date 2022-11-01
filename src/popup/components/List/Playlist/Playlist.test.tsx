@@ -1,4 +1,4 @@
-import mockedAssignmentsFactory from "@/__test__/mock/assignments";
+import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import { fireEvent, cleanup } from "@testing-library/react";
 import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
@@ -6,8 +6,8 @@ import "@testing-library/jest-dom";
 import Playlist from ".";
 
 describe("Playlist UI test", () => {
-  const mockedVideos = mockedAssignmentsFactory({
-    amount: { everlec: 1, mp4: 2, video: 3, zoom: 4 },
+  const mockedVideos = mockedAssignmentInfosFactory({
+    amount: { everlec: 1, mp4: 2, movie: 3, zoom: 4 },
   });
 
   const getPlaylistItems = (container: HTMLElement) => {
