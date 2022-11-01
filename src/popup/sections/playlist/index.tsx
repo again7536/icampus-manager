@@ -24,7 +24,7 @@ function PlayListSection() {
       e.stopPropagation();
 
       if (e.data === "end") {
-        queryClient.invalidateQueries([QUERY_KEYS.ASSIGNMENTS, playList[0].course_id], {
+        queryClient.invalidateQueries([QUERY_KEYS.ASSIGNMENTS, playList[0]?.course_id ?? null], {
           refetchType: "all",
         });
 
