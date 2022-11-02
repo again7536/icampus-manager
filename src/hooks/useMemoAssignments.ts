@@ -1,4 +1,4 @@
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfos, LectureType } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import moment from "moment";
 import { useMemo } from "react";
@@ -34,7 +34,7 @@ function useMemoAssignments({
 
   const videoAssignments = useMemo(() => {
     const videos = assignments.filter((assignment) =>
-      Object.values(LECTURE_TYPE).includes(assignment.commons_content?.content_type ?? "")
+      Object.values(LECTURE_TYPE).includes(assignment.commons_content?.content_type as LectureType)
     );
     if (attendanceOnly) return videos.filter((video) => video.use_attendance);
     return videos;
