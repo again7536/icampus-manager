@@ -14,6 +14,7 @@ interface AssignmentListProps {
   isLoading?: boolean;
   checked?: Set<number>;
   onCheck?: (id: number) => void;
+  timeAsLeft?: boolean;
 }
 
 const MemoizedAssignmentListItem = memo(AssignmentListItem);
@@ -26,6 +27,7 @@ function AssignmentList({
   isLoading = false,
   checked,
   onCheck,
+  timeAsLeft,
 }: AssignmentListProps) {
   const ListItems = useMemo(() => {
     if (isLoading)
@@ -41,6 +43,7 @@ function AssignmentList({
           checked={checked?.has(assignment.assignment_id)}
           checkable={checkable}
           onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
+          timeAsLeft={timeAsLeft}
         />
       ));
     return (
@@ -48,7 +51,7 @@ function AssignmentList({
         <Typography variant="h5">야호! 다 끝냈어요!</Typography>
       </S.BlankList>
     );
-  }, [assignments, checkable, checked, courses, isLoading, onCheck]);
+  }, [assignments, checkable, checked, courses, isLoading, onCheck, timeAsLeft]);
 
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", padding: "0 10px" }}>
