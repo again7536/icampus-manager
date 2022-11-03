@@ -1,6 +1,7 @@
 import { Box, List, ListSubheader, Typography } from "@mui/material";
 import { useMemo, memo } from "react";
 import { AssignmentInfos, Course } from "@/types";
+import { LIST_SKELETON_COUNT } from "@/constants";
 import AssignmentListItem from "./ListItem";
 import AssignmentSkeletonItem from "./SkeletonItem";
 import * as S from "./styled";
@@ -13,6 +14,7 @@ interface AssignmentListProps {
   isLoading?: boolean;
   checked?: Set<number>;
   onCheck?: (id: number) => void;
+  timeAsLeft?: boolean;
 }
 
 const MemoizedAssignmentListItem = memo(AssignmentListItem);
@@ -25,9 +27,13 @@ function AssignmentList({
   isLoading = false,
   checked,
   onCheck,
+  timeAsLeft,
 }: AssignmentListProps) {
   const ListItems = useMemo(() => {
-    if (isLoading) return Array.from({ length: 4 }).map(() => <AssignmentSkeletonItem />);
+    if (isLoading)
+      return Array.from({ length: LIST_SKELETON_COUNT }, (_, v) => v).map((val) => (
+        <AssignmentSkeletonItem key={val} />
+      ));
     if (assignments.length > 0)
       return assignments.map((assignment) => (
         <MemoizedAssignmentListItem
@@ -37,6 +43,7 @@ function AssignmentList({
           checked={checked?.has(assignment.assignment_id)}
           checkable={checkable}
           onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
+          timeAsLeft={timeAsLeft}
         />
       ));
     return (
@@ -44,7 +51,7 @@ function AssignmentList({
         <Typography variant="h5">야호! 다 끝냈어요!</Typography>
       </S.BlankList>
     );
-  }, [assignments, checkable, checked, courses, isLoading, onCheck]);
+  }, [assignments, checkable, checked, courses, isLoading, onCheck, timeAsLeft]);
 
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", padding: "0 10px" }}>

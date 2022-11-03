@@ -1,8 +1,8 @@
 import AssignmentList from "@/popup/components/List/Assignment";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState, memo } from "react";
-import { playListAtom, selectedCoursesAtom } from "@/atoms";
-import { useAtom } from "jotai";
+import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
@@ -11,6 +11,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import TabIcon from "@mui/icons-material/Tab";
 import * as S from "./styled";
 
 const MemoizedAssignmentList = memo(AssignmentList);
@@ -19,9 +20,10 @@ function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
   const [checked, setChecked] = useState<Set<number>>(new Set());
   const [isCheckable, setCheckable] = useState<boolean>(false);
+  const settings = useAtomValue(settingsAtom);
 
   const queryClient = useQueryClient();
-  const [, setPlayList] = useAtom(playListAtom);
+  const setPlayList = useSetAtom(playListAtom);
   const { data: courses } = useCourses({
     onSuccess: (data) =>
       selectedCourses.length === 0 && setSelectedCourses(data.map((course) => course.id)),
@@ -60,11 +62,19 @@ function Main() {
     setCheckable(false);
     setChecked(new Set());
   };
+  const handleOpenTab = () => {
+    chrome.tabs.create({ url: "popup.html" });
+  };
 
   return (
     <>
       <S.ControlWrapper>
-        <SelectCheck items={coursesMap} onChange={handleSelectChange} selected={selectedCourses} />
+        <SelectCheck
+          label="표시할 과목"
+          items={coursesMap}
+          onChange={handleSelectChange}
+          selected={selectedCourses}
+        />
 
         {/* button groups */}
         <div
@@ -72,6 +82,11 @@ function Main() {
             margin-left: auto;
           `}
         >
+          <Tooltip title="새 탭에서 열기">
+            <IconButton onClick={handleOpenTab}>
+              <TabIcon />
+            </IconButton>
+          </Tooltip>
           {isCheckable ? (
             <>
               <Tooltip title="선택 취소">
@@ -114,12 +129,14 @@ function Main() {
         checked={checked}
         onCheck={handleCheck}
         isLoading={results.some((result) => result.isLoading)}
+        timeAsLeft={!!settings.DDAY}
       />
       <MemoizedAssignmentList
         assignments={workAssignments}
         courses={courses ?? []}
         title="과제"
         isLoading={results.some((result) => result.isLoading)}
+        timeAsLeft={!!settings.DDAY}
       />
     </>
   );

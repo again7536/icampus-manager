@@ -1,4 +1,4 @@
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfos, LectureType } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import moment from "moment";
 import { useMemo } from "react";
@@ -22,19 +22,19 @@ function useMemoAssignments({
         .map((result) => result.data ?? [])
         .flat()
         .filter((assignment) => selectedCourses.indexOf(assignment.course_id) > -1)
-        .filter(
-          (assignment) =>
-            assignment.completed === false &&
-            moment(assignment.due_at).diff(moment.now()) > 0 &&
-            moment(assignment.unlock_at).diff(moment.now()) < 0
-        )
+        // .filter(
+        //   (assignment) =>
+        //     assignment.completed === false &&
+        //     moment(assignment.due_at).diff(moment.now()) > 0 &&
+        //     moment(assignment.unlock_at).diff(moment.now()) < 0
+        // )
         .sort((a, b) => moment(a.due_at).diff(b.due_at)),
     [results, selectedCourses]
   );
 
   const videoAssignments = useMemo(() => {
     const videos = assignments.filter((assignment) =>
-      Object.values(LECTURE_TYPE).includes(assignment.commons_content?.content_type ?? "")
+      Object.values(LECTURE_TYPE).includes(assignment.commons_content?.content_type as LectureType)
     );
     if (attendanceOnly) return videos.filter((video) => video.use_attendance);
     return videos;

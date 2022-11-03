@@ -1,4 +1,4 @@
-import { Assignment, Course, CourseStatus, AssignmentDetail } from "@/types";
+import { Assignment, Course, CourseStatus, AssignmentDetail, AssignmentInfos } from "@/types";
 import axios from "./axios";
 
 interface FetchStudentIdProps {
@@ -15,6 +15,11 @@ interface FetchAssignmentsProps {
 interface FetchStudentIdResponse {
   item: CourseStatus;
   assignments: Assignment[];
+}
+
+interface FetchAndJoinAssignmentInfosParam {
+  courseId: number;
+  userId: number;
 }
 
 const fetchCourses = async () => {
@@ -49,4 +54,32 @@ const fetchCourseAssignmentDetails = async ({
   return data;
 };
 
-export { fetchCourses, fetchStudentId, fetchCourseStatus, fetchCourseAssignmentDetails };
+// do SQL like join operation for assignment and assignment details
+const fetchAndJoinAssignmentInfos = async ({
+  courseId,
+  userId,
+}: FetchAndJoinAssignmentInfosParam) => {
+  const { assignments, item: courseStatus } = await fetchCourseStatus({
+    courseId,
+    userId: userId ?? 0,
+  });
+  const assignmentDetails = await fetchCourseAssignmentDetails({
+    courseId,
+    userId: userId ?? 0,
+    studentId: courseStatus.user_login,
+  });
+
+  return assignmentDetails.map((detail) => ({
+    ...detail,
+    ...assignments.find((assignment) => assignment.id === detail.assignment_id),
+    course_id: courseId,
+  })) as AssignmentInfos[];
+};
+
+export {
+  fetchCourses,
+  fetchStudentId,
+  fetchCourseStatus,
+  fetchCourseAssignmentDetails,
+  fetchAndJoinAssignmentInfos,
+};
