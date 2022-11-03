@@ -3,13 +3,7 @@ import { AssignmentInfos, LectureType } from "@/types";
 
 interface MockedAssignmentsFactoryParams {
   amount: {
-    pdf?: number;
-    movie?: number;
-    zoom?: number;
-    everlec?: number;
-    mp4?: number;
-    quiz?: number;
-    assignment?: number;
+    [key in LectureType | "pdf" | "quiz" | "assignment"]?: number;
   };
   courseId?: number;
 }
