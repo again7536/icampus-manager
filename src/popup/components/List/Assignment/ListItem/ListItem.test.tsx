@@ -4,7 +4,7 @@ import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import { AssignmentInfos } from "@/types";
 import { cleanup, fireEvent, screen, queryByText, queryByRole } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import AssignmentListItem from ".";
+import AssignmentListItem from "./ListItem";
 
 describe("ListItem UI Test", () => {
   const COURSE_NAME = "TEST";

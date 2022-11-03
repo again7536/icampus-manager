@@ -2,9 +2,9 @@ import { Box, List, ListSubheader, Typography } from "@mui/material";
 import { useMemo, memo } from "react";
 import { AssignmentInfos, Course } from "@/types";
 import { LIST_SKELETON_COUNT } from "@/constants";
-import AssignmentListItem from "./ListItem";
-import AssignmentSkeletonItem from "./SkeletonItem";
-import * as S from "./styled";
+import AssignmentListItem from "./ListItem/ListItem";
+import AssignmentSkeletonItem from "./SkeletonItem/SkeletonItem";
+import * as S from "./AssignmentList.style";
 
 interface AssignmentListProps {
   assignments: AssignmentInfos[];

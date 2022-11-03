@@ -4,7 +4,7 @@ import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
 import { Routes, Route } from "react-router";
 import "@testing-library/jest-dom";
-import Navigation from ".";
+import Navigation from "./Navigation";
 
 describe("Navigation UI test", () => {
   function TestElement() {

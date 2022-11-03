@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useState } from "react";
-import * as S from "./styled";
+import * as S from "./Settings.style";
 
 const SETTINGS_SUBHEADER = "설정";
 const SNACKBAR_MESSAGE = "설정이 저장되었습니다.";

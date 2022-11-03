@@ -4,7 +4,7 @@ import { cleanup, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { chrome } from "jest-chrome";
 import { ATOM_KEYS } from "@/constants";
-import GlobalAlert from ".";
+import GlobalAlert from "./UpdateAlert";
 
 describe("UpdateAlert UI Test", () => {
   const LATEST_VERSION = "1.0.1";

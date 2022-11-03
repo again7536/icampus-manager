@@ -1,4 +1,4 @@
-import AssignmentList from "@/popup/components/List/Assignment";
+import AssignmentList from "@/popup/components/List/Assignment/AssignmentList";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState, memo } from "react";
 import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
@@ -8,7 +8,7 @@ import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CachedIcon from "@mui/icons-material/Cached";
-import SelectCheck from "@/popup/components/SelectCheck";
+import SelectCheck from "@/popup/components/SelectCheck/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabIcon from "@mui/icons-material/Tab";

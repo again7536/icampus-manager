@@ -1,15 +1,15 @@
 import { useAtom } from "jotai";
 import { playListAtom } from "@/atoms";
-import Player from "@/popup/components/Player";
+import Player from "@/popup/components/Player/Player";
 import { useCourses, useStudentId } from "@/hooks";
-import PlayList from "@/popup/components/List/Playlist";
+import PlayList from "@/popup/components/List/Playlist/Playlist";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants";
 import { Typography } from "@mui/material";
-import * as S from "./styled";
+import * as S from "./Lectures.style";
 
-function PlayListSection() {
+function Lectures() {
   const queryClient = useQueryClient();
   const [playList, setPlayList] = useAtom(playListAtom);
   const { data: courses } = useCourses({});
@@ -55,4 +55,4 @@ function PlayListSection() {
   );
 }
 
-export default PlayListSection;
+export default Lectures;
