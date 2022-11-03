@@ -12,8 +12,8 @@ import Main from ".";
 function getConstants() {
   const COURSE_COUNT = 4;
   const ASSIGNMENT_COUNT = {
-    // everlec: 1,
-    // mp4: 1,
+    everlec: 1,
+    mp4: 1,
     movie: 1,
     zoom: 1,
   };

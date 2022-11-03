@@ -1,8 +1,8 @@
 import AssignmentList from "@/popup/components/List/Assignment";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState, memo } from "react";
-import { playListAtom, selectedCoursesAtom } from "@/atoms";
-import { useAtom, useSetAtom } from "jotai";
+import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
+import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
@@ -19,6 +19,7 @@ function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
   const [checked, setChecked] = useState<Set<number>>(new Set());
   const [isCheckable, setCheckable] = useState<boolean>(false);
+  const settings = useAtomValue(settingsAtom);
 
   const queryClient = useQueryClient();
   const setPlayList = useSetAtom(playListAtom);
@@ -119,12 +120,14 @@ function Main() {
         checked={checked}
         onCheck={handleCheck}
         isLoading={results.some((result) => result.isLoading)}
+        timeAsLeft={!!settings.DDAY}
       />
       <MemoizedAssignmentList
         assignments={workAssignments}
         courses={courses ?? []}
         title="과제"
         isLoading={results.some((result) => result.isLoading)}
+        timeAsLeft={!!settings.DDAY}
       />
     </>
   );

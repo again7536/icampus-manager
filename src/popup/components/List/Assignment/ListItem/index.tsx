@@ -1,7 +1,9 @@
 import { AssignmentInfos } from "@/types";
 import { Checkbox, css, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
-import moment from "moment";
+import moment from "moment/min/moment-with-locales";
 import * as S from "./styled";
+
+moment.locale("ko");
 
 interface AssignmentListItemProps {
   assignment: AssignmentInfos;
@@ -9,6 +11,7 @@ interface AssignmentListItemProps {
   checkable?: boolean;
   checked?: boolean;
   onCheck?: () => void;
+  timeAsLeft?: boolean;
 }
 
 function AssignmentListItem({
@@ -17,13 +20,14 @@ function AssignmentListItem({
   checkable,
   checked,
   onCheck,
+  timeAsLeft,
 }: AssignmentListItemProps) {
   const handleClickItem = (url: string) => {
     chrome.tabs.create({ url, active: false });
   };
 
   return (
-    <ListItem disablePadding>
+    <ListItem disablePadding role="listitem">
       {checkable && (
         <ListItemIcon>
           <Checkbox
@@ -47,10 +51,19 @@ function AssignmentListItem({
         css={css`
           min-width: 100px;
           padding: 0 10px;
+          text-align: center;
         `}
       >
-        <Typography variant="body2">{moment(assignment.due_at).format("YYYY-MM-DD")}</Typography>
-        <Typography variant="body2">{moment(assignment.due_at).format("hh:mm a")}</Typography>
+        {timeAsLeft ? (
+          <Typography variant="body2">{moment(assignment.due_at).fromNow()}</Typography>
+        ) : (
+          <>
+            <Typography variant="body2">
+              {moment(assignment.due_at).format("YYYY-MM-DD")}
+            </Typography>
+            <Typography variant="body2">{moment(assignment.due_at).format("a hh:mm")}</Typography>
+          </>
+        )}
       </div>
     </ListItem>
   );

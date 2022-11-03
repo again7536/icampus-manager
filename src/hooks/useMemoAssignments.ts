@@ -22,12 +22,12 @@ function useMemoAssignments({
         .map((result) => result.data ?? [])
         .flat()
         .filter((assignment) => selectedCourses.indexOf(assignment.course_id) > -1)
-        .filter(
-          (assignment) =>
-            assignment.completed === false &&
-            moment(assignment.due_at).diff(moment.now()) > 0 &&
-            moment(assignment.unlock_at).diff(moment.now()) < 0
-        )
+        // .filter(
+        //   (assignment) =>
+        //     assignment.completed === false &&
+        //     moment(assignment.due_at).diff(moment.now()) > 0 &&
+        //     moment(assignment.unlock_at).diff(moment.now()) < 0
+        // )
         .sort((a, b) => moment(a.due_at).diff(b.due_at)),
     [results, selectedCourses]
   );
