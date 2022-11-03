@@ -18,12 +18,6 @@ describe("AssignmentList UI test", () => {
     return $assignmentList?.querySelectorAll("li:not(:first-child)");
   };
 
-  const getClickableFromItem = (item: Element) => {
-    const $clickable = item.querySelector("div:first-child");
-    expect($clickable).not.toBeNull();
-    return $clickable;
-  };
-
   const getCheckBoxAll = () => {
     return screen.getAllByRole("checkbox");
   };
@@ -88,15 +82,5 @@ describe("AssignmentList UI test", () => {
     fireEvent.click(getCheckBox(0) as Element);
     renderList();
     expect(getCheckBox(0) as Element).toBeChecked();
-  });
-
-  test("List items could be clicked", async () => {
-    const spyClick = jest.spyOn(chrome.tabs, "create");
-    await render(
-      <AssignmentList assignments={mockedVideos} courses={[]} title={ASSIGNMENT_LIST_TITLE} />
-    );
-
-    fireEvent.click(getClickableFromItem(getAssignmentListItems()?.[0] as Element) as Element);
-    expect(spyClick).toBeCalledTimes(1);
   });
 });

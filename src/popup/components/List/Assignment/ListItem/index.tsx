@@ -27,7 +27,7 @@ function AssignmentListItem({
   };
 
   return (
-    <ListItem disablePadding>
+    <ListItem disablePadding role="listitem">
       {checkable && (
         <ListItemIcon>
           <Checkbox
