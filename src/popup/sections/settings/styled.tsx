@@ -8,6 +8,7 @@ const LinkerLine = styled.div`
 
 const ButtonGroup = styled.div`
   padding: 5px 15px;
+  margin-bottom: 10px;
 `;
 
 export { LinkerLine, ButtonGroup };
