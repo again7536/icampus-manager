@@ -3,7 +3,7 @@ import { fireEvent, cleanup } from "@testing-library/react";
 import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
 import "@testing-library/jest-dom";
-import Playlist from ".";
+import Playlist from "./Playlist";
 
 describe("Playlist UI test", () => {
   const mockedVideos = mockedAssignmentInfosFactory({

@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker";
 import { SelectChangeEvent } from "@mui/material";
 import { screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import SelectCheck from ".";
+import SelectCheck from "./SelectCheck";
 
 describe("SelectCheck UI test", () => {
   const SELECT_CHECK_LABEL = "선택";

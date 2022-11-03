@@ -4,7 +4,7 @@ import { render } from "@/__test__/customRender";
 import { LIST_SKELETON_COUNT } from "@/constants";
 import mockStorage from "@/__test__/mock/storage";
 import "@testing-library/jest-dom";
-import AssignmentList from ".";
+import AssignmentList from "./AssignmentList";
 
 const ASSIGNMENT_LIST_TITLE = "test list";
 

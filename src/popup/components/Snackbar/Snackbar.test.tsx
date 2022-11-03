@@ -4,7 +4,7 @@ import mockStorage from "@/__test__/mock/storage";
 import { cleanup, fireEvent, screen } from "@testing-library/react";
 import { useSetAtom } from "jotai";
 import "@testing-library/jest-dom";
-import GlobalSnackbar from ".";
+import GlobalSnackbar from "./Snackbar";
 
 describe("Global snackbar UI test", () => {
   const TEST_SNACKBAR_MESSAGE = "Test";

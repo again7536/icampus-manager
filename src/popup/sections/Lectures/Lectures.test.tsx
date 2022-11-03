@@ -7,7 +7,7 @@ import { screen, cleanup, fireEvent, waitFor } from "@testing-library/react";
 import { chrome } from "jest-chrome";
 import "@testing-library/jest-dom";
 import "@/api";
-import PlayListSection from ".";
+import Lectures from "./Lectures";
 
 function getConstants() {
   const COURSE_COUNT = 4;
@@ -59,18 +59,18 @@ describe("Playlist Section UI Test", () => {
 
   test("Playlist should be displayed", async () => {
     await initPlaylist();
-    const { container } = await render(<PlayListSection />);
+    const { container } = await render(<Lectures />);
     await waitFor(() => expect(getPlaylistItems(container).length).toBe(TOTAL_COUNT));
   });
 
   test("Blank message should be shown properly", async () => {
-    await render(<PlayListSection />);
+    await render(<Lectures />);
     getBlankPlaylist();
   });
 
   test("Current item should be removed when message event fires", async () => {
     await initPlaylist();
-    const { container } = await render(<PlayListSection />);
+    const { container } = await render(<Lectures />);
 
     fireMessageEvent();
     await waitFor(() => expect(getPlaylistItems(container).length).toBe(TOTAL_COUNT - 1));
