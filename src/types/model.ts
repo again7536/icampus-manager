@@ -1,3 +1,5 @@
+type LectureType = "mp4" | "everlec" | "movie" | "zoom" | "screenlecture";
+
 interface Course {
   id: number;
   name: string;
@@ -66,7 +68,7 @@ interface AssignmentDetail {
   score: null | number;
   commons_content?: {
     content_id: string;
-    content_type: string;
+    content_type: LectureType | "pdf";
     view_url: string;
     thumbnail_url: string;
     progress_support: boolean;
@@ -119,4 +121,4 @@ interface CourseStatus {
   none_count: number;
 }
 
-export type { Course, Assignment, AssignmentDetail, AssignmentInfos, CourseStatus };
+export type { LectureType, Course, Assignment, AssignmentDetail, AssignmentInfos, CourseStatus };

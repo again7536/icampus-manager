@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfos, LectureType } from "@/types";
 
 interface MockedAssignmentsFactoryParams {
   amount: {
@@ -61,7 +61,7 @@ const mockedAssignmentInfosFactory = ({
         commons_content: !isWork
           ? {
               content_id: faker.random.alphaNumeric(7),
-              content_type: types[idx],
+              content_type: types[idx] as LectureType,
               duration: +faker.random.numeric(3),
               progress_support: true,
               thumbnail_url: "",

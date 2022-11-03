@@ -11,6 +11,7 @@ import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import TabIcon from "@mui/icons-material/Tab";
 import * as S from "./styled";
 
 const MemoizedAssignmentList = memo(AssignmentList);
@@ -61,6 +62,9 @@ function Main() {
     setCheckable(false);
     setChecked(new Set());
   };
+  const handleOpenTab = () => {
+    chrome.tabs.create({ url: "popup.html" });
+  };
 
   return (
     <>
@@ -78,6 +82,11 @@ function Main() {
             margin-left: auto;
           `}
         >
+          <Tooltip title="새 탭에서 열기">
+            <IconButton onClick={handleOpenTab}>
+              <TabIcon />
+            </IconButton>
+          </Tooltip>
           {isCheckable ? (
             <>
               <Tooltip title="선택 취소">

@@ -51,12 +51,12 @@ describe("Main Section UI Test", () => {
     return $assignmentList?.querySelectorAll("li:not(:first-child)");
   };
   const getRefreshButton = (container: HTMLElement) => {
-    const $button = container.querySelectorAll("button[type=button]")[0];
+    const $button = container.querySelectorAll("button[type=button]")[1];
     expect($button).toBeTruthy();
     return $button as Element;
   };
   const getPlaylistButton = (container: HTMLElement) => {
-    const $button = container.querySelectorAll("button[type=button]")[1];
+    const $button = container.querySelectorAll("button[type=button]")[2];
     expect($button).toBeTruthy();
     return $button as Element;
   };

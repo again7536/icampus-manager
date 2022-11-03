@@ -45,8 +45,10 @@
     return true;
   }
 
-  repeatCheck(checkPlayed).then(() => {
-    setInterval(checkOkCleared, 2000);
-    repeatCheck(checkReplayed, 2000);
-  });
+  // 익스텐션에서 실행될 때만 자동 재생 기능 활성화
+  if (window.parent.parent.location === window.parent.parent.parent.location)
+    repeatCheck(checkPlayed).then(() => {
+      setInterval(checkOkCleared, 2000);
+      repeatCheck(checkReplayed, 2000);
+    });
 })();
