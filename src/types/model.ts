@@ -1,4 +1,4 @@
-type LectureType = "mp4" | "everlec" | "movie" | "zoom" | "screenlecture";
+type LectureType = "mp4" | "everlec" | "movie" | "zoom" | "screenlecture" | "youtube";
 
 interface Course {
   id: number;

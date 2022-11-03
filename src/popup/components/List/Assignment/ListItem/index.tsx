@@ -1,3 +1,4 @@
+import { LECTURE_TYPE } from "@/constants";
 import { AssignmentInfos } from "@/types";
 import { Checkbox, css, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
 import moment from "moment/min/moment-with-locales";
@@ -28,7 +29,7 @@ function AssignmentListItem({
 
   return (
     <ListItem disablePadding role="listitem">
-      {checkable && (
+      {checkable && assignment.commons_content?.content_type !== LECTURE_TYPE.YOUTUBE && (
         <ListItemIcon>
           <Checkbox
             checked={checked}
