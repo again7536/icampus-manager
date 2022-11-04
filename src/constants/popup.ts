@@ -20,6 +20,7 @@ const ROUTES: Route = {
 
 const SETTINGS: SettingsInfo = {
   DDAY: { title: "기한을 남은 시간으로 표기", defaultValue: false, type: "switch" },
+  WINDOW: { title: "확장을 새 탭 대신 창으로 열기", defaultValue: false, type: "switch" },
 };
 
 const ERRORS: ErrorInfo = {

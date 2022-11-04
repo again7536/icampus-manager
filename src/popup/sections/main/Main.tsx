@@ -16,6 +16,17 @@ import * as S from "./Main.style";
 
 const MemoizedAssignmentList = memo(AssignmentList);
 
+const POPUP_URL = "popup.html";
+const WINDOW_HEIGHT = 600;
+const WINDOW_WIDTH = 510;
+const DROPDOWN_LABEL = "표시할 과목";
+const OPEN_TAB_BUTTON_TEXT = "새 탭에서 열기";
+const OPEN_WINDOW_BUTTON_TEXT = "새 창에서 열기";
+const CANCEL_BUTTON_TEXT = "선택 취소";
+const CONFIRM_BUTTON_TEXT = "재생목록에 추가";
+const ADD_PLAYLIST_BUTTON_TEXT = "재생목록 선택";
+const UPDATE_BUTTON_TEXT = "강의 데이터 업데이트";
+
 function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -64,14 +75,21 @@ function Main() {
     setChecked(new Set());
   };
   const handleOpenTab = () => {
-    chrome.tabs.create({ url: "popup.html" });
+    if (settings.WINDOW)
+      chrome.windows.create({
+        url: POPUP_URL,
+        width: WINDOW_WIDTH,
+        height: WINDOW_HEIGHT,
+        type: "panel",
+      });
+    else chrome.tabs.create({ url: POPUP_URL });
   };
 
   return (
     <>
       <S.ControlWrapper>
         <SelectCheck
-          label="표시할 과목"
+          label={DROPDOWN_LABEL}
           items={coursesMap}
           onChange={handleSelectChange}
           selected={selectedCourses}
@@ -84,19 +102,19 @@ function Main() {
             margin-left: auto;
           `}
         >
-          <Tooltip title="새 탭에서 열기">
+          <Tooltip title={settings.WINDOW ? OPEN_WINDOW_BUTTON_TEXT : OPEN_TAB_BUTTON_TEXT}>
             <IconButton onClick={handleOpenTab}>
               <TabIcon />
             </IconButton>
           </Tooltip>
           {isCheckable ? (
             <>
-              <Tooltip title="선택 취소">
+              <Tooltip title={CANCEL_BUTTON_TEXT}>
                 <IconButton onClick={handleCancelSelect}>
                   <ClearIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="재생 목록에 추가">
+              <Tooltip title={CONFIRM_BUTTON_TEXT}>
                 <IconButton onClick={handleConfirmSelect}>
                   <CheckIcon />
                 </IconButton>
@@ -104,7 +122,7 @@ function Main() {
             </>
           ) : (
             <>
-              <Tooltip title="강의 데이터 업데이트">
+              <Tooltip title={UPDATE_BUTTON_TEXT}>
                 <IconButton onClick={() => queryClient.invalidateQueries()}>
                   <CachedIcon
                     css={css`
@@ -113,7 +131,7 @@ function Main() {
                   />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="재생 목록 선택">
+              <Tooltip title={ADD_PLAYLIST_BUTTON_TEXT}>
                 <IconButton onClick={handleClickAddPlaylist}>
                   <PlaylistAddIcon />
                 </IconButton>

@@ -8,7 +8,7 @@ interface Route {
   };
 }
 
-type SettingsKey = "DDAY";
+type SettingsKey = "DDAY" | "WINDOW";
 type SettingsInput = "switch" | "number";
 type Settings = {
   [key in SettingsKey]: boolean | string;
