@@ -13,6 +13,7 @@ interface SelectCheckProps {
   items: Map<number, string>;
   onChange: (event: SelectChangeEvent<number[]>, child: ReactNode) => void;
   selected: number[];
+  isLoading?: boolean;
 }
 
 const ITEM_HEIGHT = 48;
@@ -26,7 +27,13 @@ const MenuProps = {
   },
 };
 
-export default function SelectCheck({ label, items, onChange, selected }: SelectCheckProps) {
+export default function SelectCheck({
+  label,
+  items,
+  onChange,
+  selected,
+  isLoading,
+}: SelectCheckProps) {
   const [isFocused, setFocused] = useState<boolean>(false);
 
   return (
@@ -42,13 +49,15 @@ export default function SelectCheck({ label, items, onChange, selected }: Select
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           input={<OutlinedInput label={label} />}
-          renderValue={(values) => (
-            <Box sx={{ display: "flex", flexWrap: isFocused ? "wrap" : undefined, gap: 0.5 }}>
-              {values.map((value) => (
-                <Chip key={value} label={items.get(value)} />
-              ))}
-            </Box>
-          )}
+          renderValue={(values) =>
+            isLoading || (
+              <Box sx={{ display: "flex", flexWrap: isFocused ? "wrap" : undefined, gap: 0.5 }}>
+                {values.map((value) => (
+                  <Chip key={value} label={items.get(value)} />
+                ))}
+              </Box>
+            )
+          }
           MenuProps={MenuProps}
         >
           {[...items.entries()].map((item) => (

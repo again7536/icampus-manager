@@ -38,12 +38,26 @@ describe("SelectCheck UI test", () => {
 
   const getChips = (container: HTMLElement) => {
     const $chips = container.querySelectorAll(".MuiChip-root");
-    expect($chips.length).not.toBeLessThan(1);
     return $chips;
   };
 
   beforeEach(() => mockStorage());
   afterEach(() => cleanup());
+
+  test("Chips should not be rendered while loading", async () => {
+    const { getSelected, onChange } = setupSelected([...itemsMap.keys()]);
+    const { container } = await render(
+      <SelectCheck
+        label={SELECT_CHECK_LABEL}
+        items={itemsMap}
+        selected={getSelected()}
+        onChange={onChange}
+        isLoading
+      />
+    );
+
+    expect(getChips(container).length).toBe(0);
+  });
 
   test("Chips should be rendered according to selected items", async () => {
     const { getSelected, onChange } = setupSelected([...itemsMap.keys()]);

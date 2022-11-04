@@ -11,6 +11,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
 import GlobalStyle from "@/styles/global";
+import { AxiosError } from "axios";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -22,6 +23,11 @@ const queryClient = new QueryClient({
     queries: {
       cacheTime: 1000 * 60 * 60 * 24,
       staleTime: 1000 * 60 * 60 * 24,
+      suspense: true,
+      retry: (failureCount, error) => {
+        if ((error as AxiosError).response?.status === 401) return false;
+        return failureCount < 3;
+      },
     },
   },
 });
