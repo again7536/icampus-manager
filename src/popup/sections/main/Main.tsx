@@ -3,7 +3,7 @@ import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
 import { useMemo, useState, memo } from "react";
 import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
-import { useQueryClient } from "@tanstack/react-query";
+import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
 import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
@@ -12,7 +12,7 @@ import SelectCheck from "@/popup/components/SelectCheck/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabIcon from "@mui/icons-material/Tab";
-import * as S from "./styled";
+import * as S from "./Main.style";
 
 const MemoizedAssignmentList = memo(AssignmentList);
 
@@ -20,6 +20,7 @@ function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
   const [checked, setChecked] = useState<Set<number>>(new Set());
   const [isCheckable, setCheckable] = useState<boolean>(false);
+  const isRestoring = useIsRestoring();
   const settings = useAtomValue(settingsAtom);
 
   const queryClient = useQueryClient();
@@ -74,6 +75,7 @@ function Main() {
           items={coursesMap}
           onChange={handleSelectChange}
           selected={selectedCourses}
+          isLoading={isRestoring}
         />
 
         {/* button groups */}
@@ -128,14 +130,14 @@ function Main() {
         checkable={isCheckable}
         checked={checked}
         onCheck={handleCheck}
-        isLoading={results.some((result) => result.isLoading)}
+        isLoading={results.some((result) => result.isLoading) || isRestoring}
         timeAsLeft={!!settings.DDAY}
       />
       <MemoizedAssignmentList
         assignments={workAssignments}
         courses={courses ?? []}
         title="과제"
-        isLoading={results.some((result) => result.isLoading)}
+        isLoading={results.some((result) => result.isLoading) || isRestoring}
         timeAsLeft={!!settings.DDAY}
       />
     </>

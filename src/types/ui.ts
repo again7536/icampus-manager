@@ -10,11 +10,9 @@ interface Route {
 
 type SettingsKey = "DDAY";
 type SettingsInput = "switch" | "number";
-
 type Settings = {
   [key in SettingsKey]: boolean | string;
 };
-
 type SettingsInfo = {
   [key in SettingsKey]: {
     title: string;
@@ -23,4 +21,12 @@ type SettingsInfo = {
   };
 };
 
-export type { Route, SettingsKey, SettingsInput, Settings, SettingsInfo };
+type ErrorKey = "AUTH" | "UNEXPECTED";
+type ErrorInfo = {
+  [key in ErrorKey]: {
+    name: string;
+    message: string;
+  };
+};
+
+export type { Route, SettingsKey, SettingsInput, Settings, SettingsInfo, ErrorKey, ErrorInfo };
