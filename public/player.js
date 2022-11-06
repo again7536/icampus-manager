@@ -14,7 +14,7 @@
     return new Promise((resolve, reject) => {
       (function waitFor() {
         try {
-          if (isTimeout && checkTimeout()) return reject(TIMEOUT_ERR_TEXT);
+          if (timeout && checkTimeout()) return reject(TIMEOUT_ERR_TEXT);
           if (checker()) return resolve();
 
           setTimeout(waitFor, interval);
