@@ -2,6 +2,7 @@ import { ErrorInfo, Route, SettingsInfo } from "@/types";
 import ListIcon from "@mui/icons-material/List";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import SettingsIcon from "@mui/icons-material/Settings";
+import SimCardDownloadIcon from "@mui/icons-material/SimCardDownload";
 
 const ROUTES: Route = {
   INDEX: {
@@ -11,6 +12,10 @@ const ROUTES: Route = {
   PLAYLIST: {
     path: "/playlist",
     Icon: SmartDisplayIcon,
+  },
+  MATERIALS: {
+    path: "/materials",
+    Icon: SimCardDownloadIcon,
   },
   SETTINGS: {
     path: "/settings",
