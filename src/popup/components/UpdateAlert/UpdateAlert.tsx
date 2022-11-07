@@ -2,7 +2,7 @@ import { Alert, AlertTitle } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { versionAtom } from "@/atoms";
-import * as S from "./styled";
+import * as S from "./UpdateAlert.style";
 
 const RELEASES_NOTE = "https://github.com/again7536/icampus-manager/releases";
 

@@ -4,6 +4,14 @@ interface Course {
   id: number;
   name: string;
   account_id: number;
+  enrollments: {
+    type: string;
+    role: string;
+    role_id: number;
+    user_id: number;
+    // enrollment_state: string;
+    // limit_privileges_to_course_section: boolean;
+  }[];
   // uuid: string;
   // start_at: string;
   // grading_standard_id: null;
@@ -26,14 +34,6 @@ interface Course {
   // };
   // time_zone: string;
   // blueprint: boolean;
-  enrollments: {
-    type: string;
-    role: string;
-    role_id: number;
-    user_id: number;
-    // enrollment_state: string;
-    // limit_privileges_to_course_section: boolean;
-  }[];
   // hide_final_grades: boolean;
   // workflow_state: number;
   // restrict_enrollments_to_course_dates: boolean;
@@ -59,9 +59,9 @@ interface AssignmentDetail {
   points_possible: number;
   grading_type: string;
   submission_types: string[];
-  // omit_from_final_grade: boolean;
+
   muted: boolean;
-  // is_master_course_child_content: boolean;
+
   has_error_external_url: boolean;
   submitted: boolean;
   grade: null | number;
@@ -80,9 +80,13 @@ interface AssignmentDetail {
   use_attendance: boolean;
   completed: boolean;
   attendance_status: string;
+  // omit_from_final_grade: boolean;
+  // is_master_course_child_content: boolean;
 }
 
 interface Assignment {
+  id: number;
+  name: string;
   content_id: string;
   content_type: string;
   view_url: string;
@@ -92,9 +96,6 @@ interface Assignment {
   section_id: number;
   subsection_id: number;
   component_id: number;
-  // section_position: number;
-  // subsection_position: number;
-  // component_position: number;
   due_at: string;
   lock_at: string;
   unlock_at: string;
@@ -104,9 +105,10 @@ interface Assignment {
   //   timezone_type: number;
   //   timezone: string;
   // };
-  id: number;
-  name: string;
   // omit_from_final_grade: boolean;
+  // section_position: number;
+  // subsection_position: number;
+  // component_position: number;
 }
 
 type AssignmentInfos = Partial<Assignment> & AssignmentDetail & { course_id: number };

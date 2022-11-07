@@ -7,7 +7,7 @@ import { ATOM_KEYS, LIST_SKELETON_COUNT } from "@/constants";
 import { chrome } from "jest-chrome";
 import "@testing-library/jest-dom";
 import "@/api";
-import Main from ".";
+import Main from "./Main";
 
 function getConstants() {
   const COURSE_COUNT = 4;

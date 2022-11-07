@@ -1,10 +1,23 @@
 (() => {
-  function repeatCheck(checker, timeout = 300) {
+  const TIMEOUT_ERR_TEXT = "__TIMEOUT__";
+  const DEFAULT_INTERVAL = 300;
+  const DEFAULT_WAIT_TIMEOUT = 0;
+
+  function waitFor({ checker, interval = DEFAULT_INTERVAL, timeout = DEFAULT_WAIT_TIMEOUT }) {
+    let isTimeout = false;
+    const checkTimeout = () => isTimeout;
+    if (DEFAULT_WAIT_TIMEOUT)
+      setTimeout(() => {
+        isTimeout = true;
+      }, timeout);
+
     return new Promise((resolve, reject) => {
       (function waitFor() {
         try {
+          if (timeout && checkTimeout()) return reject(TIMEOUT_ERR_TEXT);
           if (checker()) return resolve();
-          else setTimeout(waitFor, timeout);
+
+          setTimeout(waitFor, interval);
         } catch (err) {
           return reject(err);
         }
@@ -12,43 +25,51 @@
     });
   }
 
-  /* TODO: naive 솔루션 말고 스크립트 로드 완료되면 실행하도록 변경 */
-  function checkPlayed() {
-    const $frontScreen = document.querySelector("#front-screen");
-    const $playBtn = $frontScreen?.querySelector(".vc-front-screen-play-btn");
+  function observeOkAndClear() {
+    new MutationObserver(() => {
+      const $confirmDialog = document.querySelector("#confirm-dialog");
+      const $okBtn = $confirmDialog.querySelector(".confirm-ok-btn");
+      if (!$confirmDialog || !$okBtn) return;
+      if ($confirmDialog.style.display !== "table") return;
 
+      $okBtn.click();
+    }).observe(document.querySelector("#confirm-dialog"), { attributes: true });
+  }
+
+  function observeReplay() {
+    new MutationObserver(() => {
+      const $replayBtn = document.querySelector(".player-restart-btn");
+      if (!$replayBtn) return;
+      if (!$replayBtn.style.display || $replayBtn.style.display === "none") return;
+
+      $replayBtn.click();
+      window.parent.parent.postMessage("end", `chrome-extension://${chrome.runtime.id}/`);
+    }).observe(document.querySelector(".player-restart-btn"), { attributes: true });
+  }
+
+  function checkPlay() {
+    const $frontScreen = document.querySelector("#front-screen");
     if (!$frontScreen) return false;
     if ($frontScreen.style.display === "none") return true;
 
+    const $playBtn = $frontScreen.querySelector(".vc-front-screen-play-btn");
     $playBtn.click();
-    return false;
   }
-
-  function checkOkCleared() {
-    const $confirmDialog = document.querySelector("#confirm-dialog");
-    const $okBtn = $confirmDialog?.querySelector(".confirm-ok-btn");
-
-    if (!$confirmDialog) return false;
-    if ($confirmDialog.style.display === "none") return true;
-
-    $okBtn.click();
-    return false;
-  }
-
-  function checkReplayed() {
-    const $replayBtn = document.querySelector(".player-restart-btn");
-    if (!$replayBtn) return false;
-    if (!$replayBtn.style.display || $replayBtn.style.display === "none") return false;
-
-    $replayBtn.click();
-    window.parent.parent.postMessage("end", `chrome-extension://${chrome.runtime.id}/`);
-    return true;
-  }
+  const clickPlayrateTwice = () =>
+    document.querySelector(".vc-pctrl-playback-rate-btn:last-child").click();
+  const clickMute = () => document.querySelector(".vc-pctrl-volume-btn").click();
 
   // 익스텐션에서 실행될 때만 자동 재생 기능 활성화
   if (window.parent.parent.location === window.parent.parent.parent.location)
-    repeatCheck(checkPlayed).then(() => {
-      setInterval(checkOkCleared, 2000);
-      repeatCheck(checkReplayed, 2000);
-    });
+    waitFor({ checker: checkPlay, timeout: 2000 })
+      .then(() => {
+        clickMute();
+        clickPlayrateTwice();
+        observeOkAndClear();
+        observeReplay();
+      })
+      .catch((err) => {
+        console.log(err);
+        moveToNext();
+      });
 })();

@@ -40,11 +40,6 @@ function useMemoAssignments({
     return videos;
   }, [assignments, attendanceOnly]);
 
-  const pdfAssignments = useMemo(
-    () => assignments.filter((assginment) => assginment.commons_content?.content_type === "pdf"),
-    [assignments]
-  );
-
   const workAssignments = useMemo(() => {
     const others = assignments.filter(
       (assignment) => assignment.type === "assignment" || assignment.type === "quiz"
@@ -53,7 +48,7 @@ function useMemoAssignments({
     return others;
   }, [assignments, attendanceOnly]);
 
-  return { assignments, videoAssignments, pdfAssignments, workAssignments };
+  return { assignments, videoAssignments, workAssignments };
 }
 
 export { useMemoAssignments };

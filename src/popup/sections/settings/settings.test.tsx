@@ -2,7 +2,7 @@ import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
 import "@testing-library/jest-dom";
 import { cleanup, screen } from "@testing-library/react";
-import Settings from ".";
+import Settings from "./Settings";
 
 describe("Settings section UI test", () => {
   beforeEach(() => mockStorage());

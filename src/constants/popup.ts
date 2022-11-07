@@ -1,7 +1,8 @@
-import { Route, SettingsInfo } from "@/types";
+import { ErrorInfo, Route, SettingsInfo } from "@/types";
 import ListIcon from "@mui/icons-material/List";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import SettingsIcon from "@mui/icons-material/Settings";
+import SimCardDownloadIcon from "@mui/icons-material/SimCardDownload";
 
 const ROUTES: Route = {
   INDEX: {
@@ -12,6 +13,10 @@ const ROUTES: Route = {
     path: "/playlist",
     Icon: SmartDisplayIcon,
   },
+  MATERIALS: {
+    path: "/materials",
+    Icon: SimCardDownloadIcon,
+  },
   SETTINGS: {
     path: "/settings",
     Icon: SettingsIcon,
@@ -20,8 +25,20 @@ const ROUTES: Route = {
 
 const SETTINGS: SettingsInfo = {
   DDAY: { title: "기한을 남은 시간으로 표기", defaultValue: false, type: "switch" },
+  WINDOW: { title: "확장을 새 탭 대신 창으로 열기", defaultValue: false, type: "switch" },
+};
+
+const ERRORS: ErrorInfo = {
+  AUTH: {
+    name: "Auth",
+    message: "아이캠퍼스 로그인이 필요합니다.",
+  },
+  UNEXPECTED: {
+    name: "Unexpected",
+    message: "예상하지 못한 에러가 발생했습니다.",
+  },
 };
 
 const LIST_SKELETON_COUNT = 4;
 
-export { ROUTES, LIST_SKELETON_COUNT, SETTINGS };
+export { ROUTES, LIST_SKELETON_COUNT, SETTINGS, ERRORS };
