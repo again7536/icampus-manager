@@ -37,13 +37,17 @@
   }
 
   function observeReplay() {
+    let timeoutId = null;
     new MutationObserver(() => {
       const $replayBtn = document.querySelector(".player-restart-btn");
       if (!$replayBtn) return;
       if (!$replayBtn.style.display || $replayBtn.style.display === "none") return;
 
-      $replayBtn.click();
-      window.parent.parent.postMessage("end", `chrome-extension://${chrome.runtime.id}/`);
+      if (!timeoutId)
+        timeoutId = setTimeout(() => {
+          $replayBtn.click();
+          window.parent.parent.postMessage("end", `chrome-extension://${chrome.runtime.id}/`);
+        }, 1000);
     }).observe(document.querySelector(".player-restart-btn"), { attributes: true });
   }
 
