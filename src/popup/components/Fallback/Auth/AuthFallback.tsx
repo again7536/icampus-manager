@@ -5,7 +5,7 @@ import * as S from "./AuthFallback.style";
 function AuthFallback() {
   const handleClick = () => {
     chrome.tabs.create({
-      url: "https://icampus.skku.edu/xn-sso/login.php?auto_login=true&sso_only=true&cvs_lgn=&return_url=https%3A%2F%2Ficampus.skku.edu%2Fxn-sso%2Fgw-cb.php%3Ffrom%3Dweb_redirect%26login_type%3Dstandalone%26return_url%3Dhttps%253A%252F%252Fcanvas.skku.edu%252Flearningx%252Flogin",
+      url: "https://canvas.skku.edu/",
     });
   };
 

@@ -1,5 +1,5 @@
 import { Box, List, ListSubheader, Typography } from "@mui/material";
-import { useMemo, memo } from "react";
+import { memo } from "react";
 import { AssignmentInfos, Course } from "@/types";
 import { LIST_SKELETON_COUNT } from "@/constants";
 import AssignmentListItem from "./ListItem/ListItem";
@@ -29,34 +29,37 @@ function AssignmentList({
   onCheck,
   timeAsLeft,
 }: AssignmentListProps) {
-  const ListItems = useMemo(() => {
-    if (isLoading)
-      return Array.from({ length: LIST_SKELETON_COUNT }, (_, v) => v).map((val) => (
-        <AssignmentSkeletonItem key={val} />
-      ));
-    if (assignments.length > 0)
-      return assignments.map((assignment) => (
-        <MemoizedAssignmentListItem
-          key={assignment.id}
-          assignment={assignment}
-          courseName={courses.find((course) => course.id === assignment.course_id)?.name ?? ""}
-          checked={checked?.has(assignment.assignment_id)}
-          checkable={checkable}
-          onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
-          timeAsLeft={timeAsLeft}
-        />
-      ));
-    return (
-      <S.BlankList>
-        <Typography variant="h5">야호! 다 끝냈어요!</Typography>
-      </S.BlankList>
-    );
-  }, [assignments, checkable, checked, courses, isLoading, onCheck, timeAsLeft]);
-
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", padding: "0 10px" }}>
       <nav>
-        <List subheader={<ListSubheader> {title} </ListSubheader>}>{ListItems}</List>
+        <List subheader={<ListSubheader> {title} </ListSubheader>}>
+          {
+            // eslint-disable-next-line no-nested-ternary
+            isLoading ? (
+              Array.from({ length: LIST_SKELETON_COUNT }, (_, v) => v).map((val) => (
+                <AssignmentSkeletonItem key={val} />
+              ))
+            ) : assignments.length > 0 ? (
+              assignments.map((assignment) => (
+                <MemoizedAssignmentListItem
+                  key={assignment.id}
+                  assignment={assignment}
+                  courseName={
+                    courses.find((course) => course.id === assignment.course_id)?.name ?? ""
+                  }
+                  checked={checked?.has(assignment.assignment_id)}
+                  checkable={checkable}
+                  onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
+                  timeAsLeft={timeAsLeft}
+                />
+              ))
+            ) : (
+              <S.BlankList>
+                <Typography variant="h5">야호! 다 끝냈어요!</Typography>
+              </S.BlankList>
+            )
+          }
+        </List>
       </nav>
     </Box>
   );

@@ -7,6 +7,7 @@ import { ROUTES } from "@/constants";
 import ErrorBoundary from "@/popup/components/ErrorBoundary/ErrorBoundary";
 import UpdateAlert from "@/popup/components/UpdateAlert/UpdateAlert";
 import GlobalSnackbar from "@/popup/components/Snackbar/Snackbar";
+import LectureMaterials from "./sections/LectureMaterials/LectureMaterials";
 import * as S from "./styled";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path={ROUTES.INDEX.path} element={<Main />} />
           <Route path={ROUTES.PLAYLIST.path} element={<Lectures />} />
+          <Route path={ROUTES.MATERIALS.path} element={<LectureMaterials />} />
           <Route path={ROUTES.SETTINGS.path} element={<Settings />} />
         </Routes>
       </ErrorBoundary>
