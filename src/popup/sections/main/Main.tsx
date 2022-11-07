@@ -1,6 +1,6 @@
 import AssignmentList from "@/popup/components/List/Assignment/AssignmentList";
 import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
-import { useMemo, useState, memo } from "react";
+import { useMemo, useState, memo, useCallback } from "react";
 import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
@@ -55,13 +55,16 @@ function Main() {
     [courses]
   );
 
-  const handleCheck = (id: number) =>
-    setChecked((prev) => {
-      const next = new Set(prev);
-      if (prev.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+  const handleCheck = useCallback(
+    (id: number) =>
+      setChecked((prev) => {
+        const next = new Set(prev);
+        if (prev.has(id)) next.delete(id);
+        else next.add(id);
+        return next;
+      }),
+    []
+  );
   const handleSelectChange = (e: SelectChangeEvent<number[]>) =>
     setSelectedCourses([...(e.target.value as number[])]);
 
