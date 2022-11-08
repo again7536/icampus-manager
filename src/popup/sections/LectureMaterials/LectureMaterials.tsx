@@ -21,8 +21,9 @@ function LectureMaterials() {
   const materials = useMemoMaterials({ results });
 
   const handleClickDownload = async () => {
-    const zip = new JSZip();
+    if (checked.size < 1) return;
 
+    const zip = new JSZip();
     (
       await Promise.all(
         materials
@@ -55,8 +56,8 @@ function LectureMaterials() {
       const url = URL.createObjectURL(blob);
       window.open(url, "_blank");
       URL.revokeObjectURL(url);
+      setProgress(false);
     });
-    setProgress(false);
   };
 
   return (
@@ -68,7 +69,12 @@ function LectureMaterials() {
         <ListSubheader component="div" id="material-list-subheader">
           {MATERIALS_LIST_SUBHEADER}
           <S.ButtonGroup>
-            <Button type="button" variant="contained" onClick={handleClickDownload}>
+            <Button
+              type="button"
+              variant="contained"
+              onClick={handleClickDownload}
+              disabled={checked.size < 1}
+            >
               {DOWNLOAD_BUTTON_TEXT}
             </Button>
           </S.ButtonGroup>
