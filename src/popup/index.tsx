@@ -12,11 +12,21 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
 import GlobalStyle from "@/styles/global";
 import { AxiosError } from "axios";
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
   throw new Error("Failed to find the root element");
 }
+
+Sentry.init({
+  dsn: "https://8dd7e97aae254e40aefb19f1d554eeac@o4504121681641472.ingest.sentry.io/4504121692651520",
+  integrations: [new BrowserTracing()],
+
+  // 20% of transactions will be sended
+  tracesSampleRate: 0.2,
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
