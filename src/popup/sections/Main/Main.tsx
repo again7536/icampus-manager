@@ -36,10 +36,7 @@ function Main() {
 
   const queryClient = useQueryClient();
   const setPlayList = useSetAtom(playListAtom);
-  const { data: courses } = useCourses({
-    onSuccess: (data) =>
-      selectedCourses.length === 0 && setSelectedCourses(data.map((course) => course.id)),
-  });
+  const { data: courses } = useCourses();
   const results = useAssignments({
     courseIds: courses?.map((course) => course.id),
     userId: courses?.[0].enrollments[0].user_id,
