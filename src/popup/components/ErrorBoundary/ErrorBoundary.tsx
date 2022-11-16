@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { Component, ErrorInfo, ReactNode } from "react";
 import AuthFallback from "@/popup/components/Fallback/Auth/AuthFallback";
 import UnexpectedFallback from "@/popup/components/Fallback/Unexpected/UnexpectedFallback";
+import * as Sentry from "@sentry/browser";
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
@@ -34,7 +35,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    const { errorType } = this.state;
     console.error(error, errorInfo);
+
+    if (errorType === ERROR_TYPES.Unexpected && process.env.NODE_ENV === "production") {
+      Sentry.captureException(error, { extra: { errorInfo } });
+    }
   }
 
   public render() {

@@ -26,6 +26,7 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
+    "@sentry/browser": "^7.19.0",
     "@sentry/react": "^7.17.4",
     "@sentry/tracing": "^7.17.4",
     "@tanstack/query-async-storage-persister": "^4.12.0",
