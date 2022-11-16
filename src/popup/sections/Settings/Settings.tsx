@@ -5,7 +5,7 @@ import { List, ListSubheader, ListItem, ListItemText, Button, Divider } from "@m
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import * as S from "./Settings.style";
-import SettingsItem from "./SettingsItem/SettingsItem";
+import SettingsItem from "../../components/SettingsItem/SettingsItem";
 
 const SETTINGS_SUBHEADER = "설정";
 const SNACKBAR_MESSAGE = "설정이 저장되었습니다.";
