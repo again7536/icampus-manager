@@ -53,6 +53,8 @@ const SETTINGS: SettingsInfo = {
   },
 };
 
+const PLAYRATE = [999999, 0.5, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0];
+
 const ERRORS: ErrorInfo = {
   AUTH: {
     name: "Auth",
@@ -66,4 +68,4 @@ const ERRORS: ErrorInfo = {
 
 const LIST_SKELETON_COUNT = 4;
 
-export { ROUTES, LIST_SKELETON_COUNT, SETTINGS, SETTINGS_TYPE, ERRORS };
+export { ROUTES, LIST_SKELETON_COUNT, SETTINGS, SETTINGS_TYPE, ERRORS, PLAYRATE };
