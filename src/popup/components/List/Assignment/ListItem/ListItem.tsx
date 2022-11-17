@@ -1,10 +1,8 @@
 import { LECTURE_TYPE } from "@/constants";
 import { AssignmentInfos } from "@/types";
 import { Checkbox, css, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
-import moment from "moment/min/moment-with-locales";
+import moment from "@/utils/momentKo";
 import * as S from "./ListItem.style";
-
-moment.locale("ko");
 
 interface AssignmentListItemProps {
   assignment: AssignmentInfos;
