@@ -3,7 +3,7 @@ import { render } from "@/__test__/customRender";
 import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import mockStorage from "@/__test__/mock/storage";
 import mockedCoursesFactory from "@/__test__/mock/courses";
-import { screen, cleanup, fireEvent, waitFor } from "@testing-library/react";
+import { screen, cleanup, waitFor } from "@testing-library/react";
 import { chrome } from "jest-chrome";
 import "@testing-library/jest-dom";
 import "@/api";
@@ -45,14 +45,6 @@ describe("Playlist Section UI Test", () => {
     const assignments = mockedAssignmentInfosFactory({ amount: ASSIGNMENT_COUNT });
     await chrome.storage.local.set({ [ATOM_KEYS.PLAYLIST]: assignments });
   };
-  const fireMessageEvent = () => {
-    const event = new Event("message");
-    Object.defineProperties(event, {
-      origin: { value: "https://lcms.skku.edu" },
-      data: { value: "end" },
-    });
-    fireEvent(window, event);
-  };
 
   beforeEach(() => mockStorage());
   afterEach(() => cleanup());
@@ -66,13 +58,5 @@ describe("Playlist Section UI Test", () => {
   test("Blank message should be shown properly", async () => {
     await render(<Lectures />);
     getBlankPlaylist();
-  });
-
-  test("Current item should be removed when message event fires", async () => {
-    await initPlaylist();
-    const { container } = await render(<Lectures />);
-
-    fireMessageEvent();
-    await waitFor(() => expect(getPlaylistItems(container).length).toBe(TOTAL_COUNT - 1));
   });
 });
