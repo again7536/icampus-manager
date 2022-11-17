@@ -1,7 +1,6 @@
 import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
 import { faker } from "@faker-js/faker";
-import { SelectChangeEvent } from "@mui/material";
 import { screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SelectCheck from "./SelectCheck";
@@ -15,9 +14,8 @@ describe("SelectCheck UI test", () => {
 
   const setupSelected = (initial?: number[]) => {
     let selected: number[] = initial ?? [];
-    const onChange = (e: SelectChangeEvent<number[]>) => {
-      expect(typeof e.target.value).not.toBe("string");
-      selected = [...(e.target.value as number[])];
+    const onChange = (ids: number[]) => {
+      selected = [...ids];
     };
     const getSelected = () => selected;
 
@@ -31,47 +29,16 @@ describe("SelectCheck UI test", () => {
     return $dropdownItems;
   };
 
-  const getSelect = () => {
-    const $control = screen.getByRole("button");
-    return $control as Element;
+  const getCheckbox = async ($container: HTMLElement) => {
+    const $checkbox = $container.querySelector("input[type='checkbox']");
+    expect($checkbox).not.toBeNull();
+    return $checkbox as HTMLInputElement;
   };
 
-  const getChips = (container: HTMLElement) => {
-    const $chips = container.querySelectorAll(".MuiChip-root");
-    return $chips;
-  };
+  const getMenuButton = () => screen.getByRole("button");
 
   beforeEach(() => mockStorage());
   afterEach(() => cleanup());
-
-  test("Chips should not be rendered while loading", async () => {
-    const { getSelected, onChange } = setupSelected([...itemsMap.keys()]);
-    const { container } = await render(
-      <SelectCheck
-        label={SELECT_CHECK_LABEL}
-        items={itemsMap}
-        selected={getSelected()}
-        onChange={onChange}
-        isLoading
-      />
-    );
-
-    expect(getChips(container).length).toBe(0);
-  });
-
-  test("Chips should be rendered according to selected items", async () => {
-    const { getSelected, onChange } = setupSelected([...itemsMap.keys()]);
-    const { container } = await render(
-      <SelectCheck
-        label={SELECT_CHECK_LABEL}
-        items={itemsMap}
-        selected={getSelected()}
-        onChange={onChange}
-      />
-    );
-
-    expect(getChips(container).length).toBe(ITEM_COUNT);
-  });
 
   test("Items in dropdown could be clicked", async () => {
     const { getSelected, onChange } = setupSelected();
@@ -84,7 +51,7 @@ describe("SelectCheck UI test", () => {
       />
     );
 
-    fireEvent.mouseDown(getSelect());
+    fireEvent.click(getMenuButton());
     fireEvent.click((await getDropdownItems())[0]);
 
     rerender(
@@ -96,6 +63,7 @@ describe("SelectCheck UI test", () => {
       />
     );
 
-    expect((await getDropdownItems())[0]).toHaveAttribute("aria-selected", "true");
+    const $checkbox = await getCheckbox((await getDropdownItems())[0]);
+    expect($checkbox).toBeChecked();
   });
 });

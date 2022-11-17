@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
@@ -14,6 +14,7 @@ import GlobalStyle from "@/styles/global";
 import { AxiosError } from "axios";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import { CircularProgress } from "@mui/material";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -57,7 +58,9 @@ root.render(
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <MemoryRouter>
-            <App />
+            <Suspense fallback={<CircularProgress />}>
+              <App />
+            </Suspense>
           </MemoryRouter>
         </ThemeProvider>
       </Provider>
