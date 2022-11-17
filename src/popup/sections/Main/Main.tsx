@@ -5,7 +5,7 @@ import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
-import { IconButton, SelectChangeEvent, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CachedIcon from "@mui/icons-material/Cached";
 import SelectCheck from "@/popup/components/SelectCheck/SelectCheck";
@@ -64,8 +64,9 @@ function Main() {
       }),
     []
   );
-  const handleSelectChange = (e: SelectChangeEvent<number[]>) =>
-    setSelectedCourses([...(e.target.value as number[])]);
+  const handleChange = (ids: number[]) => {
+    setSelectedCourses([...ids]);
+  };
 
   const handleClickAddPlaylist = () => setCheckable(true);
   const handleConfirmSelect = () => {
@@ -93,7 +94,7 @@ function Main() {
         <SelectCheck
           label={DROPDOWN_LABEL}
           items={coursesMap}
-          onChange={handleSelectChange}
+          onChange={handleChange}
           selected={selectedCourses}
           isLoading={isRestoring}
         />
