@@ -1,11 +1,11 @@
 import { settingsAtom, snackbarOpenAtom, versionAtom } from "@/atoms";
 import { SETTINGS } from "@/constants";
 import { SettingsKey, Settings } from "@/types";
+import SettingsItem from "@/popup/components/SettingsItem/SettingsItem";
 import { List, ListSubheader, ListItem, ListItemText, Button, Divider } from "@mui/material";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import * as S from "./Settings.style";
-import SettingsItem from "../../components/SettingsItem/SettingsItem";
 
 const SETTINGS_SUBHEADER = "설정";
 const SNACKBAR_MESSAGE = "설정이 저장되었습니다.";

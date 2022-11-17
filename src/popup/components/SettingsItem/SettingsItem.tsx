@@ -22,6 +22,7 @@ function SettingsItem({
         <ListItemText id={`switch-list-${listKey}`} primary={title} />
         <S.LinkerLine />
         <Switch
+          role="slider"
           edge="end"
           onChange={(e, checked) => onChange(listKey, checked)}
           checked={!!(temporalSetting ?? defaultValue)}
