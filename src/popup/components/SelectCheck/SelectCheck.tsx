@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Menu, IconButton, Skeleton, Tooltip, Typography } from "@mui/material";
+import { Menu, IconButton, Skeleton, Tooltip, Typography, MenuItem } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SelectCheckItem from "./SelectCheckItem/SelectCheckItem";
 
@@ -43,19 +43,21 @@ function SelectCheck({ label, items, onChange, selected, isLoading }: SelectChec
           {label}
         </Typography>
 
-        {isLoading ? (
-          <Skeleton />
-        ) : (
-          [...items.entries()].map(([itemKey, value]) => (
-            <MemoizedSelectCheckItem
-              key={itemKey}
-              itemKey={itemKey}
-              value={value}
-              selected={selected.indexOf(itemKey) > -1}
-              onClick={handleSelectItem}
-            />
-          ))
-        )}
+        {isLoading
+          ? Array.from({ length: 4 }, (_, v) => v).map((val) => (
+              <MenuItem key={val}>
+                <Skeleton />
+              </MenuItem>
+            ))
+          : [...items.entries()].map(([itemKey, value]) => (
+              <MemoizedSelectCheckItem
+                key={itemKey}
+                itemKey={itemKey}
+                value={value}
+                selected={selected.indexOf(itemKey) > -1}
+                onClick={handleSelectItem}
+              />
+            ))}
       </Menu>
     </div>
   );
