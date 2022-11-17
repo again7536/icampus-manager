@@ -26,6 +26,8 @@ const CANCEL_BUTTON_TEXT = "선택 취소";
 const CONFIRM_BUTTON_TEXT = "재생목록에 추가";
 const ADD_PLAYLIST_BUTTON_TEXT = "재생목록 선택";
 const UPDATE_BUTTON_TEXT = "강의 데이터 업데이트";
+const COURSE_LIST_SUBHEADER = "강의";
+const HOMEWORK_LIST_SUBHEADER = "과제";
 
 function Main() {
   const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
@@ -144,7 +146,7 @@ function Main() {
       <MemoizedAssignmentList
         assignments={videoAssignments}
         courses={courses ?? []}
-        title="강의"
+        title={COURSE_LIST_SUBHEADER}
         checkable={isCheckable}
         checked={checked}
         onCheck={handleCheck}
@@ -154,7 +156,7 @@ function Main() {
       <MemoizedAssignmentList
         assignments={workAssignments}
         courses={courses ?? []}
-        title="과제"
+        title={HOMEWORK_LIST_SUBHEADER}
         isLoading={results.some((result) => result.isLoading) || isRestoring}
         timeAsLeft={!!settings.DDAY}
       />

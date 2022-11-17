@@ -1,16 +1,8 @@
 import { settingsAtom, snackbarOpenAtom, versionAtom } from "@/atoms";
 import { SETTINGS } from "@/constants";
 import { SettingsKey, Settings } from "@/types";
-import {
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-  Switch,
-  TextField,
-  Button,
-  Divider,
-} from "@mui/material";
+import SettingsItem from "@/popup/components/SettingsItem/SettingsItem";
+import { List, ListSubheader, ListItem, ListItemText, Button, Divider } from "@mui/material";
 import { useAtom, useSetAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import * as S from "./Settings.style";
@@ -45,29 +37,13 @@ function SettingsSection() {
         subheader={<ListSubheader>{SETTINGS_SUBHEADER}</ListSubheader>}
       >
         {Object.entries(SETTINGS).map(([key, val]) => (
-          <ListItem key={val.title}>
-            <ListItemText id={`switch-list-${key}`} primary={val.title} />
-            <S.LinkerLine />
-            {val.type === "switch" ? (
-              <Switch
-                edge="end"
-                onChange={(e, checked) => handleChange(key as SettingsKey, checked)}
-                checked={!!(temporalSettings[key as SettingsKey] ?? val.defaultValue)}
-                inputProps={{
-                  "aria-labelledby": `switch-list-${key}`,
-                }}
-              />
-            ) : (
-              <TextField
-                sx={{ width: "80px" }}
-                size="small"
-                type="number"
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                value={+temporalSettings[key as SettingsKey]}
-                onChange={(e) => handleChange(key as SettingsKey, e.target.value)}
-              />
-            )}
-          </ListItem>
+          <SettingsItem
+            key={key}
+            listKey={key as SettingsKey}
+            onChange={handleChange}
+            setting={val}
+            temporalSetting={temporalSettings[key as SettingsKey]}
+          />
         ))}
       </List>
       <S.ButtonGroup>

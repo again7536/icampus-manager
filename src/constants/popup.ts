@@ -1,4 +1,4 @@
-import { ErrorInfo, Route, SettingsInfo } from "@/types";
+import { ErrorInfo, Route, SettingsInfo, SettingsType } from "@/types";
 import ListIcon from "@mui/icons-material/List";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -23,9 +23,34 @@ const ROUTES: Route = {
   },
 };
 
+const SETTINGS_TYPE: { [key: string]: SettingsType } = {
+  SELECT: "select",
+  SWITCH: "switch",
+  NUMBER: "number",
+};
+
 const SETTINGS: SettingsInfo = {
-  DDAY: { title: "기한을 남은 시간으로 표기", defaultValue: false, type: "switch" },
-  WINDOW: { title: "확장을 새 탭 대신 창으로 열기", defaultValue: false, type: "switch" },
+  DDAY: { title: "기한을 남은 시간으로 표기", defaultValue: false, type: SETTINGS_TYPE.SWITCH },
+  WINDOW: {
+    title: "확장을 새 탭 대신 창으로 열기",
+    defaultValue: false,
+    type: SETTINGS_TYPE.SWITCH,
+  },
+  PLAYRATE: {
+    title: "재생 속도 변경",
+    defaultValue: "8",
+    type: SETTINGS_TYPE.SELECT,
+    options: [
+      { name: "x0.5", value: "1" },
+      { name: "x0.8", value: "2" },
+      { name: "x1.0", value: "3" },
+      { name: "x1.2", value: "4" },
+      { name: "x1.4", value: "5" },
+      { name: "x1.6", value: "6" },
+      { name: "x1.8", value: "7" },
+      { name: "x2.0", value: "8" },
+    ],
+  },
 };
 
 const ERRORS: ErrorInfo = {
@@ -41,4 +66,4 @@ const ERRORS: ErrorInfo = {
 
 const LIST_SKELETON_COUNT = 4;
 
-export { ROUTES, LIST_SKELETON_COUNT, SETTINGS, ERRORS };
+export { ROUTES, LIST_SKELETON_COUNT, SETTINGS, SETTINGS_TYPE, ERRORS };
