@@ -1,4 +1,4 @@
-import { MenuItem, Checkbox, ListItemText } from "@mui/material";
+import { MenuItem, Checkbox, Typography } from "@mui/material";
 
 interface SelectCheckItemProps {
   itemKey: number;
@@ -11,7 +11,9 @@ function SelectCheckItem({ itemKey, value, selected, onClick }: SelectCheckItemP
   return (
     <MenuItem key={itemKey} onClick={() => onClick(itemKey)}>
       <Checkbox checked={selected} />
-      <ListItemText primary={value} />
+      <Typography variant="inherit" noWrap>
+        {value}
+      </Typography>
     </MenuItem>
   );
 }

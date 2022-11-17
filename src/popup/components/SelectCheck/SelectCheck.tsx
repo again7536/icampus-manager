@@ -38,7 +38,13 @@ function SelectCheck({ label, items, onChange, selected, isLoading }: SelectChec
           <FilterListIcon />
         </IconButton>
       </Tooltip>
-      <Menu id="lecture-checkbox-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <Menu
+        id="lecture-checkbox-menu"
+        sx={{ width: "350px" }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
         <Typography variant="subtitle1" sx={{ px: 3, py: 1 }}>
           {label}
         </Typography>
@@ -46,7 +52,7 @@ function SelectCheck({ label, items, onChange, selected, isLoading }: SelectChec
         {isLoading
           ? Array.from({ length: 4 }, (_, v) => v).map((val) => (
               <MenuItem key={val}>
-                <Skeleton />
+                <Skeleton width="100%" />
               </MenuItem>
             ))
           : [...items.entries()].map(([itemKey, value]) => (
