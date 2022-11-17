@@ -2540,6 +2540,113 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/browser@npm:7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/browser@npm:7.17.4"
+  dependencies:
+    "@sentry/core": 7.17.4
+    "@sentry/types": 7.17.4
+    "@sentry/utils": 7.17.4
+    tslib: ^1.9.3
+  checksum: 9bdac67401edc2ba4abd7fa7928d192c001555efd029d0a6fac4664b75877a4f9d7177a3ef99033de69ca6888dde509bc06fc1879eaab9abf6a676ae532b2408
+  languageName: node
+  linkType: hard
+
+"@sentry/browser@npm:^7.19.0":
+  version: 7.19.0
+  resolution: "@sentry/browser@npm:7.19.0"
+  dependencies:
+    "@sentry/core": 7.19.0
+    "@sentry/types": 7.19.0
+    "@sentry/utils": 7.19.0
+    tslib: ^1.9.3
+  checksum: c267fe90352174c151c2733b98ec7016c2873fa008d3c498a10bc8e3a5ddca7fe6375482f6b652eef9797d0a4931aeb9acec865a19a256e12b313b29ac24ce6e
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/core@npm:7.17.4"
+  dependencies:
+    "@sentry/types": 7.17.4
+    "@sentry/utils": 7.17.4
+    tslib: ^1.9.3
+  checksum: 674921d165fa25837fc090c416db56210d1d3e2f530a474f29b76f6fcb8bb878d53fca5c47c2cc7e3d029c396111b7282c55f81fdef2e0a74a84258c206eb74c
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:7.19.0":
+  version: 7.19.0
+  resolution: "@sentry/core@npm:7.19.0"
+  dependencies:
+    "@sentry/types": 7.19.0
+    "@sentry/utils": 7.19.0
+    tslib: ^1.9.3
+  checksum: c75731c51abd28126cc9396852880e9d63b6e3eb7741cd6ba86d03e8ac21b915649fa82f46fcf64cddddbc345b0cfc78eea698c092aaa1435473a2d70c95da5a
+  languageName: node
+  linkType: hard
+
+"@sentry/react@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/react@npm:7.17.4"
+  dependencies:
+    "@sentry/browser": 7.17.4
+    "@sentry/types": 7.17.4
+    "@sentry/utils": 7.17.4
+    hoist-non-react-statics: ^3.3.2
+    tslib: ^1.9.3
+  peerDependencies:
+    react: 15.x || 16.x || 17.x || 18.x
+  checksum: f1ee0ab9a50244021cc3c80ccd414b5e218f220ae6df4b4332094789283977a21bee99accc4349fa62fac8a93ced02b5c77b5d7b284643cc655531523c363a89
+  languageName: node
+  linkType: hard
+
+"@sentry/tracing@npm:^7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/tracing@npm:7.17.4"
+  dependencies:
+    "@sentry/core": 7.17.4
+    "@sentry/types": 7.17.4
+    "@sentry/utils": 7.17.4
+    tslib: ^1.9.3
+  checksum: 30e70c557449657487ca704e8c9980124b8cedfe6665f8239843731c6ffe4eff4a6148f81d314bd383078845991663d0f158d3a932edd09e4569fa097aa5e99c
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/types@npm:7.17.4"
+  checksum: b0d42c00e470aac7e058fe66171da36083dd9b901deca89400e04806a591a696bcb5012901ae48fd486584a3ad1515d985ce784b99e961fbd01b17a6c38c91be
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:7.19.0":
+  version: 7.19.0
+  resolution: "@sentry/types@npm:7.19.0"
+  checksum: e7a309ff0a23af003f8afbf2c8a7158ce8070e5e63015dc6d06cca11de846fc8c51bea29d9486af0c32191031e6bb42a3c4500f437afe61252fbd20f3c8bfa28
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.17.4":
+  version: 7.17.4
+  resolution: "@sentry/utils@npm:7.17.4"
+  dependencies:
+    "@sentry/types": 7.17.4
+    tslib: ^1.9.3
+  checksum: dee909f9c3102700bee730b492f1ad0680eb52ebee1a48f242fa830bdd7b3d7344ad90ab0f7e3909d4d86a3493d98d06da1b314c74fb5d311b5acda2f0264c07
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.19.0":
+  version: 7.19.0
+  resolution: "@sentry/utils@npm:7.19.0"
+  dependencies:
+    "@sentry/types": 7.19.0
+    tslib: ^1.9.3
+  checksum: 8d1e8c9288e60aed5a1ac22722a5da9606ae821ac39232a0eeba128b1512c48cf22145f7b989f7dca4ad55274bf4e1189871b672bb7387c66866009e0a5f4448
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.46
   resolution: "@sinclair/typebox@npm:0.24.46"
@@ -4269,7 +4376,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
+  languageName: node
+  linkType: hard
+
+"cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -6180,7 +6299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -6311,6 +6430,9 @@ __metadata:
     "@faker-js/faker": ^7.6.0
     "@mui/icons-material": ^5.10.9
     "@mui/material": ^5.10.9
+    "@sentry/browser": ^7.19.0
+    "@sentry/react": ^7.17.4
+    "@sentry/tracing": ^7.17.4
     "@tanstack/query-async-storage-persister": ^4.12.0
     "@tanstack/react-query": ^4.12.0
     "@tanstack/react-query-persist-client": ^4.12.0
@@ -6326,6 +6448,7 @@ __metadata:
     "@vitejs/plugin-react": ^2.1.0
     axios: ^1.1.3
     babel-jest: ^29.2.2
+    cross-env: ^7.0.3
     eslint: 8.24.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^17.0.0

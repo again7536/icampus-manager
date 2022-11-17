@@ -6,8 +6,9 @@ import svgLoader from "vite-svg-loader";
 import { resolve } from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   outDir: "dist",
+  mode,
   plugins: [
     react({
       jsxImportSource: "@emotion/react",
@@ -21,6 +22,7 @@ export default defineConfig(() => ({
   ],
   build: {
     target: "es2022",
+    sourcemap: mode === "production",
     rollupOptions: {
       input: {
         popup: resolve(__dirname, "popup.html"),
