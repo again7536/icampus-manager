@@ -1,4 +1,6 @@
 import { atom } from "jotai";
+import { merge, isPlainObject } from "lodash";
+import produce from "immer";
 
 interface AtomWithAsyncStorageParams<T> {
   key: string;
@@ -13,8 +15,20 @@ const atomWithAsyncStorage = <T>({ key, initialValue }: AtomWithAsyncStoragePara
 
       if (item[key] === undefined) {
         await chrome.storage.local.set({ [key]: initialValue });
+        setValue(initialValue);
         return;
       }
+
+      // do deep merge of object to remove undefined
+      if (isPlainObject(item[key])) {
+        const mergedItem = produce(item[key] as T, (draft: T) => {
+          merge(draft, initialValue, item[key]);
+        });
+        await chrome.storage.local.set({ [key]: mergedItem });
+        setValue(mergedItem);
+        return;
+      }
+
       setValue(item[key]);
     })();
   };
