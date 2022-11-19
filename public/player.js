@@ -2,7 +2,7 @@
   const TIMEOUT_ERR_TEXT = "__TIMEOUT__";
   const DEFAULT_INTERVAL = 300;
   const DEFAULT_WAIT_TIMEOUT = 0;
-  const PLAYRATE = await chrome.runtime.sendMessage({ message: "playrate" });
+  const PLAYRATE = (await chrome.runtime.sendMessage({ message: "playrate" })) ?? "8";
 
   function waitFor({ checker, interval = DEFAULT_INTERVAL, timeout = DEFAULT_WAIT_TIMEOUT }) {
     let isTimeout = false;

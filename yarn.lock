@@ -3044,6 +3044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.189":
+  version: 4.14.189
+  resolution: "@types/lodash@npm:4.14.189"
+  checksum: 096d1e0954794fb76bd6a0ea443067f02004b53e3c59ac6e3fed88817a1468fc2e6614abdf44341f5e0fdff5f9a3c94a934cc9ff7126e07efbcd94355a21fe45
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^3.0.0":
   version: 3.0.10
   resolution: "@types/mdast@npm:3.0.10"
@@ -6442,6 +6449,7 @@ __metadata:
     "@types/jest": ^29.2.0
     "@types/js-cookie": ^3.0.2
     "@types/jszip": ^3.4.1
+    "@types/lodash": ^4.14.189
     "@types/moment": ^2.13.0
     "@types/react": 18.0.21
     "@types/react-dom": 18.0.6
@@ -6459,6 +6467,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-react: 7.31.8
     husky: ^8.0.0
+    immer: ^9.0.16
     jest: ^29.2.2
     jest-chrome: ^0.7.2
     jest-environment-jsdom: ^29.2.2
@@ -6466,6 +6475,7 @@ __metadata:
     jotai: ^1.8.5
     js-cookie: ^3.0.1
     jszip: ^3.10.1
+    lodash: ^4.17.21
     moment: ^2.29.4
     pinst: ^3.0.0
     prettier: ^2.7.1
@@ -6513,6 +6523,13 @@ __metadata:
   version: 3.0.6
   resolution: "immediate@npm:3.0.6"
   checksum: f9b3486477555997657f70318cc8d3416159f208bec4cca3ff3442fd266bc23f50f0c9bd8547e1371a6b5e82b821ec9a7044a4f7b944798b25aa3cc6d5e63e62
+  languageName: node
+  linkType: hard
+
+"immer@npm:^9.0.16":
+  version: 9.0.16
+  resolution: "immer@npm:9.0.16"
+  checksum: e9a5ca65c929b329da7a3b7beccf7984271cda7bdd47b2cab619eac3277dcd56598c211b55cc340786b6eff0c06652ac018808d9fd744443f06882364dece6bc
   languageName: node
   linkType: hard
 
