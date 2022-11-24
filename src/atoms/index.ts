@@ -1,10 +1,10 @@
 import { ATOM_KEYS, SETTINGS } from "@/constants";
-import { AssignmentInfos, Settings } from "@/types";
+import { AssignmentInfo, Settings } from "@/types";
 import atomWithAsyncStorage from "@/utils/atomWithAsyncStorage";
 import { SnackbarProps } from "@mui/material";
 import { atom } from "jotai";
 
-const playListAtom = atomWithAsyncStorage<AssignmentInfos[]>({
+const playListAtom = atomWithAsyncStorage<AssignmentInfo[]>({
   key: ATOM_KEYS.PLAYLIST,
   initialValue: [],
 });

@@ -1,4 +1,4 @@
-import { Course, AssignmentInfos } from "@/types";
+import { Course, AssignmentInfo } from "@/types";
 import {
   ListItem,
   ListItemIcon,
@@ -15,7 +15,7 @@ import MaterialSubitem from "./MaterialSubitem/MaterialSubitem";
 
 interface MaterialListProps {
   courses: Course[];
-  materials: AssignmentInfos[];
+  materials: AssignmentInfo[];
   checked: Set<number>;
   onCheck: (next: Set<number> | ((prev: Set<number>) => Set<number>)) => void;
 }

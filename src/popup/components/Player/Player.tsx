@@ -1,7 +1,7 @@
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfo } from "@/types";
 
 interface PlayerProps {
-  assignment: AssignmentInfos;
+  assignment: AssignmentInfo;
   studentId: string;
 }
 

@@ -1,9 +1,9 @@
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfo } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 interface UseMemoMaterialsParams {
-  results: UseQueryResult<AssignmentInfos[]>[];
+  results: UseQueryResult<AssignmentInfo[]>[];
 }
 
 function useMemoMaterials({ results }: UseMemoMaterialsParams) {

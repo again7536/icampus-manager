@@ -1,10 +1,10 @@
 import { ellipsis } from "@/styles/mixin";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfo } from "@/types";
 import { ListItem, ListItemIcon, Checkbox, ListItemButton, ListItemText } from "@mui/material";
 import { css } from "@emotion/react";
 
 interface MaterialSubitemProps {
-  material: AssignmentInfos;
+  material: AssignmentInfo;
   checked: boolean;
   onCheck: (id: number) => void;
 }

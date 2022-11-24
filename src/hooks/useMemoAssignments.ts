@@ -1,11 +1,11 @@
-import { AssignmentInfos, LectureType } from "@/types";
+import { AssignmentInfo, LectureType } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import moment from "moment";
 import { useMemo } from "react";
 import { LECTURE_TYPE } from "@/constants";
 
 interface UseMemoAssignmentsParams {
-  results: UseQueryResult<AssignmentInfos[]>[];
+  results: UseQueryResult<AssignmentInfo[]>[];
   selectedCourses: number[];
   attendanceOnly?: boolean;
 }
@@ -16,7 +16,7 @@ function useMemoAssignments({
   attendanceOnly = false,
 }: UseMemoAssignmentsParams) {
   // data filtering
-  const assignments: AssignmentInfos[] = useMemo(
+  const assignments: AssignmentInfo[] = useMemo(
     () =>
       results
         .map((result) => result.data ?? [])
