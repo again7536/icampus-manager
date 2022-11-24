@@ -1,11 +1,11 @@
 import { LECTURE_TYPE } from "@/constants";
-import { AssignmentInfo } from "@/types";
+import { AssignmentShortInfo } from "@/types";
 import { Checkbox, css, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
 import moment from "@/utils/momentKo";
 import * as S from "./ListItem.style";
 
 interface AssignmentListItemProps {
-  assignment: AssignmentInfo;
+  assignment: AssignmentShortInfo;
   courseName: string;
   checkable?: boolean;
   checked?: boolean;

@@ -5,6 +5,7 @@ import {
   AssignmentDetailResponse,
   AssignmentInfo,
   AssignmentAssessmentResponse,
+  AssignmentShortInfo,
 } from "@/types";
 import axios from "./axios";
 
@@ -61,11 +62,20 @@ const fetchCourseAssignmentDetails = async ({
   return data;
 };
 
-const fetchAssignmentAssessment = async (courseId: number) => {
+const fetchAssignmentAssessment = async (courseId: number): Promise<AssignmentShortInfo[]> => {
   const { data } = await axios.get<AssignmentAssessmentResponse[]>(
     `api/v1/courses/${courseId}/assignment_groups?exclude_response_fields%5B%5D=description&exclude_response_fields%5B%5D=rubric&include%5B%5D=assignments&include%5B%5D=discussion_topic&override_assignment_dates=true&per_page=50`
   );
-  return data;
+  return data.map((val) => ({
+    assignment_id: +val.id,
+    course_id: courseId,
+    due_at: val.due_at,
+    title: val.name,
+    view_info: {
+      view_url: val.html_url,
+    },
+    id: +val.id,
+  }));
 };
 
 // do SQL like join operation for assignment and assignment details

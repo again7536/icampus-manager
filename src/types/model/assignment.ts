@@ -82,6 +82,8 @@ interface AssignmentAssessmentResponse {
   created_at: string;
   updated_at: string;
   html_url: string;
+  course_id: string;
+  name: string;
   // peer_reviews: boolean;
   // automatic_peer_reviews: boolean;
   // position: number;
@@ -101,8 +103,6 @@ interface AssignmentAssessmentResponse {
   // grader_names_visible_to_final_grader: boolean;
   // allowed_attempts: number;
   // secure_params: string;
-  // course_id: string;
-  // name: string;
   // submission_types: string[];
   // has_submitted_submissions: boolean;
   // due_date_required: boolean;
@@ -126,6 +126,18 @@ interface AssignmentAssessmentResponse {
   // in_closed_grading_period: boolean;
 }
 
+interface AssignmentShortInfo {
+  id?: number;
+  assignment_id: number;
+  course_id: number;
+  title: string;
+  view_info: { view_url: string };
+  due_at: string;
+  commons_content?: {
+    content_type: LectureType | "pdf";
+  };
+}
+
 type AssignmentInfo = Partial<AssignmentResponse> &
   AssignmentDetailResponse & { course_id: number };
 
@@ -134,5 +146,6 @@ export type {
   AssignmentDetailResponse,
   AssignmentAssessmentResponse,
   AssignmentResponse,
+  AssignmentShortInfo,
   AssignmentInfo,
 };
