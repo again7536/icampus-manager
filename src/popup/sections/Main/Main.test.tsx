@@ -4,6 +4,7 @@ import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import mockedCoursesFactory from "@/__test__/mock/courses";
 import { ATOM_KEYS, LIST_SKELETON_COUNT } from "@/constants";
+import { enableMapSet } from "immer";
 import { chrome } from "jest-chrome";
 import "@testing-library/jest-dom";
 import "@/api";
@@ -44,6 +45,7 @@ jest.mock("@/api", () => {
 });
 
 describe("Main Section UI Test", () => {
+  enableMapSet();
   const { TOTAL_COUNT } = getConstants();
 
   const getAssignmentListItems = () => {

@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
 import { Menu, IconButton, Skeleton, Tooltip, Typography, MenuItem } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import { Course } from "@/types";
 import SelectCheckItem from "./SelectCheckItem/SelectCheckItem";
 
 interface SelectCheckProps {
   label: string;
-  items: Map<number, string>;
+  courses: Course[];
   onChange: (ids: number[]) => void;
   selected: number[];
   isLoading?: boolean;
@@ -13,7 +14,7 @@ interface SelectCheckProps {
 
 const MemoizedSelectCheckItem = React.memo(SelectCheckItem);
 
-function SelectCheck({ label, items, onChange, selected, isLoading }: SelectCheckProps) {
+function SelectCheck({ label, courses, onChange, selected, isLoading }: SelectCheckProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,12 +56,12 @@ function SelectCheck({ label, items, onChange, selected, isLoading }: SelectChec
                 <Skeleton width="100%" />
               </MenuItem>
             ))
-          : [...items.entries()].map(([itemKey, value]) => (
+          : courses.map(({ id, name }) => (
               <MemoizedSelectCheckItem
-                key={itemKey}
-                itemKey={itemKey}
-                value={value}
-                selected={selected.indexOf(itemKey) > -1}
+                key={id}
+                itemKey={id}
+                value={name}
+                selected={selected.indexOf(id) > -1}
                 onClick={handleSelectItem}
               />
             ))}

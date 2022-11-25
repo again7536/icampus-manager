@@ -9,7 +9,7 @@ interface AssignmentListItemProps {
   courseName: string;
   checkable?: boolean;
   checked?: boolean;
-  onCheck?: () => void;
+  onCheck?: (id: number) => void;
   timeAsLeft?: boolean;
 }
 
@@ -33,9 +33,7 @@ function AssignmentListItem({
             checked={checked}
             tabIndex={-1}
             disableRipple
-            onClick={() => {
-              if (onCheck) onCheck();
-            }}
+            onClick={() => onCheck && onCheck(assignment.id ?? 0)}
           />
         </ListItemIcon>
       )}
