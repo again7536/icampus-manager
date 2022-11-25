@@ -51,7 +51,7 @@ function AssignmentList({
             ) : assignments.length > 0 ? (
               assignments.map((assignment) => (
                 <MemoizedAssignmentListItem
-                  key={assignment.id}
+                  key={assignment.assignment_id}
                   assignment={assignment}
                   courseName={
                     courses.find((course) => course.id === assignment.course_id)?.name ?? ""
