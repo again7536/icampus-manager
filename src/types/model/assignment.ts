@@ -72,6 +72,18 @@ interface AssignmentResponse {
 
 interface AssignmentAssessmentResponse {
   id: string;
+  name: string;
+  position: number;
+  group_weight: number;
+  sis_source_id: string;
+  integration_data: {};
+  rules: {};
+  assignments: AssignmentAssessment[];
+  any_assignment_in_closed_grading_period: false;
+}
+
+interface AssignmentAssessment {
+  id: string;
   due_at: string;
   unlock_at: string;
   lock_at: null;
@@ -145,6 +157,7 @@ export type {
   LectureType,
   AssignmentDetailResponse,
   AssignmentAssessmentResponse,
+  AssignmentAssessment,
   AssignmentResponse,
   AssignmentShortInfo,
   AssignmentInfo,
