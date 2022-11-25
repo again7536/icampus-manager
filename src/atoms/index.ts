@@ -42,6 +42,11 @@ const snackbarCloseAtom = atom(null, (get, set) =>
   set(snackbarAtom, { ...get(snackbarAtom), open: false })
 );
 
+const customAssignmentsAtom = atomWithAsyncStorage<number[]>({
+  key: ATOM_KEYS.CUSTOM_ASSIGNMENT,
+  initialValue: [],
+});
+
 export {
   playListAtom,
   selectedCoursesAtom,
@@ -50,4 +55,5 @@ export {
   snackbarAtom,
   snackbarOpenAtom,
   snackbarCloseAtom,
+  customAssignmentsAtom,
 };

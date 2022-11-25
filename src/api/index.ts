@@ -64,7 +64,8 @@ const fetchCourseAssignmentDetails = async ({
 
 const fetchAssignmentAssessment = async (courseId: number): Promise<AssignmentShortInfo[]> => {
   const { data } = await axios.get<AssignmentAssessmentResponse[]>(
-    `api/v1/courses/${courseId}/assignment_groups?exclude_response_fields%5B%5D=description&exclude_response_fields%5B%5D=rubric&include%5B%5D=assignments&include%5B%5D=discussion_topic&override_assignment_dates=true&per_page=50`
+    `api/v1/courses/${courseId}/assignment_groups?exclude_response_fields[]=description&exclude_response_fields[]=rubric&include[]=assignments&include[]=discussion_topic&override_assignment_dates=true&per_page=50`,
+    { headers: { Authorization: undefined } }
   );
   return Object.values(data)
     .map((assessment) =>
@@ -72,6 +73,7 @@ const fetchAssignmentAssessment = async (courseId: number): Promise<AssignmentSh
         assignment_id: +val.id,
         course_id: courseId,
         due_at: val.due_at,
+        unlock_at: val.unlock_at,
         title: val.name,
         view_info: {
           view_url: val.html_url,
