@@ -1,6 +1,6 @@
 import { useAssignments, useCourses } from "@/hooks";
 import useMemoMaterials from "@/hooks/useMemoMaterials";
-import MaterialSublist from "@/popup/components/List/Materials/MaterialSublist";
+import CheckableSublist from "@/popup/components/List/CheckableSublist/CheckableSublist";
 import { List, ListSubheader, Button } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
@@ -84,10 +84,10 @@ function LectureMaterials() {
       {progress !== false && <S.BorderLinearProgress variant="determinate" value={progress} />}
       {materials.map((materialsOfCourse) =>
         materialsOfCourse.length > 0 ? (
-          <MaterialSublist
+          <CheckableSublist
             key={materialsOfCourse[0].course_id}
             courses={courses ?? []}
-            materials={materialsOfCourse}
+            assignments={materialsOfCourse}
             checked={checked}
             onCheck={setChecked}
           />

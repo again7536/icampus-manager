@@ -10,6 +10,7 @@ import ErrorBoundary from "@/popup/components/ErrorBoundary/ErrorBoundary";
 import UpdateAlert from "@/popup/components/UpdateAlert/UpdateAlert";
 import GlobalSnackbar from "@/popup/components/Snackbar/Snackbar";
 import LectureMaterials from "@/popup/sections/LectureMaterials/LectureMaterials";
+import GlobalModal from "@/popup/components/Modal/GlobalModal";
 import * as S from "./styled";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         </Suspense>
       </ErrorBoundary>
       <GlobalSnackbar />
+      <GlobalModal />
     </S.PopupContainer>
   );
 }

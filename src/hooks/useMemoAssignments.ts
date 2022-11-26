@@ -6,13 +6,13 @@ import { LECTURE_TYPE } from "@/constants";
 
 interface UseMemoAssignmentsParams {
   results: UseQueryResult<AssignmentInfo[]>[];
-  selectedCourses: number[];
+  selectedCourseIds: number[];
   attendanceOnly?: boolean;
 }
 
 function useMemoAssignments({
   results,
-  selectedCourses,
+  selectedCourseIds,
   attendanceOnly = false,
 }: UseMemoAssignmentsParams) {
   // data filtering
@@ -21,7 +21,7 @@ function useMemoAssignments({
       results
         .map((result) => result.data ?? [])
         .flat()
-        .filter((assignment) => selectedCourses.indexOf(assignment.course_id) > -1)
+        .filter((assignment) => selectedCourseIds.indexOf(assignment.course_id) > -1)
         .filter(
           (assignment) =>
             assignment.completed === false &&
@@ -29,7 +29,7 @@ function useMemoAssignments({
             moment(assignment.unlock_at).diff(moment.now()) < 0
         )
         .sort((a, b) => moment(a.due_at).diff(b.due_at)),
-    [results, selectedCourses]
+    [results, selectedCourseIds]
   );
 
   const videoAssignments = useMemo(() => {

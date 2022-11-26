@@ -1,7 +1,8 @@
 import AssignmentList from "@/popup/components/List/Assignment/AssignmentList";
-import { useCourses, useAssignments, useMemoAssignments } from "@/hooks";
+import { useAssignmentAssessments } from "@/hooks/queries/useAssignmentAssessment";
+import { useCourses, useAssignments, useMemoAssignments, useCustomAssignments } from "@/hooks";
 import { useState, memo, useCallback } from "react";
-import { playListAtom, selectedCoursesAtom, settingsAtom } from "@/atoms";
+import { playListAtom, selectedCourseIdsAtom, settingsAtom } from "@/atoms";
 import { useSetAtom, useAtomValue } from "jotai";
 import { useIsRestoring } from "@tanstack/react-query";
 import produce from "immer";
@@ -11,10 +12,11 @@ const MemoizedAssignmentList = memo(AssignmentList);
 
 const COURSE_LIST_SUBHEADER = "강의";
 const HOMEWORK_LIST_SUBHEADER = "과제";
+const CUSTOM_LIST_SUBHEADER = "사용자 추가 과제";
 
 function Main() {
   // Atoms
-  const selectedCourses = useAtomValue(selectedCoursesAtom);
+  const selectedCourseIds = useAtomValue(selectedCourseIdsAtom);
   const settings = useAtomValue(settingsAtom);
   const setPlayList = useSetAtom(playListAtom);
 
@@ -26,13 +28,17 @@ function Main() {
     courseIds,
     userId: courses?.[0].enrollments[0].user_id,
   });
+  const assessmentResults = useAssignmentAssessments({ courseIds });
+  const [assessmentAssignments, customAssignments] = useCustomAssignments({
+    results: assessmentResults,
+  });
 
   // Local hooks / states
   const [checkedAssignmentIdSet, setCheckedAssignmentIdSet] = useState<Set<number>>(new Set());
   const [isCheckable, setCheckable] = useState<boolean>(false);
   const { assignments, videoAssignments, workAssignments } = useMemoAssignments({
     results: assignmentResults,
-    selectedCourses,
+    selectedCourseIds,
   });
 
   // handlers
@@ -63,6 +69,7 @@ function Main() {
         isCheckable={isCheckable}
         setCheckable={setCheckable}
         videoAssignments={videoAssignments}
+        assessmentAssignments={assessmentAssignments}
         checkedAssignmentIdSet={checkedAssignmentIdSet}
         onConfirmSelect={handleConfirmSelect}
         onCancelSelect={handleCancelSelect}
@@ -81,6 +88,13 @@ function Main() {
         title={HOMEWORK_LIST_SUBHEADER}
         isLoading={assignmentResults.some((result) => result.isLoading) || isRestoring}
         assignments={workAssignments}
+        courses={courses ?? []}
+        timeAsLeft={!!settings.DDAY}
+      />
+      <MemoizedAssignmentList
+        title={CUSTOM_LIST_SUBHEADER}
+        isLoading={assessmentResults.some((result) => result.isLoading) || isRestoring}
+        assignments={customAssignments}
         courses={courses ?? []}
         timeAsLeft={!!settings.DDAY}
       />

@@ -3,13 +3,20 @@ import { AssignmentInfo, Settings } from "@/types";
 import atomWithAsyncStorage from "@/utils/atomWithAsyncStorage";
 import { SnackbarProps } from "@mui/material";
 import { atom } from "jotai";
+import { ReactNode } from "react";
+
+interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+  modalBody: ReactNode;
+}
 
 const playListAtom = atomWithAsyncStorage<AssignmentInfo[]>({
   key: ATOM_KEYS.PLAYLIST,
   initialValue: [],
 });
 
-const selectedCoursesAtom = atomWithAsyncStorage<number[]>({
+const selectedCourseIdsAtom = atomWithAsyncStorage<number[]>({
   key: ATOM_KEYS.SELECTED_COURSE,
   initialValue: [],
 });
@@ -42,18 +49,31 @@ const snackbarCloseAtom = atom(null, (get, set) =>
   set(snackbarAtom, { ...get(snackbarAtom), open: false })
 );
 
-const customAssignmentsAtom = atomWithAsyncStorage<number[]>({
+const modalAtom = atom<Omit<ModalProps, "onClose">>({ open: false, modalBody: "" });
+const modalOpenAtom = atom<null, Omit<ModalProps, "onClose" | "open">>(null, (get, set, update) => {
+  set(modalAtom, {
+    ...get(modalAtom),
+    ...update,
+    open: true,
+  });
+});
+const modalCloseAtom = atom(null, (get, set) => set(modalAtom, { ...get(modalAtom), open: false }));
+
+const customAssignmentIdsAtom = atomWithAsyncStorage<number[]>({
   key: ATOM_KEYS.CUSTOM_ASSIGNMENT,
   initialValue: [],
 });
 
 export {
   playListAtom,
-  selectedCoursesAtom,
+  selectedCourseIdsAtom,
   settingsAtom,
   versionAtom,
   snackbarAtom,
   snackbarOpenAtom,
   snackbarCloseAtom,
-  customAssignmentsAtom,
+  modalAtom,
+  modalOpenAtom,
+  modalCloseAtom,
+  customAssignmentIdsAtom,
 };

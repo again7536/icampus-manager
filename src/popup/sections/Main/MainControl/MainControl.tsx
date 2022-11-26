@@ -1,7 +1,12 @@
 import { useCourses, useAssignments } from "@/hooks";
 import { Dispatch, SetStateAction } from "react";
-import { selectedCoursesAtom, settingsAtom } from "@/atoms";
-import { useAtom, useAtomValue } from "jotai";
+import {
+  customAssignmentIdsAtom,
+  modalOpenAtom,
+  selectedCourseIdsAtom,
+  settingsAtom,
+} from "@/atoms";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useIsRestoring, useQueryClient } from "@tanstack/react-query";
 import { css } from "@emotion/react";
 import { IconButton, Tooltip } from "@mui/material";
@@ -12,8 +17,9 @@ import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabIcon from "@mui/icons-material/Tab";
 import EstimatedDuration from "@/popup/components/EstimatedDuration/EstimatedDuration";
+import CustomAssignmentModal from "@/popup/components/Modal/CustomAssignmentModal/CustomAssignmentModal";
 import { PLAYRATE } from "@/constants";
-import { AssignmentInfo } from "@/types";
+import { AssignmentInfo, AssignmentShortInfo } from "@/types";
 import * as S from "./MainControl.style";
 
 const POPUP_URL = "popup.html";
@@ -31,6 +37,7 @@ interface MainControlProps {
   isCheckable: boolean;
   setCheckable: Dispatch<SetStateAction<boolean>>;
   videoAssignments: AssignmentInfo[];
+  assessmentAssignments: AssignmentShortInfo[][];
   checkedAssignmentIdSet: Set<number>;
   onConfirmSelect: () => void;
   onCancelSelect: () => void;
@@ -41,12 +48,15 @@ function MainControl({
   setCheckable,
   checkedAssignmentIdSet,
   videoAssignments,
+  assessmentAssignments,
   onConfirmSelect,
   onCancelSelect,
 }: MainControlProps) {
   // atoms
-  const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
+  const [selectedCourseIds, setselectedCourseIds] = useAtom(selectedCourseIdsAtom);
   const settings = useAtomValue(settingsAtom);
+  const openModal = useSetAtom(modalOpenAtom);
+  const [customAssignments, setCustomAssignments] = useAtom(customAssignmentIdsAtom);
 
   // queries
   const isRestoring = useIsRestoring();
@@ -58,7 +68,7 @@ function MainControl({
   });
 
   // handlers
-  const handleChange = (ids: number[]) => setSelectedCourses([...ids]);
+  const handleChange = (ids: number[]) => setselectedCourseIds([...ids]);
   const handleClickAddPlaylist = () => setCheckable(true);
   const handleOpenTab = () => {
     if (settings.WINDOW)
@@ -81,9 +91,27 @@ function MainControl({
         label={DROPDOWN_LABEL}
         courses={courses ?? []}
         onChange={handleChange}
-        selected={selectedCourses}
+        selected={selectedCourseIds}
         isLoading={isRestoring}
       />
+      <Tooltip title={OPEN_TAB_BUTTON_TEXT}>
+        <IconButton
+          onClick={() =>
+            openModal({
+              modalBody: (
+                <CustomAssignmentModal
+                  assignments={assessmentAssignments}
+                  courses={courses ?? []}
+                  addedAssignmentIds={customAssignments}
+                  onConfirm={(checked) => setCustomAssignments([...checked])}
+                />
+              ),
+            })
+          }
+        >
+          <TabIcon />
+        </IconButton>
+      </Tooltip>
       <div
         css={css`
           margin-left: auto;

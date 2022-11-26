@@ -145,6 +145,7 @@ interface AssignmentShortInfo {
   title: string;
   view_info: { view_url: string };
   due_at: string;
+  unlock_at: string;
   commons_content?: {
     content_type: LectureType | "pdf";
   };

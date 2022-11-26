@@ -14,7 +14,7 @@ const theme = createTheme({
           font-style: normal;
         }
 
-        html {
+        * {
           &::-webkit-scrollbar {
             width: 4px;
             height: 4px;

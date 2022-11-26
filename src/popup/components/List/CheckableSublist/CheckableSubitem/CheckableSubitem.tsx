@@ -1,32 +1,31 @@
 import { ellipsis } from "@/styles/mixin";
-import { AssignmentInfo } from "@/types";
+import { AssignmentShortInfo } from "@/types";
 import { ListItem, ListItemIcon, Checkbox, ListItemButton, ListItemText } from "@mui/material";
 import { css } from "@emotion/react";
 
-interface MaterialSubitemProps {
-  material: AssignmentInfo;
+interface CheckableSubitemProps {
+  assignment: AssignmentShortInfo;
   checked: boolean;
   onCheck: (id: number) => void;
 }
 
-function MaterialSubitem({ checked, onCheck, material }: MaterialSubitemProps) {
+function CheckableSubitem({ checked, onCheck, assignment }: CheckableSubitemProps) {
   return (
-    <ListItem key={material.assignment_id} sx={{ pl: 4 }}>
+    <ListItem key={assignment.assignment_id} sx={{ pl: 4 }}>
       <ListItemIcon>
         <Checkbox
           checked={checked}
           tabIndex={-1}
           disableRipple
-          onClick={() => onCheck(material.assignment_id)}
+          onClick={() => onCheck(assignment.assignment_id)}
         />
       </ListItemIcon>
-      <ListItemButton onClick={() => onCheck(material.assignment_id)}>
+      <ListItemButton onClick={() => onCheck(assignment.assignment_id)}>
         <ListItemText
-          primary={material.title}
+          primary={assignment.title}
           css={css`
             & > span {
-              ${ellipsis({})};
-              display: inline-block;
+              ${ellipsis({ line: 2 })};
               width: 300px;
             }
           `}
@@ -36,4 +35,4 @@ function MaterialSubitem({ checked, onCheck, material }: MaterialSubitemProps) {
   );
 }
 
-export default MaterialSubitem;
+export default CheckableSubitem;
