@@ -63,7 +63,7 @@ function CheckableSublist({ courses, assignments, checked, onCheck }: CheckableS
             primary={courses?.find((course) => course.id === courseId)?.name ?? ""}
             css={css`
               & > span {
-                ${ellipsis({ line: 2, lineHeight: 14 })};
+                ${ellipsis({})};
               }
             `}
           />

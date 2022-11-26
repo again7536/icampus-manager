@@ -2,6 +2,7 @@ import { useCourses, useAssignments } from "@/hooks";
 import { Dispatch, SetStateAction } from "react";
 import {
   customAssignmentIdsAtom,
+  modalCloseAtom,
   modalOpenAtom,
   selectedCourseIdsAtom,
   settingsAtom,
@@ -56,6 +57,7 @@ function MainControl({
   const [selectedCourseIds, setselectedCourseIds] = useAtom(selectedCourseIdsAtom);
   const settings = useAtomValue(settingsAtom);
   const openModal = useSetAtom(modalOpenAtom);
+  const closeModal = useSetAtom(modalCloseAtom);
   const [customAssignments, setCustomAssignments] = useAtom(customAssignmentIdsAtom);
 
   // queries
@@ -80,6 +82,10 @@ function MainControl({
       });
     else chrome.tabs.create({ url: POPUP_URL });
   };
+  const handleModalConfirm = (checked: Set<number>) => {
+    setCustomAssignments([...checked]);
+    closeModal();
+  };
 
   const checkedAssignments = videoAssignments.filter((assignment) =>
     checkedAssignmentIdSet.has(assignment.id ?? 0)
@@ -103,7 +109,8 @@ function MainControl({
                   assignments={assessmentAssignments}
                   courses={courses ?? []}
                   addedAssignmentIds={customAssignments}
-                  onConfirm={(checked) => setCustomAssignments([...checked])}
+                  onConfirm={handleModalConfirm}
+                  onClose={closeModal}
                 />
               ),
             })
