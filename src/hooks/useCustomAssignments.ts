@@ -25,16 +25,16 @@ function useCustomAssignments({ results }: UseCustomAsuseCustomAssignmentsParams
         return filteredAssignments.length > 0 ? [...arr, filteredAssignments] : arr;
       }, [] as AssignmentShortInfo[][]);
 
-    const customResult = filteredResult.map((assessmentsOfCourse) =>
-      assessmentsOfCourse
-        .filter((assignment) => customAssignmentIds.includes(assignment.assignment_id))
-        .sort((a, b) => moment(a.due_at).diff(b.due_at))
-    );
+    const customResult = filteredResult
+      .map((assessmentsOfCourse) =>
+        assessmentsOfCourse.filter((assignment) =>
+          customAssignmentIds.includes(assignment.assignment_id)
+        )
+      )
+      .flat()
+      .sort((a, b) => moment(a.due_at).diff(b.due_at));
 
-    return [filteredResult, customResult.flat()] as [
-      AssignmentShortInfo[][],
-      AssignmentShortInfo[]
-    ];
+    return [filteredResult, customResult] as [AssignmentShortInfo[][], AssignmentShortInfo[]];
   }, [customAssignmentIds, results]);
 
   return assessmentAssignments;

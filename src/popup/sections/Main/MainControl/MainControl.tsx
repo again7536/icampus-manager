@@ -17,6 +17,7 @@ import SelectCheck from "@/popup/components/SelectCheck/SelectCheck";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabIcon from "@mui/icons-material/Tab";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EstimatedDuration from "@/popup/components/EstimatedDuration/EstimatedDuration";
 import CustomAssignmentModal from "@/popup/components/Modal/CustomAssignmentModal/CustomAssignmentModal";
 import { PLAYRATE } from "@/constants";
@@ -27,6 +28,7 @@ const POPUP_URL = "popup.html";
 const WINDOW_HEIGHT = 600;
 const WINDOW_WIDTH = 510;
 const DROPDOWN_LABEL = "표시할 과목";
+const CUSTOM_ASSIGNMENT_TEXT = "사용자 추가 과제 선택";
 const OPEN_TAB_BUTTON_TEXT = "새 탭에서 열기";
 const OPEN_WINDOW_BUTTON_TEXT = "새 창에서 열기";
 const CANCEL_BUTTON_TEXT = "선택 취소";
@@ -86,6 +88,18 @@ function MainControl({
     setCustomAssignments([...checked]);
     closeModal();
   };
+  const handleModalOpen = () =>
+    openModal({
+      modalBody: (
+        <CustomAssignmentModal
+          assignments={assessmentAssignments}
+          courses={courses ?? []}
+          addedAssignmentIds={customAssignments}
+          onConfirm={handleModalConfirm}
+          onClose={closeModal}
+        />
+      ),
+    });
 
   const checkedAssignments = videoAssignments.filter((assignment) =>
     checkedAssignmentIdSet.has(assignment.id ?? 0)
@@ -100,23 +114,9 @@ function MainControl({
         selected={selectedCourseIds}
         isLoading={isRestoring}
       />
-      <Tooltip title={OPEN_TAB_BUTTON_TEXT}>
-        <IconButton
-          onClick={() =>
-            openModal({
-              modalBody: (
-                <CustomAssignmentModal
-                  assignments={assessmentAssignments}
-                  courses={courses ?? []}
-                  addedAssignmentIds={customAssignments}
-                  onConfirm={handleModalConfirm}
-                  onClose={closeModal}
-                />
-              ),
-            })
-          }
-        >
-          <TabIcon />
+      <Tooltip title={CUSTOM_ASSIGNMENT_TEXT}>
+        <IconButton onClick={handleModalOpen}>
+          <MoreVertIcon />
         </IconButton>
       </Tooltip>
       <div

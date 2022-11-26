@@ -91,13 +91,15 @@ function Main() {
         courses={courses ?? []}
         timeAsLeft={!!settings.DDAY}
       />
-      <MemoizedAssignmentList
-        title={CUSTOM_LIST_SUBHEADER}
-        isLoading={assessmentResults.some((result) => result.isLoading) || isRestoring}
-        assignments={customAssignments}
-        courses={courses ?? []}
-        timeAsLeft={!!settings.DDAY}
-      />
+      {settings.CUSTOM_ASSIGNMENT && (
+        <MemoizedAssignmentList
+          title={CUSTOM_LIST_SUBHEADER}
+          isLoading={assessmentResults.some((result) => result.isLoading) || isRestoring}
+          assignments={customAssignments}
+          courses={courses ?? []}
+          timeAsLeft={!!settings.DDAY}
+        />
+      )}
     </>
   );
 }

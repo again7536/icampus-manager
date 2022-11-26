@@ -1,4 +1,5 @@
-import { DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { DialogTitle, DialogContent, DialogActions, Button, Tooltip } from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
 import CheckableSublist from "@/popup/components/List/CheckableSublist/CheckableSublist";
 import { AssignmentShortInfo, Course } from "@/types";
 import { useState } from "react";
@@ -13,11 +14,14 @@ interface CustomAssignmentModalProps {
   onClose: () => void;
 }
 
-const MODAL_TITLE = "사용자 과제 변경";
+const HELP_TEXT = `상단에는 '과제 및 평가' 탭에서 제공하는 과제 리스트를 표시합니다. 
+과제 리스트에서 과제를 선택하여 추가하면 하단에 옮겨집니다.`;
+
+const MODAL_TITLE = "사용자 추가 과제 선택";
 const CANCEL_BUTTON_TEXT = "취소";
-const CONFIRM_BUTTON_TEXT = "사용자 과제 변경";
-const UP_BUTTON_TEXT = "⮝";
-const DOWN_BUTTON_TEXT = "⮟";
+const CONFIRM_BUTTON_TEXT = "선택 완료";
+const UP_BUTTON_TEXT = "삭제 ⮝";
+const DOWN_BUTTON_TEXT = "⮟ 추가";
 
 function CustomAssignmentModal({
   assignments,
@@ -42,7 +46,12 @@ function CustomAssignmentModal({
 
   return (
     <>
-      <DialogTitle>{MODAL_TITLE}</DialogTitle>
+      <DialogTitle>
+        {MODAL_TITLE}
+        <Tooltip sx={{ fontSize: "12pt", marginLeft: "10px" }} title={HELP_TEXT}>
+          <HelpIcon />
+        </Tooltip>
+      </DialogTitle>
       <DialogContent sx={{ p: 0 }}>
         <S.SublistContainer variant="outlined">
           {assignments.map((assignmentsOfCourse) => (
