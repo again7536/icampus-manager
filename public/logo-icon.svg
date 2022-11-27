@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0"
+  viewBox="6.900000095367432 8.699999809265137 86.60000610351562 82.80000305175781"
+  style="enable-background:new 0 0 100 100;" xml:space="preserve" height="138.55068237386087" width="144.909293441963"
+  class="icon-icon-0" data-fill-palette-color="accent" id="icon-0">
+  <g fill="#224e3f" data-fill-palette-color="accent">
+    <g fill="#224e3f" data-fill-palette-color="accent">
+      <path d="M93.5 33.3H6.9v-9.8L50.2 8.7l43.3 14.8V33.3zM10.6 29.5h79.1v-3.3L50.2 12.7 10.6 26.2V29.5z"
+        fill="#224e3f" data-fill-palette-color="accent"></path>
+    </g>
+    <g fill="#224e3f" data-fill-palette-color="accent">
+      <path
+        d="M93.5 91.5H6.9v-8.4c0-5.2 4.2-9.4 9.4-9.4h67.8c5.2 0 9.4 4.2 9.4 9.4V91.5zM10.6 87.7h79.1V83c0-3.1-2.5-5.7-5.7-5.7H16.3c-3.1 0-5.7 2.5-5.7 5.7C10.6 83 10.6 87.7 10.6 87.7z"
+        fill="#224e3f" data-fill-palette-color="accent"></path>
+    </g>
+    <g fill="#224e3f" data-fill-palette-color="accent">
+      <path d="M34.3 77.4H19.2V29.5h15.1V77.4zM23 73.6h7.6V33.3H23V73.6z" fill="#224e3f"
+        data-fill-palette-color="accent"></path>
+    </g>
+    <g fill="#224e3f" data-fill-palette-color="accent">
+      <path d="M57.7 77.4H42.6V29.5h15.1V77.4zM46.4 73.6h7.6V33.3h-7.6V73.6z" fill="#224e3f"
+        data-fill-palette-color="accent"></path>
+    </g>
+    <g fill="#224e3f" data-fill-palette-color="accent">
+      <path d="M81.2 77.4H66.1V29.5h15.1V77.4zM69.8 73.6h7.6V33.3h-7.6V73.6z" fill="#224e3f"
+        data-fill-palette-color="accent"></path>
+    </g>
+  </g>
+</svg>

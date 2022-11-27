@@ -3,12 +3,15 @@
   "name": "Icampus Manager",
   "version": "1.1.1.1",
   "icons": {
-    "128": "./logo128.png"
+    "128": "./icon128.png",
+    "48": "./icon48.png",
+    "32": "./icon32.png",
+    "16": "./icon16.png"
   },
 
   "action": {
     "default_icon": {
-      "32": "./logo32.png"
+      "32": "./icon32.png"
     },
     "default_title": "icampus manager",
     "default_popup": "popup.html"
