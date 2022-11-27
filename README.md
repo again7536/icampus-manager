@@ -13,17 +13,14 @@
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
 </div>
-<br>
 
 ---
 
 <div align="center">
 
-![logo](https://user-images.githubusercontent.com/45936642/197451667-5dbf6003-4069-45b6-be04-cfeb00cb35d3.png)
+![logo-new](https://user-images.githubusercontent.com/45936642/204120792-52e0844d-20c5-435e-b3f9-39b06b687698.svg)
 
 </div>
-
-<h3 align="center">Icampus-manager</h3>
 
 ---
 
@@ -33,7 +30,8 @@ icampus-manager는 아이캠퍼스의 기능을 확장해주는 크롬 익스텐
 현재 아래와 같은 기능을 제공하고 있습니다.
 - 강의 및 과제 목록 보기
 - 강의 자동 재생
+- 강의 자료 일괄 다운로드
+- 사용자 설정 및 강의 추가
 
 ## Prerequisites
 최신 버전의 Chrome 브라우저가 설치되어 있어야 합니다.
-
