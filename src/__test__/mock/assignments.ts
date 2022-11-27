@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { AssignmentInfos, LectureType } from "@/types";
+import { AssignmentInfo, LectureType } from "@/types";
 
 interface MockedAssignmentsFactoryParams {
   amount: {
@@ -11,9 +11,9 @@ interface MockedAssignmentsFactoryParams {
 const mockedAssignmentInfosFactory = ({
   amount,
   courseId,
-}: MockedAssignmentsFactoryParams): AssignmentInfos[] =>
+}: MockedAssignmentsFactoryParams): AssignmentInfo[] =>
   Array.from({ length: Object.values(amount).reduce((acc, val) => acc + val, 0) }).map(
-    (_, idx): AssignmentInfos => {
+    (_, idx): AssignmentInfo => {
       const assignmentId = +faker.random.numeric(7);
       const types = Object.entries(amount)
         .map(([key, val]) => Array.from({ length: val }, () => key))
@@ -25,7 +25,6 @@ const mockedAssignmentInfosFactory = ({
         assignment_id: assignmentId,
         course_id: courseId ?? +faker.random.numeric(7),
         component_id: +faker.random.numeric(7),
-        attendance_status: "false",
         completed: false,
         created_at: faker.date.past().toISOString(),
         due_at: faker.date.future().toISOString(),
@@ -33,21 +32,7 @@ const mockedAssignmentInfosFactory = ({
         unlock_at: faker.date.past().toISOString(),
         lock_at: "",
         description: "",
-        external_extra_vars: {
-          canvas_content_id: +faker.random.numeric(7),
-        },
-        grade: null,
-        grading_type: "",
-        has_error_external_url: false,
-        // is_master_course_child_content: true,
-        muted: false,
-        // omit_from_final_grade: false,
         opened: true,
-        points_possible: 1,
-        position: 1,
-        score: null,
-        submission_types: [],
-        submitted: false,
         title: faker.lorem.word(7),
         use_attendance: true,
         view_info: { view_url: "" },

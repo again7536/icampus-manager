@@ -1,12 +1,12 @@
 import { css, Tooltip, Typography } from "@mui/material";
 import moment from "@/utils/momentKo";
 import { useMemo } from "react";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfo } from "@/types";
 import HelpIcon from "@mui/icons-material/Help";
 import { flexBox } from "@/styles/mixin";
 
 interface EstimatedDurationProps {
-  assignments: AssignmentInfos[];
+  assignments: AssignmentInfo[];
   playrate: number;
 }
 

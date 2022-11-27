@@ -1,21 +1,23 @@
 import { Box, List, ListSubheader, Typography } from "@mui/material";
-import { memo } from "react";
-import { AssignmentInfos, Course } from "@/types";
+import { memo, useCallback } from "react";
+import { AssignmentShortInfo, Course } from "@/types";
 import { LIST_SKELETON_COUNT } from "@/constants";
 import AssignmentListItem from "./ListItem/ListItem";
 import AssignmentSkeletonItem from "./SkeletonItem/SkeletonItem";
 import * as S from "./AssignmentList.style";
 
 interface AssignmentListProps {
-  assignments: AssignmentInfos[];
+  assignments: AssignmentShortInfo[];
   courses: Course[];
   title: string;
-  checkable?: boolean;
+  isCheckable?: boolean;
   isLoading?: boolean;
-  checked?: Set<number>;
+  checkedAssignmentIdSet?: Set<number>;
   onCheck?: (id: number) => void;
   timeAsLeft?: boolean;
 }
+
+const BLANK_MESSAGE = "야호! 다 끝냈어요!";
 
 const MemoizedAssignmentListItem = memo(AssignmentListItem);
 
@@ -23,12 +25,19 @@ function AssignmentList({
   assignments,
   courses,
   title,
-  checkable = false,
+  isCheckable = false,
   isLoading = false,
-  checked,
+  checkedAssignmentIdSet,
   onCheck,
   timeAsLeft,
 }: AssignmentListProps) {
+  const handleCheck = useCallback(
+    (id: number) => {
+      if (onCheck) onCheck(id);
+    },
+    [onCheck]
+  );
+
   return (
     <Box sx={{ width: "100%", bgcolor: "background.paper", padding: "0 10px" }}>
       <nav>
@@ -42,20 +51,20 @@ function AssignmentList({
             ) : assignments.length > 0 ? (
               assignments.map((assignment) => (
                 <MemoizedAssignmentListItem
-                  key={assignment.id}
+                  key={assignment.assignment_id}
                   assignment={assignment}
                   courseName={
                     courses.find((course) => course.id === assignment.course_id)?.name ?? ""
                   }
-                  checked={checked?.has(assignment.assignment_id)}
-                  checkable={checkable}
-                  onCheck={onCheck ? () => onCheck(assignment.assignment_id) : undefined}
+                  checked={checkedAssignmentIdSet?.has(assignment.assignment_id)}
+                  checkable={isCheckable}
+                  onCheck={handleCheck}
                   timeAsLeft={timeAsLeft}
                 />
               ))
             ) : (
               <S.BlankList>
-                <Typography variant="h5">야호! 다 끝냈어요!</Typography>
+                <Typography variant="h5">{BLANK_MESSAGE}</Typography>
               </S.BlankList>
             )
           }

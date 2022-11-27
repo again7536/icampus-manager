@@ -3,12 +3,12 @@ import { fetchCourses } from "@/api";
 import { QUERY_KEYS } from "@/constants";
 import { Course } from "@/types";
 import { useAtom } from "jotai";
-import { selectedCoursesAtom } from "@/atoms";
+import { selectedCourseIdsAtom } from "@/atoms";
 
 const useCourses = (
   queryProps?: Partial<UseQueryOptions<Course[], unknown, Course[], [typeof QUERY_KEYS.COURSES]>>
 ) => {
-  const [selectedCourses, setSelectedCourses] = useAtom(selectedCoursesAtom);
+  const [selectedCourseIds, setselectedCourseIds] = useAtom(selectedCourseIdsAtom);
 
   const result = useQuery({
     ...queryProps,
@@ -18,8 +18,8 @@ const useCourses = (
       const courseIds = courses.map((course) => course.id);
 
       // add all courses if not selected, and check selected course is valid after success
-      setSelectedCourses((prev) =>
-        selectedCourses.length === 0
+      setselectedCourseIds((prev) =>
+        selectedCourseIds.length === 0
           ? [...courseIds]
           : [...prev.filter((selected) => courseIds.includes(selected))]
       );

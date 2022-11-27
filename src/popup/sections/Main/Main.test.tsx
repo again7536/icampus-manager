@@ -4,6 +4,7 @@ import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
 import mockedCoursesFactory from "@/__test__/mock/courses";
 import { ATOM_KEYS, LIST_SKELETON_COUNT } from "@/constants";
+import { enableMapSet } from "immer";
 import { chrome } from "jest-chrome";
 import "@testing-library/jest-dom";
 import "@/api";
@@ -32,6 +33,7 @@ jest.mock("@/api", () => {
   return {
     __esmodule: true,
     fetchCourses: jest.fn(() => Promise.resolve(courses)),
+    fetchAssignmentAssessment: jest.fn(() => Promise.resolve([])),
     fetchAndJoinAssignmentInfos: jest.fn(({ courseId }: { courseId: number }) => {
       return Promise.resolve(
         mockedAssignmentInfosFactory({
@@ -44,6 +46,7 @@ jest.mock("@/api", () => {
 });
 
 describe("Main Section UI Test", () => {
+  enableMapSet();
   const { TOTAL_COUNT } = getConstants();
 
   const getAssignmentListItems = () => {
@@ -51,12 +54,12 @@ describe("Main Section UI Test", () => {
     return $assignmentList?.querySelectorAll("li:not(:first-child)");
   };
   const getRefreshButton = (container: HTMLElement) => {
-    const $button = container.querySelectorAll("button[type=button]")[2];
+    const $button = container.querySelectorAll("button[type=button]")[3];
     expect($button).toBeTruthy();
     return $button as Element;
   };
   const getPlaylistButton = (container: HTMLElement) => {
-    const $button = container.querySelectorAll("button[type=button]")[3];
+    const $button = container.querySelectorAll("button[type=button]")[4];
     expect($button).toBeTruthy();
     return $button as Element;
   };

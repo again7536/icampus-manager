@@ -30,6 +30,7 @@ const ellipsis = ({ line = 1, lineHeight }: EllipsisParams) =>
         -webkit-line-clamp: ${line};
         -webkit-box-orient: vertical;
         word-wrap: break-word;
+        overflow: hidden;
         line-height: ${lineHeight}pt;
         height: fit-content;
       `;

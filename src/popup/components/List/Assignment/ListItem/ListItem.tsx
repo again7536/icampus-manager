@@ -1,15 +1,15 @@
 import { LECTURE_TYPE } from "@/constants";
-import { AssignmentInfos } from "@/types";
+import { AssignmentShortInfo } from "@/types";
 import { Checkbox, css, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
 import moment from "@/utils/momentKo";
 import * as S from "./ListItem.style";
 
 interface AssignmentListItemProps {
-  assignment: AssignmentInfos;
+  assignment: AssignmentShortInfo;
   courseName: string;
   checkable?: boolean;
   checked?: boolean;
-  onCheck?: () => void;
+  onCheck?: (id: number) => void;
   timeAsLeft?: boolean;
 }
 
@@ -33,9 +33,7 @@ function AssignmentListItem({
             checked={checked}
             tabIndex={-1}
             disableRipple
-            onClick={() => {
-              if (onCheck) onCheck();
-            }}
+            onClick={() => onCheck && onCheck(assignment.id ?? 0)}
           />
         </ListItemIcon>
       )}

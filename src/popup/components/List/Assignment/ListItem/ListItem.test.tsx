@@ -1,7 +1,7 @@
 import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
 import mockedAssignmentInfosFactory from "@/__test__/mock/assignments";
-import { AssignmentInfos } from "@/types";
+import { AssignmentInfo } from "@/types";
 import { cleanup, fireEvent, screen, queryByText, queryByRole } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AssignmentListItem from "./ListItem";
@@ -13,7 +13,7 @@ describe("ListItem UI Test", () => {
   })[0];
   const mockedYoutube = mockedAssignmentInfosFactory({ amount: { youtube: 1 } })[0];
 
-  const renderListItemWithState = async (assignment: AssignmentInfos) => {
+  const renderListItemWithState = async (assignment: AssignmentInfo) => {
     let checked = false;
     const onCheck = () => {
       checked = !checked;
