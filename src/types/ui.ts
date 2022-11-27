@@ -8,7 +8,7 @@ interface Route {
   };
 }
 
-type SettingsKey = "DDAY" | "WINDOW" | "PLAYRATE";
+type SettingsKey = "DDAY" | "WINDOW" | "PLAYRATE" | "CUSTOM_ASSIGNMENT";
 type SettingsType = "switch" | "number" | "select";
 type Settings = {
   [key in SettingsKey]: boolean | string;

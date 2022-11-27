@@ -3,6 +3,7 @@ const ATOM_KEYS = {
   SELECTED_COURSE: "selectedCourse",
   SETTINGS: "settings",
   VERSION: "version",
+  CUSTOM_ASSIGNMENT: "customAssignment",
 } as const;
 
 export { ATOM_KEYS };

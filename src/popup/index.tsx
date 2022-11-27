@@ -15,6 +15,7 @@ import { AxiosError } from "axios";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import { CircularProgress } from "@mui/material";
+import { enableMapSet } from "immer";
 
 const rootElement = document.querySelector("#root");
 if (!rootElement) {
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === "production")
     release: "icampus-manager@1.1.1.1",
     tracesSampleRate: 1.0,
   });
+
+enableMapSet();
 
 const queryClient = new QueryClient({
   defaultOptions: {

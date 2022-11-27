@@ -1,27 +1,27 @@
-import { AssignmentInfos, LectureType } from "@/types";
+import { AssignmentInfo, LectureType } from "@/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import moment from "moment";
 import { useMemo } from "react";
 import { LECTURE_TYPE } from "@/constants";
 
 interface UseMemoAssignmentsParams {
-  results: UseQueryResult<AssignmentInfos[]>[];
-  selectedCourses: number[];
+  results: UseQueryResult<AssignmentInfo[]>[];
+  selectedCourseIds: number[];
   attendanceOnly?: boolean;
 }
 
 function useMemoAssignments({
   results,
-  selectedCourses,
+  selectedCourseIds,
   attendanceOnly = false,
 }: UseMemoAssignmentsParams) {
   // data filtering
-  const assignments: AssignmentInfos[] = useMemo(
+  const assignments: AssignmentInfo[] = useMemo(
     () =>
       results
         .map((result) => result.data ?? [])
         .flat()
-        .filter((assignment) => selectedCourses.indexOf(assignment.course_id) > -1)
+        .filter((assignment) => selectedCourseIds.indexOf(assignment.course_id) > -1)
         .filter(
           (assignment) =>
             assignment.completed === false &&
@@ -29,7 +29,7 @@ function useMemoAssignments({
             moment(assignment.unlock_at).diff(moment.now()) < 0
         )
         .sort((a, b) => moment(a.due_at).diff(b.due_at)),
-    [results, selectedCourses]
+    [results, selectedCourseIds]
   );
 
   const videoAssignments = useMemo(() => {

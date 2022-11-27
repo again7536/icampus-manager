@@ -36,6 +36,11 @@ const SETTINGS: SettingsInfo = {
     defaultValue: false,
     type: SETTINGS_TYPE.SWITCH,
   },
+  CUSTOM_ASSIGNMENT: {
+    title: "사용자 추가 과제 사용",
+    defaultValue: false,
+    type: SETTINGS_TYPE.SWITCH,
+  },
   PLAYRATE: {
     title: "재생 속도 변경",
     defaultValue: "8",

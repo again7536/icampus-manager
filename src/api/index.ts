@@ -1,12 +1,20 @@
-import { Assignment, Course, CourseStatus, AssignmentDetail, AssignmentInfos } from "@/types";
+import {
+  AssignmentResponse,
+  Course,
+  CourseStatus,
+  AssignmentDetailResponse,
+  AssignmentInfo,
+  AssignmentAssessmentResponse,
+  AssignmentShortInfo,
+} from "@/types";
 import axios from "./axios";
 
-interface FetchStudentIdProps {
+interface FetchStudentIdParams {
   courseId: number;
   userId: number;
 }
 
-interface FetchAssignmentsProps {
+interface FetchAssignmentsParams {
   courseId: number;
   userId: number;
   studentId: string;
@@ -14,7 +22,7 @@ interface FetchAssignmentsProps {
 
 interface FetchStudentIdResponse {
   item: CourseStatus;
-  assignments: Assignment[];
+  assignments: AssignmentResponse[];
 }
 
 interface FetchAndJoinAssignmentInfosParam {
@@ -29,14 +37,14 @@ const fetchCourses = async () => {
   return data;
 };
 
-const fetchStudentId = async ({ courseId, userId }: FetchStudentIdProps) => {
+const fetchStudentId = async ({ courseId, userId }: FetchStudentIdParams) => {
   const { data } = await axios.get<FetchStudentIdResponse>(
     `learningx/api/v1/courses/${courseId}/total_learnstatus/users/${userId}`
   );
   return data.item.user_login;
 };
 
-const fetchCourseStatus = async ({ courseId, userId }: FetchStudentIdProps) => {
+const fetchCourseStatus = async ({ courseId, userId }: FetchStudentIdParams) => {
   const { data } = await axios.get<FetchStudentIdResponse>(
     `learningx/api/v1/courses/${courseId}/total_learnstatus/users/${userId}`
   );
@@ -47,11 +55,33 @@ const fetchCourseAssignmentDetails = async ({
   courseId,
   userId,
   studentId,
-}: FetchAssignmentsProps) => {
-  const { data } = await axios.get<AssignmentDetail[]>(
+}: FetchAssignmentsParams) => {
+  const { data } = await axios.get<AssignmentDetailResponse[]>(
     `learningx/api/v1/courses/${courseId}/allcomponents_db?user_id=${userId}&user_login=${studentId}&role=1`
   );
   return data;
+};
+
+const fetchAssignmentAssessment = async (courseId: number): Promise<AssignmentShortInfo[]> => {
+  const { data } = await axios.get<AssignmentAssessmentResponse[]>(
+    `api/v1/courses/${courseId}/assignment_groups?exclude_response_fields[]=description&exclude_response_fields[]=rubric&include[]=assignments&include[]=discussion_topic&override_assignment_dates=true&per_page=50`,
+    { headers: { Authorization: undefined } }
+  );
+  return Object.values(data)
+    .map((assessment) =>
+      assessment.assignments.map((val) => ({
+        assignment_id: +val.id,
+        course_id: courseId,
+        due_at: val.due_at,
+        unlock_at: val.unlock_at,
+        title: val.name,
+        view_info: {
+          view_url: val.html_url,
+        },
+        id: +val.id,
+      }))
+    )
+    .flat();
 };
 
 // do SQL like join operation for assignment and assignment details
@@ -73,13 +103,14 @@ const fetchAndJoinAssignmentInfos = async ({
     ...detail,
     ...assignments.find((assignment) => assignment.id === detail.assignment_id),
     course_id: courseId,
-  })) as AssignmentInfos[];
+  })) as AssignmentInfo[];
 };
 
 export {
   fetchCourses,
   fetchStudentId,
   fetchCourseStatus,
+  fetchAssignmentAssessment,
   fetchCourseAssignmentDetails,
   fetchAndJoinAssignmentInfos,
 };

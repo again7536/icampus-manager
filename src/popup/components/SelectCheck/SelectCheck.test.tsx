@@ -1,16 +1,14 @@
 import { render } from "@/__test__/customRender";
 import mockStorage from "@/__test__/mock/storage";
-import { faker } from "@faker-js/faker";
 import { screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import mockedCoursesFactory from "@/__test__/mock/courses";
 import SelectCheck from "./SelectCheck";
 
 describe("SelectCheck UI test", () => {
   const SELECT_CHECK_LABEL = "선택";
   const ITEM_COUNT = 4;
-  const itemsMap = new Map(
-    Array.from({ length: ITEM_COUNT }).map(() => [+faker.random.numeric(7), faker.random.words(3)])
-  );
+  const mockedCourses = mockedCoursesFactory({ amount: ITEM_COUNT });
 
   const setupSelected = (initial?: number[]) => {
     let selected: number[] = initial ?? [];
@@ -45,7 +43,7 @@ describe("SelectCheck UI test", () => {
     const { rerender } = await render(
       <SelectCheck
         label={SELECT_CHECK_LABEL}
-        items={itemsMap}
+        courses={mockedCourses}
         selected={getSelected()}
         onChange={onChange}
       />
@@ -57,7 +55,7 @@ describe("SelectCheck UI test", () => {
     rerender(
       <SelectCheck
         label={SELECT_CHECK_LABEL}
-        items={itemsMap}
+        courses={mockedCourses}
         selected={getSelected()}
         onChange={onChange}
       />
