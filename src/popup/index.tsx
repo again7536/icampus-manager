@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import persister from "@/utils/persister";
+import LoadingIndicator from "@/popup/components/LoadingIndicator/LoadingIndicator";
 import App from "@/popup/app";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "jotai";
@@ -14,7 +15,6 @@ import GlobalStyle from "@/styles/global";
 import { AxiosError } from "axios";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
-import { CircularProgress } from "@mui/material";
 import { enableMapSet } from "immer";
 
 const rootElement = document.querySelector("#root");
@@ -61,7 +61,7 @@ root.render(
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <MemoryRouter>
-            <Suspense fallback={<CircularProgress />}>
+            <Suspense fallback={<LoadingIndicator />}>
               <App />
             </Suspense>
           </MemoryRouter>
