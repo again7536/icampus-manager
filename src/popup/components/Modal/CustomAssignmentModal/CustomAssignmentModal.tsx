@@ -54,15 +54,22 @@ function CustomAssignmentModal({
       </DialogTitle>
       <DialogContent sx={{ p: 0 }}>
         <S.SublistContainer variant="outlined">
-          {assignments.map((assignmentsOfCourse) => (
-            <CheckableSublist
-              key={assignmentsOfCourse[0].course_id ?? 0}
-              assignments={assignmentsOfCourse}
-              checked={checkedUnlisted}
-              courses={courses}
-              onCheck={setCheckedUnlisted}
-            />
-          ))}
+          {assignments.map((assignmentsOfCourse) => {
+            const filteredAssignmentsOfCourse = assignmentsOfCourse.filter(
+              (assignment) => !listedAssignmentIds.includes(assignment.assignment_id)
+            );
+            return (
+              filteredAssignmentsOfCourse.length > 0 && (
+                <CheckableSublist
+                  key={filteredAssignmentsOfCourse[0].course_id ?? 0}
+                  assignments={filteredAssignmentsOfCourse}
+                  checked={checkedUnlisted}
+                  courses={courses}
+                  onCheck={setCheckedUnlisted}
+                />
+              )
+            );
+          })}
         </S.SublistContainer>
         <S.ButtonGroup>
           <Button onClick={handleRemoveFromListed} variant="outlined">
@@ -80,7 +87,7 @@ function CustomAssignmentModal({
             return (
               filteredAssignmentsOfCourse.length > 0 && (
                 <CheckableSublist
-                  key={assignmentsOfCourse[0].course_id ?? 0}
+                  key={filteredAssignmentsOfCourse[0].course_id ?? 0}
                   assignments={filteredAssignmentsOfCourse}
                   checked={checkedListed}
                   courses={courses}
